@@ -1,0 +1,94 @@
+﻿@model E_LearningApplication.Models.ViewModels.CoursesViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Course Details</h2>
+
+    <div class="panel panel-body panel-default">
+        @Html.HiddenFor(model => model.CourseId)
+        @Html.HiddenFor(model => model.OwnerId)
+
+        <div class="col-lg-6">
+            <div class="row mb">
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.CourseName)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.CourdeCode)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.CourdeCode)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.NumberOfCredits)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.NumberOfCredits)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.SyllabusId)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.SyllabusId)
+                </div>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-success btn-xs" title="Edit course module">
+                    <i class="fa fa-pencil"></i>
+                    @Html.ActionLink("Edit", "EditCourse", new { id = Model.CourseId })
+                </button>
+            </div>
+
+            <div class="row mb">
+                @using (Html.BeginForm("DeleteCourse", "Prof", new { id = Model.CourseId }, FormMethod.Post)) {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger btn-xs" title="Delete course module">
+                        <i class="fa fa-trash-o"></i> Delete
+                    </button>
+                }
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row mb">
+                <button class="btn btn-success btn-xs" title="Display course module">
+                    <i class="fa fa-folder-open"></i>
+                    @Html.ActionLink("Display Course Modules", "DisplayModules", new { id = Model.CourseId })
+                </button>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-theme03 btn-xs" title="Add course module">
+                    <i class="fa fa-plus-circle"></i>
+                    @Html.ActionLink("Add Course Module", "CreateModule", new { id = Model.CourseId })
+                </button>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-info btn-xs" title="Add course resources">
+                    <span class="fa fa-plus-circle"></span>
+                    @Html.ActionLink("Add Course Resource", "AddCourseResource", new { id = Model.CourseId })
+                </button>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-theme02 btn-xs" title="Display course resources">
+                    <span class="fa fa-folder-open"></span>
+                    @Html.ActionLink("Manage Course Resources", "DisplayCourseResources", new { id = Model.CourseId })
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-link mt">
+            <i class="fa fa-arrow-left"></i>
+            @Html.ActionLink("Back to Courses List", "DisplayCourses")
+        </button>
+    </div>
+</div>

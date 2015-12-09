@@ -1,0 +1,17 @@
+﻿<div class="form-panel">
+    <h1><i class="fa fa-angle-right"></i> Home page</h1>
+
+    <div>
+        For all users:
+        <ol>
+            <li title="Compose and send a new mail">@Html.ActionLink("Send mail", "ComposeMail", "Home")</li>
+            <li title="Creates a new forum topic">@Html.ActionLink("Go to forum", "Forum", "Discussions")</li>
+        </ol>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

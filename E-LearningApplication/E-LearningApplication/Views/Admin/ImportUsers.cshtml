@@ -1,0 +1,23 @@
+﻿<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Import Users</h2>
+
+    <div>
+        @using (Html.BeginForm("ImportUsers", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            <p>
+                <label>Choose a role for the users to be imported: </label>
+                @Html.DropDownList("userRole",
+                        new List<SelectListItem> {new SelectListItem() { Text = "Admin", Value = "Admin" },
+                                                new SelectListItem() { Text = "Prof", Value = "Prof" },
+                                                new SelectListItem() { Text="Student", Value="Student"}},
+                        "Choose a role for the users...")
+            </p>
+            <p>
+                <label>Choose a file: </label>
+                <input type="file" name="file" class="btn btn-info" />
+            </p>
+            <p>
+                <input type="submit" name="Submit" id="Submit" value="Upload" class="btn btn-default" />
+            </p>
+        }
+    </div>
+</div>

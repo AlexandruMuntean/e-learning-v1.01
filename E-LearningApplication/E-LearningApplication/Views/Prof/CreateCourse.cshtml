@@ -1,0 +1,51 @@
+﻿@model E_LearningApplication.Models.ViewModels.CoursesViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Create Course</h2>
+
+    <div class="panel panel-body">
+        <div class="panel-default">
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.CourseName)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.CourseName)
+                    @Html.ValidationMessageFor(model => model.CourseName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NumberOfCredits)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.NumberOfCredits)
+                    @Html.ValidationMessageFor(model => model.NumberOfCredits)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.CourdeCode)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.CourdeCode)
+                    @Html.ValidationMessageFor(model => model.CourdeCode)
+                </div>
+
+                <p>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Create" />
+                </p>
+            }
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-link mt">
+                <h4>
+                    <i class="fa fa-arrow-left"></i>
+                    @Html.ActionLink("Back to Courses List", "DisplayCourses")
+                </h4>
+            </button>
+        </div>
+    </div>
+</div>

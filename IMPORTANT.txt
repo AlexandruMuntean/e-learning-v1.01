@@ -1,0 +1,36 @@
+Proiectul si baza de date se afla aici: http://testelearning2.azurewebsites.net/
+
+Puteti sa va faceti Register. (daca scrieti in address bar: https://testelearning2.azurewebsites.net/Account/Register)
+Am convenit sa folosim parole comune, ca sa avem acces la toate conturile: '123456'.
+
+
+!!! Cand faceti un push pe master, se actualizeaza aplicatia de pe server.
+
+
+Pentru a lucra pe SQL Serverul vostru local, trebuie rulat scriptul de pe drive si sa modificati connection string-urile din fisierul Web.config. Cele doua pe care le folosim se numesc "ELearningDatabaseEntities" si "IdentityProvider". Cele doua care nu sunt comentate sunt folosite pentru conexiunea pe Azure. Cele comentate pot fi folosite pentru baza de date de pe serverul vostru.
+
+1) Comentati connection string-urile pentru Azure si decomentatile pe celelalte.
+
+2) Modificati numele serverului SQL care este scris acolo cu numele serverului vostru:  Data Source=servername
+         
+2) Pentru autentificare pe serverul SQL am folosit Windows Authentication. Daca nu functioneaza, inlocuiti-o cu SQL Authentication astfel: in loc de Integrated Security=True; puneti Id=SqlUsername; Password=SqlPassword;
+      
+De asemenea, trebuie facut acelasi lucru pentru connection string-urile din Web.config, din proiectul de servicii.
+
+         
+Mai trebuie schimbat connection string-ul in fisierul NLog.config din aceleasi motive: in target-ul "database", dupa instructiunile de acolo.
+
+
+Pentru a putea apela metodele din proiectul de servicii, trebuie schimbate si valorile unor constante private care retin url-ul pentru proiectul web api:
+         - in ProfController, AdminController, AccountController este constanta "apiMethodsUrl" care are url-ul de pe server
+         - valoarea ei trebuie schimbata in fiecare controller in urmatoarea: "http://localhost:apiPort/"
+         - apiPort este portul pe care ruleaza proiectul web api, care difera de la calculator la calculator
+         - pentru a afla valoarea apiPort trebuie sa faceti urmatoarele:
+                  1) click dreapta pe E_LearningServices in Visual Studio -> Set as StartUp project
+                  2) run it
+                  3) vedeti care e valoarea din address bar-ul din browser si completati apiPort
+                  4) setati E_LearningApplication inapoi ca StartUp project
+                  
+
+
+!!! Cand vreti sa puneti versiunea vostra pe git, asigurati-va ca are connection string-urile initiale si apiMethodsUrl pentru server, pentru a putea fi rulata pe server.

@@ -1,0 +1,617 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ELearningDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityType Name="Answers">
+    <Key>
+      <PropertyRef Name="AnswerId" />
+    </Key>
+    <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnswerType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AnswerValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Answe__25869641" FromRole="Answers" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="CalendarEvents">
+    <Key>
+      <PropertyRef Name="EventId" />
+    </Key>
+    <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EventStartdatetime" Type="DateTime" Precision="3" />
+    <Property Name="EventEnddatetime" Type="DateTime" Precision="3" />
+    <Property Name="CourseId" Type="Int32" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__CalendarE__Cours__59063A47" FromRole="CalendarEvents" ToRole="Courses" />
+  </EntityType>
+  <EntityType Name="CourseModule">
+    <Key>
+      <PropertyRef Name="ModuleId" />
+    </Key>
+    <Property Name="ModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Moduledatetime" Type="DateTime" Precision="3" />
+    <Property Name="GradeId" Type="Int32" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="PreviousModuleId" Type="Int32" />
+    <Property Name="ModuleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__CourseMod__Cours__30F848ED" FromRole="CourseModule" ToRole="Courses" />
+    <NavigationProperty Name="Grades" Relationship="Self.FK__CourseMod__Grade__300424B4" FromRole="CourseModule" ToRole="Grades" />
+    <NavigationProperty Name="ModuleUser" Relationship="Self.FK__ModuleUse__Cours__36B12243" FromRole="CourseModule" ToRole="ModuleUser" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumberOfCredits" Type="Int32" />
+    <Property Name="CourdeCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OwnerId" Type="Int32" />
+    <Property Name="SyllabusId" Type="Int32" />
+    <Property Name="CourseName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CalendarEvents" Relationship="Self.FK__CalendarE__Cours__59063A47" FromRole="Courses" ToRole="CalendarEvents" />
+    <NavigationProperty Name="CourseModule" Relationship="Self.FK__CourseMod__Cours__30F848ED" FromRole="Courses" ToRole="CourseModule" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Courses__OwnerId__15502E78" FromRole="Courses" ToRole="Users" />
+    <NavigationProperty Name="Syllabus" Relationship="Self.FK__Courses__Syllabu__164452B1" FromRole="Courses" ToRole="Syllabus" />
+    <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__CourseId__2B3F6F97" FromRole="Courses" ToRole="Grades" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__Cours__24927208" FromRole="Courses" ToRole="Questions" />
+    <NavigationProperty Name="Tests" Relationship="Self.FK__Tests__CourseId__6754599E" FromRole="Courses" ToRole="Tests" />
+    <NavigationProperty Name="Users1" Relationship="Self.UsersInCourse" FromRole="Courses" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Grades">
+    <Key>
+      <PropertyRef Name="GradeId" />
+    </Key>
+    <Property Name="GradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GradeValue" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Gradedatetime" Type="DateTime" Precision="3" />
+    <Property Name="RecipientId" Type="Int32" />
+    <Property Name="CourseId" Type="Int32" />
+    <NavigationProperty Name="CourseModule" Relationship="Self.FK__CourseMod__Grade__300424B4" FromRole="Grades" ToRole="CourseModule" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Grades__CourseId__2B3F6F97" FromRole="Grades" ToRole="Courses" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Grades__Recipien__2A4B4B5E" FromRole="Grades" ToRole="Users" />
+    <NavigationProperty Name="Homeworks" Relationship="Self.FK__Homeworks__Grade__6E01572D" FromRole="Grades" ToRole="Homeworks" />
+  </EntityType>
+  <EntityType Name="Groups">
+    <Key>
+      <PropertyRef Name="GroupId" />
+    </Key>
+    <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="GroupDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GroupType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Homeworks" Relationship="Self.FK__Homeworks__Group__6D0D32F4" FromRole="Groups" ToRole="Homeworks" />
+    <NavigationProperty Name="Tests" Relationship="Self.FK__Tests__GroupId__68487DD7" FromRole="Groups" ToRole="Tests" />
+    <NavigationProperty Name="Users" Relationship="Self.GroupMembers" FromRole="Groups" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Homeworks">
+    <Key>
+      <PropertyRef Name="HomeworkId" />
+    </Key>
+    <Property Name="HomeworkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HomeworkName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkDeadline" Type="DateTime" Precision="3" />
+    <Property Name="HomeworkType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkPoints" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="HomeworkSubmissionType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkAccessSpan" Type="DateTime" Precision="3" />
+    <Property Name="GroupId" Type="Int32" />
+    <Property Name="GradeId" Type="Int32" />
+    <NavigationProperty Name="Grades" Relationship="Self.FK__Homeworks__Grade__6E01572D" FromRole="Homeworks" ToRole="Grades" />
+    <NavigationProperty Name="Groups" Relationship="Self.FK__Homeworks__Group__6D0D32F4" FromRole="Homeworks" ToRole="Groups" />
+  </EntityType>
+  <EntityType Name="Logs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EventLevel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EventInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ModuleUser">
+    <Key>
+      <PropertyRef Name="ModuleUserId" />
+      <PropertyRef Name="CourseModuleId" />
+    </Key>
+    <Property Name="ModuleUserId" Type="Int32" Nullable="false" />
+    <Property Name="CourseModuleId" Type="Int32" Nullable="false" />
+    <Property Name="ModuleUserstatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CourseModule" Relationship="Self.FK__ModuleUse__Cours__36B12243" FromRole="ModuleUser" ToRole="CourseModule" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__ModuleUse__Modul__35BCFE0A" FromRole="ModuleUser" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Pages">
+    <Key>
+      <PropertyRef Name="PageId" />
+    </Key>
+    <Property Name="PageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PageLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Pages__UserId__4E88ABD4" FromRole="Pages" ToRole="Users" />
+    <NavigationProperty Name="Resources" Relationship="Self.FK__Resources__PageI__534D60F1" FromRole="Pages" ToRole="Resources" />
+  </EntityType>
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="QuestionId" />
+    </Key>
+    <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QuestionName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionPoints" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="QuestionType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="AnswerId" Type="Int32" />
+    <NavigationProperty Name="Answers" Relationship="Self.FK__Questions__Answe__25869641" FromRole="Questions" ToRole="Answers" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Questions__Cours__24927208" FromRole="Questions" ToRole="Courses" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="ResourceId" />
+    </Key>
+    <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ResourceType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FileLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PageId" Type="Int32" />
+    <NavigationProperty Name="Pages" Relationship="Self.FK__Resources__PageI__534D60F1" FromRole="Resources" ToRole="Pages" />
+    <Property Name="FileId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="ModuleID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Syllabus">
+    <Key>
+      <PropertyRef Name="SyllabusId" />
+    </Key>
+    <Property Name="SyllabusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FileLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Courses__Syllabu__164452B1" FromRole="Syllabus" ToRole="Courses" />
+  </EntityType>
+  <EntityType Name="Tests">
+    <Key>
+      <PropertyRef Name="TestId" />
+    </Key>
+    <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TestName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TestDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TestDeadline" Type="DateTime" Precision="3" />
+    <Property Name="TestType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NumberOfQuestions" Type="Int32" />
+    <Property Name="TestAvailabilitySpan" Type="DateTime" Precision="3" />
+    <Property Name="AttendantsSection" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CourseId" Type="Int32" />
+    <Property Name="GroupId" Type="Int32" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Tests__CourseId__6754599E" FromRole="Tests" ToRole="Courses" />
+    <NavigationProperty Name="Groups" Relationship="Self.FK__Tests__GroupId__68487DD7" FromRole="Tests" ToRole="Groups" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="StudentIdentificationNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AccessStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Courses__OwnerId__15502E78" FromRole="Users" ToRole="Courses" />
+    <NavigationProperty Name="Grades" Relationship="Self.FK__Grades__Recipien__2A4B4B5E" FromRole="Users" ToRole="Grades" />
+    <NavigationProperty Name="ModuleUser" Relationship="Self.FK__ModuleUse__Modul__35BCFE0A" FromRole="Users" ToRole="ModuleUser" />
+    <NavigationProperty Name="Pages" Relationship="Self.FK__Pages__UserId__4E88ABD4" FromRole="Users" ToRole="Pages" />
+    <NavigationProperty Name="Groups" Relationship="Self.GroupMembers" FromRole="Users" ToRole="Groups" />
+    <NavigationProperty Name="Courses1" Relationship="Self.UsersInCourse" FromRole="Users" ToRole="Courses" />
+    <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__UserId__0D7A0286" FromRole="Users" ToRole="Messages" />
+  </EntityType>
+  <Association Name="FK__Questions__Answe__25869641">
+    <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
+    <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Answers">
+        <PropertyRef Name="AnswerId" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="AnswerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CalendarE__Cours__59063A47">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+    <End Role="CalendarEvents" Type="Self.CalendarEvents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="CalendarEvents">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CourseMod__Cours__30F848ED">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+    <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="CourseModule">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CourseMod__Grade__300424B4">
+    <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
+    <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grades">
+        <PropertyRef Name="GradeId" />
+      </Principal>
+      <Dependent Role="CourseModule">
+        <PropertyRef Name="GradeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ModuleUse__Cours__36B12243">
+    <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="1" />
+    <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseModule">
+        <PropertyRef Name="ModuleId" />
+      </Principal>
+      <Dependent Role="ModuleUser">
+        <PropertyRef Name="CourseModuleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Courses__OwnerId__15502E78">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Courses__Syllabu__164452B1">
+    <End Role="Syllabus" Type="Self.Syllabus" Multiplicity="0..1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Syllabus">
+        <PropertyRef Name="SyllabusId" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="SyllabusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Grades__CourseId__2B3F6F97">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+    <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="Grades">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Questions__Cours__24927208">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+    <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tests__CourseId__6754599E">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+    <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="Tests">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Grades__Recipien__2A4B4B5E">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Grades" Type="Self.Grades" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Grades">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Homeworks__Grade__6E01572D">
+    <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
+    <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grades">
+        <PropertyRef Name="GradeId" />
+      </Principal>
+      <Dependent Role="Homeworks">
+        <PropertyRef Name="GradeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Homeworks__Group__6D0D32F4">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+    <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="Homeworks">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tests__GroupId__68487DD7">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+    <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Groups">
+        <PropertyRef Name="GroupId" />
+      </Principal>
+      <Dependent Role="Tests">
+        <PropertyRef Name="GroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ModuleUse__Modul__35BCFE0A">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ModuleUser">
+        <PropertyRef Name="ModuleUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Pages__UserId__4E88ABD4">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Pages" Type="Self.Pages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Pages">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Resources__PageI__534D60F1">
+    <End Role="Pages" Type="Self.Pages" Multiplicity="0..1" />
+    <End Role="Resources" Type="Self.Resources" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pages">
+        <PropertyRef Name="PageId" />
+      </Principal>
+      <Dependent Role="Resources">
+        <PropertyRef Name="PageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupMembers">
+    <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+  </Association>
+  <Association Name="UsersInCourse">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="ELearningDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="Self.Answers" />
+    <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvents" />
+    <EntitySet Name="CourseModule" EntityType="Self.CourseModule" />
+    <EntitySet Name="Courses" EntityType="Self.Courses" />
+    <EntitySet Name="Grades" EntityType="Self.Grades" />
+    <EntitySet Name="Groups" EntityType="Self.Groups" />
+    <EntitySet Name="Homeworks" EntityType="Self.Homeworks" />
+    <EntitySet Name="Logs" EntityType="Self.Logs" />
+    <EntitySet Name="ModuleUser" EntityType="Self.ModuleUser" />
+    <EntitySet Name="Pages" EntityType="Self.Pages" />
+    <EntitySet Name="Questions" EntityType="Self.Questions" />
+    <EntitySet Name="Resources" EntityType="Self.Resources" />
+    <EntitySet Name="Syllabus" EntityType="Self.Syllabus" />
+    <EntitySet Name="Tests" EntityType="Self.Tests" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK__Questions__Answe__25869641" Association="Self.FK__Questions__Answe__25869641">
+      <End Role="Answers" EntitySet="Answers" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CalendarE__Cours__59063A47" Association="Self.FK__CalendarE__Cours__59063A47">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CourseMod__Cours__30F848ED" Association="Self.FK__CourseMod__Cours__30F848ED">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseModule" EntitySet="CourseModule" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CourseMod__Grade__300424B4" Association="Self.FK__CourseMod__Grade__300424B4">
+      <End Role="Grades" EntitySet="Grades" />
+      <End Role="CourseModule" EntitySet="CourseModule" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ModuleUse__Cours__36B12243" Association="Self.FK__ModuleUse__Cours__36B12243">
+      <End Role="CourseModule" EntitySet="CourseModule" />
+      <End Role="ModuleUser" EntitySet="ModuleUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Courses__OwnerId__15502E78" Association="Self.FK__Courses__OwnerId__15502E78">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Courses__Syllabu__164452B1" Association="Self.FK__Courses__Syllabu__164452B1">
+      <End Role="Syllabus" EntitySet="Syllabus" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Grades__CourseId__2B3F6F97" Association="Self.FK__Grades__CourseId__2B3F6F97">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Grades" EntitySet="Grades" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Questions__Cours__24927208" Association="Self.FK__Questions__Cours__24927208">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tests__CourseId__6754599E" Association="Self.FK__Tests__CourseId__6754599E">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Tests" EntitySet="Tests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Grades__Recipien__2A4B4B5E" Association="Self.FK__Grades__Recipien__2A4B4B5E">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Grades" EntitySet="Grades" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Homeworks__Grade__6E01572D" Association="Self.FK__Homeworks__Grade__6E01572D">
+      <End Role="Grades" EntitySet="Grades" />
+      <End Role="Homeworks" EntitySet="Homeworks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Homeworks__Group__6D0D32F4" Association="Self.FK__Homeworks__Group__6D0D32F4">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Homeworks" EntitySet="Homeworks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tests__GroupId__68487DD7" Association="Self.FK__Tests__GroupId__68487DD7">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Tests" EntitySet="Tests" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ModuleUse__Modul__35BCFE0A" Association="Self.FK__ModuleUse__Modul__35BCFE0A">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ModuleUser" EntitySet="ModuleUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pages__UserId__4E88ABD4" Association="Self.FK__Pages__UserId__4E88ABD4">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Pages" EntitySet="Pages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Resources__PageI__534D60F1" Association="Self.FK__Resources__PageI__534D60F1">
+      <End Role="Pages" EntitySet="Pages" />
+      <End Role="Resources" EntitySet="Resources" />
+    </AssociationSet>
+    <AssociationSet Name="GroupMembers" Association="Self.GroupMembers">
+      <End Role="Groups" EntitySet="Groups" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="UsersInCourse" Association="Self.UsersInCourse">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Conversations" EntityType="ELearningDatabaseModel.Conversations" />
+    <EntitySet Name="Discussions" EntityType="ELearningDatabaseModel.Discussions" />
+    <EntitySet Name="Forums" EntityType="ELearningDatabaseModel.Forums" />
+    <EntitySet Name="Messages" EntityType="ELearningDatabaseModel.Messages" />
+    <AssociationSet Name="FK__Messages__Conver__10566F31" Association="ELearningDatabaseModel.FK__Messages__Conver__10566F31">
+      <End Role="Conversations" EntitySet="Conversations" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__Discus__0F624AF8" Association="ELearningDatabaseModel.FK__Messages__Discus__0F624AF8">
+      <End Role="Discussions" EntitySet="Discussions" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__ForumI__0E6E26BF" Association="ELearningDatabaseModel.FK__Messages__ForumI__0E6E26BF">
+      <End Role="Forums" EntitySet="Forums" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Messages__UserId__0D7A0286" Association="ELearningDatabaseModel.FK__Messages__UserId__0D7A0286">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Conversations">
+    <Key>
+      <PropertyRef Name="ConversationId" />
+    </Key>
+    <Property Name="ConversationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ConversationName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__Conver__10566F31" FromRole="Conversations" ToRole="Messages" />
+  </EntityType>
+  <EntityType Name="Discussions">
+    <Key>
+      <PropertyRef Name="DiscusionId" />
+    </Key>
+    <Property Name="DiscusionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DiscussionSubject" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__Discus__0F624AF8" FromRole="Discussions" ToRole="Messages" />
+  </EntityType>
+  <EntityType Name="Forums">
+    <Key>
+      <PropertyRef Name="ForumId" />
+    </Key>
+    <Property Name="ForumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Category" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__ForumI__0E6E26BF" FromRole="Forums" ToRole="Messages" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MesageData" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="ForumId" Type="Int32" />
+    <Property Name="DiscusionId" Type="Int32" />
+    <Property Name="ConversationId" Type="Int32" />
+    <NavigationProperty Name="Conversations" Relationship="ELearningDatabaseModel.FK__Messages__Conver__10566F31" FromRole="Messages" ToRole="Conversations" />
+    <NavigationProperty Name="Discussions" Relationship="ELearningDatabaseModel.FK__Messages__Discus__0F624AF8" FromRole="Messages" ToRole="Discussions" />
+    <NavigationProperty Name="Forums" Relationship="ELearningDatabaseModel.FK__Messages__ForumI__0E6E26BF" FromRole="Messages" ToRole="Forums" />
+    <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Messages__UserId__0D7A0286" FromRole="Messages" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK__Messages__Conver__10566F31">
+    <End Type="ELearningDatabaseModel.Conversations" Role="Conversations" Multiplicity="0..1" />
+    <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Conversations">
+        <PropertyRef Name="ConversationId" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="ConversationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__Discus__0F624AF8">
+    <End Type="ELearningDatabaseModel.Discussions" Role="Discussions" Multiplicity="0..1" />
+    <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Discussions">
+        <PropertyRef Name="DiscusionId" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="DiscusionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__ForumI__0E6E26BF">
+    <End Type="ELearningDatabaseModel.Forums" Role="Forums" Multiplicity="0..1" />
+    <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Forums">
+        <PropertyRef Name="ForumId" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="ForumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Messages__UserId__0D7A0286">
+    <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+    <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

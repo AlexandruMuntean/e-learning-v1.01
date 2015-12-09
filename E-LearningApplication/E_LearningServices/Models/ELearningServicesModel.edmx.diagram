@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8694b78bcfc14aa2ad41fc9ae6465a2e" Name="Diagram1">
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Answers" Width="1.5" PointX="8.25" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.CalendarEvents" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.CourseModule" Width="1.5" PointX="10.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Courses" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Grades" Width="1.5" PointX="10.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Groups" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Homeworks" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Logs" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.ModuleUser" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Pages" Width="1.5" PointX="5.25" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Questions" Width="1.5" PointX="10.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Resources" Width="1.5" PointX="7.5" PointY="21.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Syllabus" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Tests" Width="1.5" PointX="6" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Users" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Questions__Answe__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__CalendarE__Cours__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__CourseMod__Cours__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__CourseMod__Grade__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__ModuleUse__Cours__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Courses__OwnerId__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Courses__Syllabu__164452B1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Grades__CourseId__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Questions__Cours__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Tests__CourseId__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Grades__Recipien__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Homeworks__Grade__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Homeworks__Group__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Tests__GroupId__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__ModuleUse__Modul__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Pages__UserId__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Resources__PageI__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.GroupMembers" ManuallyRouted="false" />
+        <AssociationConnector Association="ELearningDatabaseModel.UsersInCourse" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Conversations" Width="1.5" PointX="3" PointY="23.625" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Discussions" Width="1.5" PointX="3" PointY="21.25" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Forums" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Messages" Width="1.5" PointX="5.25" PointY="11.625" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Messages__Conver__10566F31" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Messages__Discus__0F624AF8" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Messages__ForumI__0E6E26BF" />
+        <AssociationConnector Association="ELearningDatabaseModel.FK__Messages__UserId__0D7A0286" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

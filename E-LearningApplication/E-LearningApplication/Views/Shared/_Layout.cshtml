@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/themes/Theme/assets/cssApp")
+    @Styles.Render("~/Content/themes/Theme/assets/font-awesome/cssApp")
+    @Styles.Render("~/Content/themes/Theme/assets/font-awesome/fontsApp")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("E-Learning", "Index", "Home")</li>
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                <li>@Html.ActionLink("Prof", "Index", "Prof")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                @Html.Partial("_LoginPartial")
+            </ul>
+        </div>
+    </header>
+    <div id="body" class="container">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer class="well">
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p align="center">Space Monkeys &copy; @DateTime.Now.Year</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

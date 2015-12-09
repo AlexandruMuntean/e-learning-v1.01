@@ -1,0 +1,66 @@
+﻿@model E_LearningApplication.Models.UserProfile
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> User Details</h2>
+
+    <div class="panel panel-body panel-default">
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.UserName)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.UserName)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.LastName)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.LastName)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.FirstName)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.MiddleName)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Email)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.Email)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.StudentIdentificationNumber)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.StudentIdentificationNumber)
+        </div>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.AccessStatus)
+        </div>
+        <div class="display-field mb">
+            @Html.DisplayFor(model => model.AccessStatus)
+        </div>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-link mt">
+            <h4>
+                <i class="fa fa-arrow-left"></i>
+                @Html.ActionLink("Back to Users List", "DisplayUsers")
+            </h4>
+        </button>
+    </div>
+</div>
