@@ -32,5 +32,10 @@ namespace E_LearningApplication.Models.ViewModels {
 
         [Display(Name="Homework access time span")]
         public Nullable<System.DateTime> HomeworkAccessSpan { get; set; }
+
+        public Nullable<int> CourseId { get; set; }
+        public Nullable<int> CourseModuleId { get; set; }
+        public Nullable<int> OwnerId { get; set; }
+
     }
 }

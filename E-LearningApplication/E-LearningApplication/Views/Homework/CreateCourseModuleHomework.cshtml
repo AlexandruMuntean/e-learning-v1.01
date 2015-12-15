@@ -1,0 +1,87 @@
+﻿@model E_LearningApplication.Models.ViewModels.HomeworksViewModel
+
+@{
+    var _courseModuleId = ViewBag.CourseModuleId;
+}
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Create Module Homework</h2>
+
+    <div class="panel panel-body">
+        <div>
+            @using (Html.BeginForm("CreateCourseModuleHomework", "Homework", new { courseModuleId = _courseModuleId }, FormMethod.Post, new { @class = "panel-default" })) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkName)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkName)
+                    @Html.ValidationMessageFor(model => model.HomeworkName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkDescription)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkDescription)
+                    @Html.ValidationMessageFor(model => model.HomeworkDescription)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkDeadline)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkDeadline)
+                    @Html.ValidationMessageFor(model => model.HomeworkDeadline)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkType)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkType)
+                    @Html.ValidationMessageFor(model => model.HomeworkType)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkPoints)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkPoints)
+                    @Html.ValidationMessageFor(model => model.HomeworkPoints)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkSubmissionType)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkSubmissionType)
+                    @Html.ValidationMessageFor(model => model.HomeworkSubmissionType)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.HomeworkAccessSpan)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.HomeworkAccessSpan)
+                    @Html.ValidationMessageFor(model => model.HomeworkAccessSpan)
+                </div>
+
+                <p>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Create" />
+                </p>
+            }
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-link mt">
+                <h4>
+                    <i class="fa fa-arrow-left"></i>
+                    @Html.ActionLink("Back to Courses List", "DisplayCourses")
+                </h4>
+            </button>
+        </div>
+    </div>
+</div>

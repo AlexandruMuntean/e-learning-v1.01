@@ -56,6 +56,36 @@ namespace E_LearningServices.Services {
         }
 
         /// <summary>
+        /// Gets my courses.
+        /// </summary>
+        /// <param name="id">The user identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<Courses> GetMyCourses(int id) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    List<Courses> courses = new List<Courses>();
+                    List<int> courseIds = db.UsersInCourse
+                                                .Where(u => u.UserId == id)
+                                                .Select(u => u.CourseId)
+                                                .ToList();
+                    foreach (var x in courseIds) {
+                        courses.Add(
+                            db.Courses
+                                .Where(c => c.CourseId == x)
+                                .First()
+                            );
+                    }
+
+                    return courses;
+                }
+            }
+            catch (ArgumentNullException ane) {
+                throw new CustomException(ane.Message);
+            }
+        }
+
+        /// <summary>
         /// Gets the course identifier by code.
         /// </summary>
         /// <param name="code">The code.</param>

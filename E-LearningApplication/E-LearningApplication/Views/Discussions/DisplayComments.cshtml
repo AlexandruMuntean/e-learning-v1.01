@@ -45,15 +45,17 @@
                             @Html.DisplayFor(modelItem => item.MesageData)
                         </td>
                         <td>
-                            <button class="btn btn-info btn-xs">
-                                <i class="fa fa-pencil"></i>
-                                @Html.ActionLink("Edit", "EditComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
-                            </button>
-                            |
-                            <button class="btn btn-theme03 btn-xs">
-                                <i class="fa fa-trash-o"></i>
-                                @Html.ActionLink("Delete", "DeleteComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
-                            </button>
+                            @if (item.user.UserName.Equals(User.Identity.Name)) {
+                                <button class="btn btn-info btn-xs">
+                                    <i class="fa fa-pencil"></i>
+                                    @Html.ActionLink("Edit", "EditComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
+                                </button>
+                                @Html.Display(" | ")
+                                <button class="btn btn-theme03 btn-xs">
+                                    <i class="fa fa-trash-o"></i>
+                                    @Html.ActionLink("Delete", "DeleteComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
+                                </button>
+                            }
                         </td>
                     </tr>
                 }

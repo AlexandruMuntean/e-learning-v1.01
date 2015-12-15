@@ -1,0 +1,20 @@
+﻿<div class="form-panel">
+    <h1><i class="fa fa-angle-right"></i> Home page</h1>
+
+    <div>
+        For all users:
+        <ol>
+            <li title="Compose and send a new mail">@Html.ActionLink("Send mail", "ComposeMail", "Home")</li>
+            <li title="View all the courses available for enrollment">@Html.ActionLink("View all available courses", "DisplayAllAvailableCourses", "Student")</li>
+            <li title="View all the courses I'm enrolled to">@Html.ActionLink("View my courses", "DisplayMyCourses", "Student")</li>
+            <li title="View all the homework assigned to me">@Html.ActionLink("View my homework", "DisplayStudentAssignedHomework", "Homework")</li>
+            <li title="View all the grades I received">@Html.ActionLink("View my grades", "DisplayStudentReceivedGrades", "Grades")</li>
+        </ol>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

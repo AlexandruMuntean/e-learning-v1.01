@@ -16,18 +16,20 @@ namespace E_LearningApplication.Models
     {
         public Groups()
         {
-            this.Homeworks = new HashSet<Homeworks>();
+            this.GroupMembers = new HashSet<GroupMembers>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
             this.Tests = new HashSet<Tests>();
-            this.Users = new HashSet<Users>();
         }
     
         public int GroupId { get; set; }
         public string GroupName { get; set; }
         public string GroupDescription { get; set; }
         public string GroupType { get; set; }
+        public Nullable<int> OwnerId { get; set; }
     
-        public virtual ICollection<Homeworks> Homeworks { get; set; }
+        public virtual ICollection<GroupMembers> GroupMembers { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
         public virtual ICollection<Tests> Tests { get; set; }
-        public virtual ICollection<Users> Users { get; set; }
     }
 }

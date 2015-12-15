@@ -80,25 +80,9 @@ namespace E_LearningServices.Services {
         public void EditCategory(Forums forum) {
             try {
                 using (var db = new ELearningDatabaseEntities()) {
-                    List<Messages> messages = db.Messages
-                                                    .Where(x => x.ForumId == forum.ForumId)
-                                                    .ToList();
-                    foreach (Messages m in messages) {
-                        db.Messages.Remove(m);
-                        db.SaveChanges();
-                    }
-                    Forums forum1 = db.Forums
-                                        .Where(x => x.ForumId == forum.ForumId)
-                                        .First();
-                    db.Forums.Remove(forum1);
+                    db.Forums.Attach(forum);
+                    db.Entry(forum).State = System.Data.EntityState.Modified;
                     db.SaveChanges();
-                    db.Forums.Add(forum);
-                    db.SaveChanges();
-                    foreach (Messages m in messages) {
-                        m.ForumId = forum.ForumId;
-                        db.Messages.Add(m);
-                        db.SaveChanges();
-                    }
                 }
             }
             catch (ArgumentNullException ane) {
@@ -188,13 +172,6 @@ namespace E_LearningServices.Services {
         public void UpdateMessage(Messages message) {
             try {
                 using (var db = new ELearningDatabaseEntities()) {
-                    //Messages message1 = db.Messages
-                    //                        .Where(x => x.MessageId == message.MessageId)
-                    //                        .First();
-                    //db.Messages.Remove(message1);
-                    //db.SaveChanges();
-                    //db.Messages.Add(message);
-                    //db.SaveChanges();
                     db.Messages.Attach(message);
                     db.Entry(message).State = System.Data.EntityState.Modified;
                     db.SaveChanges();

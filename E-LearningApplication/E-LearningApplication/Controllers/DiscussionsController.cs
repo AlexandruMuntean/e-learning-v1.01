@@ -27,7 +27,7 @@ namespace E_LearningApplication.Controllers {
 
         #region Forums
         //
-        // GET: /Home/Forum
+        // GET: /Discussions/Forum
         public ActionResult Forum() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -48,6 +48,39 @@ namespace E_LearningApplication.Controllers {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
+
+                //get the current user
+                #region get the course owner
+                Users user = new Users();
+                using (var client = new HttpClient()) {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
+                    if (response.IsSuccessStatusCode) {
+                        var u = response.Content.ReadAsAsync<Users>().Result;
+                        if (u != null) {
+                            user.AccessStatus = u.AccessStatus;
+                            user.Email = u.Email;
+                            user.FirstName = u.FirstName;
+                            user.LastName = u.LastName;
+                            user.MiddleName = u.MiddleName;
+                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
+                            user.UserId = u.UserId;
+                            user.UserName = u.UserName;
+                        }
+                        else {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
+                    else {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                #endregion
+                ViewBag.ForumOwner = user.UserId;
                 List<ForumsViewModel> fvml = this.viewModelFactory.GetViewModel(forums);
                 return View(fvml);
             }
@@ -59,7 +92,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Home/CreateForum
+        // GET: /Discussions/CreateForum
 
         public ActionResult CreateForum() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -67,15 +100,48 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // POST: /Home/CreateForum(forum)
+        // POST: /Discussions/CreateForum(forum)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateForum(ForumsViewModel forumViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
+                //get the current user
+                #region get the course owner
+                Users user = new Users();
+                using (var client = new HttpClient()) {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
+                    if (response.IsSuccessStatusCode) {
+                        var u = response.Content.ReadAsAsync<Users>().Result;
+                        if (u != null) {
+                            user.AccessStatus = u.AccessStatus;
+                            user.Email = u.Email;
+                            user.FirstName = u.FirstName;
+                            user.LastName = u.LastName;
+                            user.MiddleName = u.MiddleName;
+                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
+                            user.UserId = u.UserId;
+                            user.UserName = u.UserName;
+                        }
+                        else {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
+                    else {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                #endregion
+
                 ForumDTO dto = new ForumDTO {
                     ForumId = forumViewModel.ForumId,
-                    Category = forumViewModel.Category
+                    Category = forumViewModel.Category,
+                    OwnerId = user.UserId
                 };
 
                 //add new forum
@@ -106,12 +172,44 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Home/EditForum(id = 0)
+        // GET: /Discussions/EditForum(id = 0)
 
         public ActionResult EditForum(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the course to be edited
+                //get the current user
+                #region get the course owner
+                Users user = new Users();
+                using (var client = new HttpClient()) {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
+                    if (response.IsSuccessStatusCode) {
+                        var u = response.Content.ReadAsAsync<Users>().Result;
+                        if (u != null) {
+                            user.AccessStatus = u.AccessStatus;
+                            user.Email = u.Email;
+                            user.FirstName = u.FirstName;
+                            user.LastName = u.LastName;
+                            user.MiddleName = u.MiddleName;
+                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
+                            user.UserId = u.UserId;
+                            user.UserName = u.UserName;
+                        }
+                        else {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
+                    else {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                #endregion
+
+                //get the forum to be edited
                 Forums forum = new Forums();
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -124,6 +222,7 @@ namespace E_LearningApplication.Controllers {
                         if (f != null) {
                             forum.ForumId = f.ForumId;
                             forum.Category = f.Category;
+                            forum.OwnerId = f.OwnerId;
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
@@ -150,7 +249,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // POST: /Home/EditForum(forum)
+        // POST: /Discussions/EditForum(forum)
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -160,7 +259,8 @@ namespace E_LearningApplication.Controllers {
                 //create the course dto to be passed to the api services
                 ForumDTO dto = new ForumDTO {
                     ForumId = forumViewModel.ForumId,
-                    Category = forumViewModel.Category
+                    Category = forumViewModel.Category,
+                    OwnerId = forumViewModel.OwnerId
                 };
 
                 //edit the forum
@@ -190,7 +290,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Home/DeleteForum(id = 0)
+        // GET: /Discussions/DeleteForum(id = 0)
 
         public ActionResult DeleteForum(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -226,7 +326,7 @@ namespace E_LearningApplication.Controllers {
         #region Comments
 
         //
-        // GET :Home/DisplayComments(id)
+        // GET: /Discussions/DisplayComments(id)
         public ActionResult DisplayComments(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -240,22 +340,18 @@ namespace E_LearningApplication.Controllers {
                         );
                     //get the forum containing the comments
                     HttpResponseMessage responseForum = client.GetAsync("api/discussions/GetForumById/?id=" + id).Result;
-                    if (responseForum.IsSuccessStatusCode) {
+                    //get the comments in the forum
+                    HttpResponseMessage responseComments = client.GetAsync("api/discussions/GetAllMessages/?forumId=" + id).Result;
+                    if (responseForum.IsSuccessStatusCode && responseComments.IsSuccessStatusCode) {
                         var f = responseForum.Content.ReadAsAsync<Forums>().Result;
                         if (f != null) {
                             forum.ForumId = f.ForumId;
                             forum.Category = f.Category;
+                            forum.OwnerId = f.OwnerId;
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
                         }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                    //get the comments in the forum
-                    HttpResponseMessage responseComments = client.GetAsync("api/discussions/GetAllMessages/?forumId=" + id).Result;
-                    if (responseComments.IsSuccessStatusCode) {
                         var list = responseComments.Content.ReadAsAsync<IEnumerable<Messages>>().Result;
                         if (list != null) {
                             messages = list.ToList();
@@ -282,7 +378,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Home/AddComment()
+        // GET: /Discussions/AddComment()
 
         public ActionResult AddComment() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -290,7 +386,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // POST: /Home/AddComment(message)
+        // POST: /Discussions/AddComment(message)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddComment(MessagesViewModel messageViewModel, int id = 0) {
@@ -300,6 +396,7 @@ namespace E_LearningApplication.Controllers {
                 dto.MessageId = messageViewModel.MessageId;
                 dto.MessageContent = messageViewModel.MessageContent;
                 dto.ForumId = id;
+                dto.MesageData = System.DateTime.Now;
 
                 //get the userId for the message
                 using (var client = new HttpClient()) {
@@ -349,7 +446,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Home/EditComment(id = 0)
+        // GET: /Discussions/EditComment(id = 0)
 
         public ActionResult EditComment(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -398,7 +495,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // POST: /Home/EditComment(message)
+        // POST: /Discussions/EditComment(message)
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -408,7 +505,7 @@ namespace E_LearningApplication.Controllers {
                 MessageDTO dto = new MessageDTO { 
                     MessageId = messageViewModel.MessageId,
                     MessageContent = messageViewModel.MessageContent,
-                    MesageData = messageViewModel.MesageData,
+                    MesageData = System.DateTime.Now,
                     UserId = messageViewModel.user.UserId,
                     ForumId = idForum
                 };
@@ -439,7 +536,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Home/DeleteComment(id = 0)
+        // GET: /Discussions/DeleteComment(id = 0)
 
         public ActionResult DeleteComment(int id = 0, int idForum = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<E_LearningApplication.Models.ViewModels.HomeworksViewModel>
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Display Module Homework</h2>
+
+    <div class="panel panel-body panel-default">
+        <table class="table table-striped table-hover mt">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeworkName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeworkDeadline)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeworkPoints)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeworkName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeworkDeadline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeworkPoints)
+                    </td>
+                    <td>
+                        @Html.ActionLink("More...", "CourseModuleHomeworkDetails", new { id = item.HomeworkId, courseModuleId = item.CourseModuleId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

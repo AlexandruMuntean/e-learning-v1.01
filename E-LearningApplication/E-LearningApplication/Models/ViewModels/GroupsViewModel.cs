@@ -19,5 +19,9 @@ namespace E_LearningApplication.Models.ViewModels {
         [Display(Name="Group type")]
         [StringLength(30)]
         public string GroupType { get; set; }
+
+        public Nullable<int> OwnerId { get; set; }
+
+        public bool UserMembership { get; set; }
     }
 }

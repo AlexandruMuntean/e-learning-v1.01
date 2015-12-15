@@ -27,12 +27,18 @@ namespace E_LearningServices.Models
     
         public DbSet<Answers> Answers { get; set; }
         public DbSet<CalendarEvents> CalendarEvents { get; set; }
+        public DbSet<Conversations> Conversations { get; set; }
         public DbSet<CourseModule> CourseModule { get; set; }
         public DbSet<Courses> Courses { get; set; }
+        public DbSet<Discussions> Discussions { get; set; }
+        public DbSet<Forums> Forums { get; set; }
         public DbSet<Grades> Grades { get; set; }
+        public DbSet<GroupMembers> GroupMembers { get; set; }
         public DbSet<Groups> Groups { get; set; }
+        public DbSet<HomeworkAssignements> HomeworkAssignements { get; set; }
         public DbSet<Homeworks> Homeworks { get; set; }
         public DbSet<Logs> Logs { get; set; }
+        public DbSet<Messages> Messages { get; set; }
         public DbSet<ModuleUser> ModuleUser { get; set; }
         public DbSet<Pages> Pages { get; set; }
         public DbSet<Questions> Questions { get; set; }
@@ -40,9 +46,6 @@ namespace E_LearningServices.Models
         public DbSet<Syllabus> Syllabus { get; set; }
         public DbSet<Tests> Tests { get; set; }
         public DbSet<Users> Users { get; set; }
-        public DbSet<Conversations> Conversations { get; set; }
-        public DbSet<Discussions> Discussions { get; set; }
-        public DbSet<Forums> Forums { get; set; }
-        public DbSet<Messages> Messages { get; set; }
+        public DbSet<UsersInCourse> UsersInCourse { get; set; }
     }
 }

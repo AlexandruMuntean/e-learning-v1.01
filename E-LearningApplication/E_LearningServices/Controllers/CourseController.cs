@@ -79,7 +79,37 @@ namespace E_LearningServices.Controllers {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
             }
         }
+        
+        [HttpGet]
+        public HttpResponseMessage GetMyCourses(int id) {
+            try {
+                List<Courses> courses = this._courseManagement.GetMyCourses(id);
+                if (courses != null) {
+                    //create the dto list to be returned to the api consumer
+                    List<CoursesDTO> dtoList = new List<CoursesDTO>();
+                    foreach (var course in courses) {
+                        dtoList.Add(new CoursesDTO {
+                            CourdeCode = course.CourdeCode,
+                            CourseId = course.CourseId,
+                            CourseName = course.CourseName,
+                            NumberOfCredits = course.NumberOfCredits,
+                            OwnerId = course.OwnerId,
+                            SyllabusId = course.SyllabusId
+                        });
+                    }
 
+                    return Request.CreateResponse<List<CoursesDTO>>(HttpStatusCode.OK, dtoList);
+                }
+                else {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
+                }
+            }
+            catch (Exception) {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+        
         [HttpPost]
         public HttpResponseMessage AddCourse(CoursesDTO dto) {
             try {

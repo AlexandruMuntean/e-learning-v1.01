@@ -63,6 +63,27 @@
                     @Html.ActionLink("Manage Module Resources", "DisplayModuleResources", new { id = Model.ModuleId })
                 </button>
             </div>
+            <div class="row mb">
+                <button class="btn btn-theme btn-xs" title="Add course homework">
+                    <span class="fa fa-folder-open"></span>
+                    @Html.ActionLink("Add Homework", "CreateCourseModuleHomework", "Homework", new { id = Model.ModuleId }, new { title = "Add module homework" })
+                </button>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-theme btn-xs" title="Manage course homework">
+                    <span class="fa fa-folder-open"></span>
+                    @Html.ActionLink("Manage Homeworks", "DisplayAllCourseModuleHomework", "Homework", new { id = Model.ModuleId }, new { title = "Manage module homework" })
+                </button>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-theme btn-xs" title="View given grades">
+                    <span class="fa fa-folder-open"></span>
+                    @Html.ActionLink("Display Grades", "DisplayCourseModuleGivenGrades", "Grades", new { courseModuleId = Model.ModuleId }, new { title = "View given grades for the module" })
+                </button>
+            </div>
+
         </div>
     </div>
 

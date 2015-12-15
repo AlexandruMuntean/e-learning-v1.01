@@ -17,18 +17,14 @@ namespace E_LearningServices.Models
         public Grades()
         {
             this.CourseModule = new HashSet<CourseModule>();
-            this.Homeworks = new HashSet<Homeworks>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
         }
     
         public int GradeId { get; set; }
         public Nullable<decimal> GradeValue { get; set; }
         public Nullable<System.DateTime> Gradedatetime { get; set; }
-        public Nullable<int> RecipientId { get; set; }
-        public Nullable<int> CourseId { get; set; }
     
         public virtual ICollection<CourseModule> CourseModule { get; set; }
-        public virtual Courses Courses { get; set; }
-        public virtual Users Users { get; set; }
-        public virtual ICollection<Homeworks> Homeworks { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
     }
 }

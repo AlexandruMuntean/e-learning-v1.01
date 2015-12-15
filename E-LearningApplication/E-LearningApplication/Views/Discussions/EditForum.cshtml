@@ -10,6 +10,7 @@
                 @Html.ValidationSummary(true)
 
                 @Html.HiddenFor(model => model.ForumId)
+                @Html.HiddenFor(model => model.OwnerId)
 
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Category)

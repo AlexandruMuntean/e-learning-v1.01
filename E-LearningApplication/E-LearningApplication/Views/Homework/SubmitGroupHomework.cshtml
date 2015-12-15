@@ -1,0 +1,76 @@
+﻿@model E_LearningApplication.Models.ViewModels.AssignementViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Submit Homework</h2>
+
+    <div class="panel panel-default panel-body">
+
+        <div class="mb col-lg-6">
+            @Html.HiddenFor(item => Model.HomeworkId)
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkName)
+            </div>
+            <div class="editor-field mb">
+                @Html.EditorFor(item => Model.HomeworkName)
+                @Html.ValidationMessageFor(item => Model.HomeworkName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkDescription)
+            </div>
+            <div class="editor-field mb">
+                @Html.EditorFor(item => Model.HomeworkDescription)
+                @Html.ValidationMessageFor(item => Model.HomeworkDescription)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkDeadline)
+            </div>
+            <div class="editor-field mb">
+                @Html.EditorFor(item => Model.HomeworkDeadline)
+                @Html.ValidationMessageFor(item => Model.HomeworkDeadline)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkPoints)
+            </div>
+            <div class="editor-field mb">
+                @Html.EditorFor(item => Model.HomeworkPoints)
+                @Html.ValidationMessageFor(model => Model.HomeworkPoints)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkSubmissionType)
+            </div>
+            <div class="editor-field mb">
+                @Html.EditorFor(item => Model.HomeworkSubmissionType)
+                @Html.ValidationMessageFor(model => Model.HomeworkSubmissionType)
+            </div>
+        </div>
+
+        <div class="mb col-lg-6">
+            @using (Html.BeginForm("SubmitGroupHomework", "Homework", new { assignementId = Model.AssignementId, assignementType = Model.HomeworkSubmissionType }, FormMethod.Post)) {
+                @Html.AntiForgeryToken()
+                if (Model.HomeworkSubmissionType.Equals("text")) {
+                    <div class="mb">
+                        <label>Enter a solution as plain text:</label>
+                        <br />
+                        <textarea name="answerText"></textarea>
+                    </div>
+                }
+                else
+                    if (Model.HomeworkSubmissionType.Equals("file")) {
+                        <div class="mb">
+                            <label>Choose a file: </label>
+                            <input type="file" name="file" class="btn btn-info" />
+                        </div>
+                    }
+
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </p>
+            }
+        </div>
+    </div>
+</div>

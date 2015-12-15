@@ -24,6 +24,14 @@ namespace E_LearningServices.Services.Interfaces {
         List<Courses> GetAllOwnedCourses(int id);
 
         /// <summary>
+        /// Gets my courses.
+        /// </summary>
+        /// <param name="id">The user identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<Courses> GetMyCourses(int id);
+
+        /// <summary>
         /// Adds the specified course.
         /// </summary>
         /// <param name="course">The course.</param>

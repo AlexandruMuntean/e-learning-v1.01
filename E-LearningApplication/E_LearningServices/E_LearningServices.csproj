@@ -202,6 +202,9 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DiscussionsController.cs" />
+    <Compile Include="Controllers\GradesController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
+    <Compile Include="Controllers\HomeworkController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomExceptions\CustomException.cs" />
@@ -227,11 +230,19 @@
     <Compile Include="Models\Discussions.cs">
       <DependentUpon>ELearningServicesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\AnswerDTO.cs" />
+    <Compile Include="Models\DTOs\AssignementDTO.cs" />
     <Compile Include="Models\DTOs\CourseModuleDTO.cs" />
     <Compile Include="Models\DTOs\CoursesDTO.cs" />
     <Compile Include="Models\DTOs\FileDTO.cs" />
     <Compile Include="Models\DTOs\ForumDTO.cs" />
+    <Compile Include="Models\DTOs\GroupDTO.cs" />
+    <Compile Include="Models\DTOs\GroupMemberDTO.cs" />
+    <Compile Include="Models\DTOs\HomeworkAssignementDTO.cs" />
+    <Compile Include="Models\DTOs\HomeworkDTO.cs" />
+    <Compile Include="Models\DTOs\HomeworkGradeDTO.cs" />
     <Compile Include="Models\DTOs\MessageDTO.cs" />
+    <Compile Include="Models\DTOs\ReceivedGradeDTO.cs" />
     <Compile Include="Models\DTOs\ResourcesDTO.cs" />
     <Compile Include="Models\ELearningServicesModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -257,7 +268,13 @@
     <Compile Include="Models\Grades.cs">
       <DependentUpon>ELearningServicesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GroupMembers.cs">
+      <DependentUpon>ELearningServicesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Groups.cs">
+      <DependentUpon>ELearningServicesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HomeworkAssignements.cs">
       <DependentUpon>ELearningServicesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Homeworks.cs">
@@ -276,6 +293,9 @@
       <DependentUpon>ELearningServicesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DTOs\UsersDTO.cs" />
+    <Compile Include="Models\UsersInCourse.cs">
+      <DependentUpon>ELearningServicesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Questions.cs">
       <DependentUpon>ELearningServicesModel.tt</DependentUpon>
@@ -286,9 +306,15 @@
     <Compile Include="Services\AdminManagement.cs" />
     <Compile Include="Services\CourseManagement.cs" />
     <Compile Include="Services\ForumManagement.cs" />
+    <Compile Include="Services\GradesManagement.cs" />
+    <Compile Include="Services\GroupsManagement.cs" />
+    <Compile Include="Services\HomeworkManagement.cs" />
     <Compile Include="Services\Interfaces\IAdminManagement.cs" />
     <Compile Include="Services\Interfaces\ICourseManagement.cs" />
     <Compile Include="Services\Interfaces\IForumManagement.cs" />
+    <Compile Include="Services\Interfaces\IGradesManagement.cs" />
+    <Compile Include="Services\Interfaces\IGroupsManagement.cs" />
+    <Compile Include="Services\Interfaces\IHomeworkManagement.cs" />
     <Compile Include="Services\Interfaces\IResourcesManagement.cs" />
     <Compile Include="Services\Interfaces\IUserManagement.cs" />
     <Compile Include="Services\ResourcesManagement.cs" />

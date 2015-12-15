@@ -87,7 +87,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // GET: /Admin/SearchUser(UserName/LastName, sting)
+        // GET: /Admin/SearchUser(UserName/LastName, string)
 
         public ActionResult SearchUser(string searchTerm, string searchString) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);

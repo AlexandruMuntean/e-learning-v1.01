@@ -14,10 +14,5 @@ namespace E_LearningApplication.Models.ViewModels {
         [Display(Name="Grading date")]
         public Nullable<System.DateTime> Gradedatetime { get; set; }
 
-        [Display(Name="Course associated(if any)")]
-        public Courses Courses { get; set; }
-
-        [Display(Name="Student associated(if any)")]
-        public Users Users { get; set; }
     }
 }

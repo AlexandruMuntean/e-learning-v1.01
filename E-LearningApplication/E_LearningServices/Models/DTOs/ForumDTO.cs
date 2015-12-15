@@ -8,5 +8,7 @@ namespace E_LearningServices.Models.DTOs {
         public int ForumId { get; set; }
 
         public string Category { get; set; }
+
+        public Nullable<int> OwnerId { get; set; }
     }
 }

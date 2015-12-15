@@ -21,7 +21,9 @@ namespace E_LearningApplication.Models
     
         public int ForumId { get; set; }
         public string Category { get; set; }
+        public Nullable<int> OwnerId { get; set; }
     
         public virtual ICollection<Messages> Messages { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

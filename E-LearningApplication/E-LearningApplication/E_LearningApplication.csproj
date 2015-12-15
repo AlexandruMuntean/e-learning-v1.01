@@ -251,7 +251,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DiscussionsController.cs" />
+    <Compile Include="Controllers\GradesController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
+    <Compile Include="Controllers\HomeworkController.cs" />
     <Compile Include="Controllers\ProfController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="CustomExceptions\CustomException.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Answers.cs">
@@ -272,12 +276,17 @@
     <Compile Include="Models\Discussions.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTOs\AnswerDTO.cs" />
     <Compile Include="Models\DTOs\CourseModuleDTO.cs" />
     <Compile Include="Models\DTOs\CoursesDTO.cs" />
     <Compile Include="Models\DTOs\FileDTO.cs" />
     <Compile Include="Models\DTOs\ForumDTO.cs" />
+    <Compile Include="Models\DTOs\GroupDTO.cs" />
+    <Compile Include="Models\DTOs\GroupMemberDTO.cs" />
+    <Compile Include="Models\DTOs\HomeworkAssignementDTO.cs" />
+    <Compile Include="Models\DTOs\HomeworkDTO.cs" />
+    <Compile Include="Models\DTOs\HomeworkGradeDTO.cs" />
     <Compile Include="Models\DTOs\MessageDTO.cs" />
-    <Compile Include="Models\DTOs\ResourcesDTO.cs" />
     <Compile Include="Models\DTOs\UsersDTO.cs" />
     <Compile Include="Models\Forums.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
@@ -285,7 +294,13 @@
     <Compile Include="Models\Grades.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GroupMembers.cs">
+      <DependentUpon>ServerContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Groups.cs">
+      <DependentUpon>ServerContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HomeworkAssignements.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Homeworks.cs">
@@ -318,8 +333,14 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UsersInCourse.cs">
+      <DependentUpon>ServerContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\AllMessagesViewModel.cs" />
+    <Compile Include="Models\ViewModels\AssignementViewModel.cs" />
+    <Compile Include="Models\ViewModels\HomeworkAssignementViewModel.cs" />
     <Compile Include="Models\ViewModels\MailViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReceivedGradeViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
@@ -642,6 +663,43 @@
     <Content Include="Views\Discussions\DisplayComments.cshtml" />
     <Content Include="Views\Discussions\CreateForum.cshtml" />
     <Content Include="Views\Discussions\AddComment.cshtml" />
+    <Content Include="Views\Groups\DisplayAllGroups.cshtml" />
+    <Content Include="Views\Groups\DisplayAssociatedGroups.cshtml" />
+    <Content Include="Views\Groups\CreateGroup.cshtml" />
+    <Content Include="Views\Groups\GroupDetails.cshtml" />
+    <Content Include="Views\Groups\EditGroup.cshtml" />
+    <Content Include="Views\Groups\DisplayGroupMembers.cshtml" />
+    <Content Include="Views\Groups\AddMemberToGroup.cshtml" />
+    <Content Include="Views\Homework\DisplayAllCourseHomework.cshtml" />
+    <Content Include="Views\Homework\DisplayAllCourseModuleHomework.cshtml" />
+    <Content Include="Views\Homework\CreateCourseHomework.cshtml" />
+    <Content Include="Views\Homework\CourseHomeworkDetails.cshtml" />
+    <Content Include="Views\Homework\EditCourseHomework.cshtml" />
+    <Content Include="Views\Homework\AssignCourseHomework.cshtml" />
+    <Content Include="Views\Homework\CourseModuleHomeworkDetails.cshtml" />
+    <Content Include="Views\Homework\CreateCourseModuleHomework.cshtml" />
+    <Content Include="Views\Homework\EditCourseModuleHomework.cshtml" />
+    <Content Include="Views\Homework\AssignCourseModuleHomework.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Homework\DisplayGroupAssignedHomework.cshtml" />
+    <Content Include="Views\Homework\SubmitGroupHomework.cshtml" />
+    <Content Include="Views\Grades\DisplayGroupReceivedGrades.cshtml" />
+    <Content Include="Views\Grades\DisplayCourseGivenGrades.cshtml" />
+    <Content Include="Views\Grades\DisplayCourseModuleGivenGrades.cshtml" />
+    <Content Include="Views\Grades\DisplayStudentReceivedGrades.cshtml" />
+    <Content Include="Views\Grades\GradeCourseHomework.cshtml" />
+    <Content Include="Views\Grades\GradeCourseModuleHomework.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Homework\DisplayStudentAssignedHomework.cshtml" />
+    <Content Include="Views\Homework\SubmitStudentHomework.cshtml" />
+    <Content Include="Views\Student\DisplayAllAvailableCourses.cshtml" />
+    <Content Include="Views\Prof\DisplayAllCourses.cshtml" />
+    <Content Include="Views\Student\DisplayMyCourses.cshtml" />
+    <Content Include="Views\Student\MyCourseDetails.cshtml" />
+    <Content Include="Views\Student\DisplayMyModules.cshtml" />
+    <Content Include="Views\Student\MyModuleDetails.cshtml" />
+    <Content Include="Views\Student\DisplayMyCourseResources.cshtml" />
+    <Content Include="Views\Student\DisplayMyModuleResources.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

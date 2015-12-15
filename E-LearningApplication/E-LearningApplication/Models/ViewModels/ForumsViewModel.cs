@@ -11,5 +11,7 @@ namespace E_LearningApplication.Models.ViewModels {
         [StringLength(30)]
         [Display(Name="Forum category")]
         public string Category { get; set; }
+
+        public Nullable<int> OwnerId { get; set; }
     }
 }

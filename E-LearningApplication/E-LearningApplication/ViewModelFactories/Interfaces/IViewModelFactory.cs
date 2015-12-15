@@ -1,4 +1,5 @@
 ﻿using E_LearningApplication.Models;
+using E_LearningApplication.Models.DTOs;
 using E_LearningApplication.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace E_LearningApplication.ViewModelFactories.Interfaces {
     /// </summary>
     public interface IViewModelFactory {
         #region User view models
-        
+
         /// <summary>
         /// Gets the view model for a single UserProfile from a single User.
         /// </summary>
@@ -150,5 +151,116 @@ namespace E_LearningApplication.ViewModelFactories.Interfaces {
         AllMessagesViewModel GetViewModel(Forums forum, List<Messages> messages);
 
         #endregion
+
+        #region Group view models
+
+        /// <summary>
+        /// Gets the view model for a group.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        GroupsViewModel GetViewModel(Groups group);
+
+        /// <summary>
+        /// Gets the view model for a list of groups.
+        /// </summary>
+        /// <param name="groups">The groups.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<GroupsViewModel> GetViewModel(List<Groups> groups);
+
+        #endregion
+
+        #region Homework view models
+
+        /// <summary>
+        /// Gets the view model for a homework.
+        /// </summary>
+        /// <param name="homework">The homework.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        HomeworksViewModel GetViewModel(Homeworks homework);
+
+        /// <summary>
+        /// Gets the view model for a list of homeworks.
+        /// </summary>
+        /// <param name="homeworks">The homeworks.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<HomeworksViewModel> GetViewModel(List<Homeworks> homeworks);
+
+        #endregion
+
+        #region Grades view models
+
+        /// <summary>
+        /// Gets the view model for a grade.
+        /// </summary>
+        /// <param name="grade">The grade.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        GradesViewModel GetViewModel(Grades grade);
+
+        List<GradesViewModel> GetViewModel(List<Grades> grades);
+
+        #endregion
+
+        #region Answer view models
+
+        /// <summary>
+        /// Gets the view model for an answer.
+        /// </summary>
+        /// <param name="answer">The answer.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        AnswersViewModel GetViewModel(Answers answer);
+
+        /// <summary>
+        /// Gets the view model for a list of answers.
+        /// </summary>
+        /// <param name="answers">The answers.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<AnswersViewModel> GetViewModel(List<Answers> answers);
+
+        #endregion
+
+        #region Homework assignement view models
+
+        /// <summary>
+        /// Gets the view model for a homework assignement.
+        /// </summary>
+        /// <param name="homeworkAssignement">The homework assignement.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        HomeworkAssignementViewModel GetViewModel(HomeworkAssignements homeworkAssignement);
+
+        /// <summary>
+        /// Gets the view model for a homework assignement DTO.
+        /// </summary>
+        /// <param name="homeworkAssignement">The homework assignement.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        HomeworkAssignementViewModel GetViewModel(HomeworkAssignementDTO homeworkAssignement);
+
+        /// <summary>
+        /// Gets the view model for a list of homework assignements.
+        /// </summary>
+        /// <param name="homeworkAssignements">The homework assignements.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<HomeworkAssignementViewModel> GetViewModel(List<HomeworkAssignements> homeworkAssignements);
+
+        /// <summary>
+        /// Gets the view model for a list of homework assignement DTO.
+        /// </summary>
+        /// <param name="homeworkAssignements">The homework assignements.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<HomeworkAssignementViewModel> GetViewModel(List<HomeworkAssignementDTO> homeworkAssignements);
+
+        #endregion
+
     }
 }

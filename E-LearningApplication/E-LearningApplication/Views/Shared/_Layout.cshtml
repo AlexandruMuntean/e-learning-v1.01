@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <title>E-Learning Platform</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/themes/Theme/assets/cssApp")
@@ -14,10 +14,13 @@
     <header class="navbar navbar-default">
         <div class="container-fluid">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("E-Learning", "Index", "Home")</li>
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                 <li>@Html.ActionLink("Prof", "Index", "Prof")</li>
+                <li>@Html.ActionLink("Student", "Index", "Student")</li>
+                <li title="View all the groups available for subscription">@Html.ActionLink("View available groups", "DisplayAllGroups", "Groups")</li>
+                <li title="View all the groups I'm subscribed to">@Html.ActionLink("View my groups", "DisplayAssociatedGroups", "Groups")</li>
+                <li title="Creates a new forum topic">@Html.ActionLink("Go to forum", "Forum", "Discussions")</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @Html.Partial("_LoginPartial")
@@ -37,7 +40,6 @@
             </div>
         </div>
     </footer>
-
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>

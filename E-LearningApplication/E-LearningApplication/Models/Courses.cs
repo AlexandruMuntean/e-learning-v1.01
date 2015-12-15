@@ -18,10 +18,11 @@ namespace E_LearningApplication.Models
         {
             this.CalendarEvents = new HashSet<CalendarEvents>();
             this.CourseModule = new HashSet<CourseModule>();
-            this.Grades = new HashSet<Grades>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
+            this.Homeworks = new HashSet<Homeworks>();
             this.Questions = new HashSet<Questions>();
             this.Tests = new HashSet<Tests>();
-            this.Users1 = new HashSet<Users>();
+            this.UsersInCourse = new HashSet<UsersInCourse>();
         }
     
         public int CourseId { get; set; }
@@ -35,9 +36,10 @@ namespace E_LearningApplication.Models
         public virtual ICollection<CourseModule> CourseModule { get; set; }
         public virtual Users Users { get; set; }
         public virtual Syllabus Syllabus { get; set; }
-        public virtual ICollection<Grades> Grades { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
+        public virtual ICollection<Homeworks> Homeworks { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
         public virtual ICollection<Tests> Tests { get; set; }
-        public virtual ICollection<Users> Users1 { get; set; }
+        public virtual ICollection<UsersInCourse> UsersInCourse { get; set; }
     }
 }

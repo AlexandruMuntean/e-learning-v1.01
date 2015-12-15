@@ -1,5 +1,6 @@
 ﻿using E_LearningApplication.CustomExceptions;
 using E_LearningApplication.Models;
+using E_LearningApplication.Models.DTOs;
 using E_LearningApplication.Models.ViewModels;
 using E_LearningApplication.ViewModelFactories.Interfaces;
 using System;
@@ -252,6 +253,7 @@ namespace E_LearningApplication.ViewModelFactories {
                 ForumsViewModel fvm = new ForumsViewModel();
                 fvm.ForumId = forum.ForumId;
                 fvm.Category = forum.Category;
+                fvm.OwnerId = forum.OwnerId;
 
                 return fvm;
             }
@@ -350,5 +352,287 @@ namespace E_LearningApplication.ViewModelFactories {
         }
 
         #endregion
+
+        #region Group view models
+
+        /// <summary>
+        /// Gets the view model for a group.
+        /// </summary>
+        /// <param name="group">The group.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public GroupsViewModel GetViewModel(Groups group) {
+            try {
+                GroupsViewModel gvm = new GroupsViewModel();
+                gvm.GroupDescription = group.GroupDescription;
+                gvm.GroupId = group.GroupId;
+                gvm.GroupName = group.GroupName;
+                gvm.GroupType = group.GroupType;
+                gvm.OwnerId = group.OwnerId;
+
+                return gvm;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a list of groups.
+        /// </summary>
+        /// <param name="groups">The groups.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<GroupsViewModel> GetViewModel(List<Groups> groups) {
+            try {
+                List<GroupsViewModel> gvml = new List<GroupsViewModel>();
+                foreach (var g in groups) {
+                    gvml.Add(GetViewModel(g));
+                }
+
+                return gvml;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Homework view models
+
+        /// <summary>
+        /// Gets the view model for a homework.
+        /// </summary>
+        /// <param name="homework">The homework.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public HomeworksViewModel GetViewModel(Homeworks homework) {
+            try {
+                HomeworksViewModel hvm = new HomeworksViewModel();
+                hvm.HomeworkAccessSpan = homework.HomeworkAccessSpan;
+                hvm.HomeworkDeadline = homework.HomeworkDeadline;
+                hvm.HomeworkDescription = homework.HomeworkDescription;
+                hvm.HomeworkId = homework.HomeworkId;
+                hvm.HomeworkName = homework.HomeworkName;
+                hvm.HomeworkPoints = homework.HomeworkPoints;
+                hvm.HomeworkSubmissionType = homework.HomeworkSubmissionType;
+                hvm.HomeworkType = homework.HomeworkType;
+                hvm.CourseId = homework.CourseId;
+                hvm.CourseModuleId = homework.CourseModuleId;
+                hvm.OwnerId = homework.OwnerId;
+
+                return hvm;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a list of homeworks.
+        /// </summary>
+        /// <param name="homeworks">The homeworks.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<HomeworksViewModel> GetViewModel(List<Homeworks> homeworks) {
+            try {
+                List<HomeworksViewModel> hvml = new List<HomeworksViewModel>();
+                foreach (var h in homeworks) {
+                    hvml.Add(GetViewModel(h));
+                }
+
+                return hvml;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Grades view models
+
+        /// <summary>
+        /// Gets the view model for a grade.
+        /// </summary>
+        /// <param name="grade">The grade.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public GradesViewModel GetViewModel(Grades grade) {
+            try {
+                GradesViewModel gvm = new GradesViewModel();
+                gvm.Gradedatetime = grade.Gradedatetime;
+                gvm.GradeId = grade.GradeId;
+                gvm.GradeValue = grade.GradeValue;
+
+                return gvm;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a list of grades.
+        /// </summary>
+        /// <param name="grades">The grades.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<GradesViewModel> GetViewModel(List<Grades> grades) {
+            try {
+                List<GradesViewModel> gvml = new List<GradesViewModel>();
+                foreach (var g in grades) {
+                    gvml.Add(GetViewModel(g));
+                }
+
+                return gvml;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Answer view models
+
+        /// <summary>
+        /// Gets the view model for an answer.
+        /// </summary>
+        /// <param name="answer">The answer.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public AnswersViewModel GetViewModel(Answers answer) {
+            try {
+                AnswersViewModel avm = new AnswersViewModel();
+                avm.AnswerId = answer.AnswerId;
+                avm.AnswerType = answer.AnswerType;
+                avm.AnswerValue = answer.AnswerValue;
+
+                return avm;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a list of answers.
+        /// </summary>
+        /// <param name="answers">The answers.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<AnswersViewModel> GetViewModel(List<Answers> answers) {
+            try {
+                List<AnswersViewModel> avml = new List<AnswersViewModel>();
+                foreach (var a in answers) {
+                    avml.Add(GetViewModel(a));
+                }
+
+                return avml;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Homework assignement view models
+
+        /// <summary>
+        /// Gets the view model for a homework assignement.
+        /// </summary>
+        /// <param name="homeworkAssignement">The homework assignement.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public HomeworkAssignementViewModel GetViewModel(HomeworkAssignements homeworkAssignement) {
+            try {
+                HomeworkAssignementViewModel havm = new HomeworkAssignementViewModel();
+                havm.AnswerId = homeworkAssignement.AnswerId;
+                havm.AssignementId = homeworkAssignement.AssignementId;
+                havm.CourseId = homeworkAssignement.CourseId;
+                havm.CourseModuleId = homeworkAssignement.CourseModuleId;
+                havm.GradeId = homeworkAssignement.GradeId;
+                havm.GroupId = homeworkAssignement.GroupId;
+                havm.HomeworkId = homeworkAssignement.HomeworkId;
+                havm.StudentId = homeworkAssignement.StudentId;
+
+                return havm;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a homework assignement DTO.
+        /// </summary>
+        /// <param name="homeworkAssignement">The homework assignement.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public HomeworkAssignementViewModel GetViewModel(HomeworkAssignementDTO homeworkAssignement) {
+            try {
+                HomeworkAssignementViewModel havm = new HomeworkAssignementViewModel();
+                havm.AnswerId = homeworkAssignement.AnswerId;
+                havm.AssignementId = homeworkAssignement.AssignementId;
+                havm.CourseId = homeworkAssignement.CourseId;
+                havm.CourseModuleId = homeworkAssignement.CourseModuleId;
+                havm.GradeId = homeworkAssignement.GradeId;
+                havm.GroupId = homeworkAssignement.GroupId;
+                havm.HomeworkId = homeworkAssignement.HomeworkId;
+                havm.StudentId = homeworkAssignement.StudentId;
+                havm.RecipientName = homeworkAssignement.RecipientName;
+
+                return havm;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a list of homework assignements.
+        /// </summary>
+        /// <param name="homeworkAssignements">The homework assignements.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<HomeworkAssignementViewModel> GetViewModel(List<HomeworkAssignements> homeworkAssignements) {
+            try {
+                List<HomeworkAssignementViewModel> havml = new List<HomeworkAssignementViewModel>();
+                foreach (var a in homeworkAssignements) {
+                    havml.Add(GetViewModel(a));
+                }
+
+                return havml;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the view model for a list of homework assignement DTO.
+        /// </summary>
+        /// <param name="homeworkAssignements">The homework assignements.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<HomeworkAssignementViewModel> GetViewModel(List<HomeworkAssignementDTO> homeworkAssignements) {
+            try {
+                List<HomeworkAssignementViewModel> havml = new List<HomeworkAssignementViewModel>();
+                foreach (var a in homeworkAssignements) {
+                    havml.Add(GetViewModel(a));
+                }
+
+                return havml;
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        #endregion
+
     }
 }

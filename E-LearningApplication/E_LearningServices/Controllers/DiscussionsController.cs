@@ -31,7 +31,8 @@ namespace E_LearningServices.Controllers {
                     foreach (var forum in forums) {
                         dtoList.Add(new ForumDTO {
                             ForumId = forum.ForumId,
-                            Category = forum.Category
+                            Category = forum.Category,
+                            OwnerId = forum.OwnerId
                         });
                     }
 
@@ -55,7 +56,8 @@ namespace E_LearningServices.Controllers {
                 if (forum != null) {
                     ForumDTO dto = new ForumDTO { 
                         ForumId = forum.ForumId,
-                        Category = forum.Category
+                        Category = forum.Category,
+                        OwnerId = forum.OwnerId
                     };
 
                     return Request.CreateResponse<ForumDTO>(HttpStatusCode.OK, dto);
@@ -75,7 +77,8 @@ namespace E_LearningServices.Controllers {
             try {
                 Forums forum = new Forums {
                     ForumId = dto.ForumId,
-                    Category = dto.Category
+                    Category = dto.Category,
+                    OwnerId = dto.OwnerId
                 };
 
                 this._forumManagement.AddForum(forum);
@@ -93,7 +96,8 @@ namespace E_LearningServices.Controllers {
             try {
                 Forums forum = new Forums { 
                     ForumId = dto.ForumId,
-                    Category = dto.Category
+                    Category = dto.Category,
+                    OwnerId = dto.OwnerId
                 };
                 
                 this._forumManagement.EditCategory(forum);

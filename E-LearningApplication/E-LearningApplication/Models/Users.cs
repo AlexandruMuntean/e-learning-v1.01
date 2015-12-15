@@ -17,13 +17,16 @@ namespace E_LearningApplication.Models
         public Users()
         {
             this.Courses = new HashSet<Courses>();
-            this.Grades = new HashSet<Grades>();
+            this.GroupMembers = new HashSet<GroupMembers>();
+            this.Groups = new HashSet<Groups>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
+            this.Homeworks = new HashSet<Homeworks>();
+            this.Messages = new HashSet<Messages>();
             this.ModuleUser = new HashSet<ModuleUser>();
             this.Pages = new HashSet<Pages>();
-            this.Groups = new HashSet<Groups>();
-            this.Courses1 = new HashSet<Courses>();
+            this.UsersInCourse = new HashSet<UsersInCourse>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
-            this.Messages = new HashSet<Messages>();
+            this.Forums = new HashSet<Forums>();
         }
     
         public int UserId { get; set; }
@@ -36,12 +39,15 @@ namespace E_LearningApplication.Models
         public string AccessStatus { get; set; }
     
         public virtual ICollection<Courses> Courses { get; set; }
-        public virtual ICollection<Grades> Grades { get; set; }
+        public virtual ICollection<GroupMembers> GroupMembers { get; set; }
+        public virtual ICollection<Groups> Groups { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
+        public virtual ICollection<Homeworks> Homeworks { get; set; }
+        public virtual ICollection<Messages> Messages { get; set; }
         public virtual ICollection<ModuleUser> ModuleUser { get; set; }
         public virtual ICollection<Pages> Pages { get; set; }
-        public virtual ICollection<Groups> Groups { get; set; }
-        public virtual ICollection<Courses> Courses1 { get; set; }
+        public virtual ICollection<UsersInCourse> UsersInCourse { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
-        public virtual ICollection<Messages> Messages { get; set; }
+        public virtual ICollection<Forums> Forums { get; set; }
     }
 }

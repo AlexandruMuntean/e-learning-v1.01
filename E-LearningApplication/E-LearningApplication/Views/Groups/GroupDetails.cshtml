@@ -1,0 +1,79 @@
+﻿@model E_LearningApplication.Models.ViewModels.GroupsViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Group Details</h2>
+
+    <div class="panel panel-body panel-default">
+
+        <div class="row mb col-lg-6">
+
+            @Html.HiddenFor(model => model.GroupId)
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.GroupName)
+            </div>
+            <div class="display-field mb">
+                @Html.DisplayFor(model => model.GroupName)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.GroupDescription)
+            </div>
+            <div class="display-field mb">
+                @Html.DisplayFor(model => model.GroupDescription)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.GroupType)
+            </div>
+            <div class="display-field mb">
+                @Html.DisplayFor(model => model.GroupType)
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+
+            @if (ViewBag.GroupOwner == Model.OwnerId) {
+                <div class="row mb">
+                    <button class="btn btn-success btn-xs" title="Edit group details">
+                        <i class="fa fa-pencil"></i>
+                        @Html.ActionLink("Edit", "EditGroup", new { id = Model.GroupId })
+                    </button>
+                </div>
+
+                <div class="row mb">
+                    @using (Html.BeginForm("DeleteGroup", "Groups", new { id = Model.GroupId }, FormMethod.Post, new { title = "Delete group" })) {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.GroupId)
+                        <button type="submit" class="btn btn-danger btn-xs" title="Delete Group">
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    }
+                </div>
+
+                <div class="row mb">
+                    <button class="btn btn-success btn-xs" title="Display group members">
+                        <i class="fa fa-folder-open"></i>
+                        @Html.ActionLink("Manage Members", "DisplayGroupMembers", new { id = Model.GroupId })
+                    </button>
+                </div>
+            }
+
+            <div class="row mb">
+                <button class="btn btn-success btn-xs" title="Display group assignements">
+                    <i class="fa fa-folder-open"></i>
+                    @Html.ActionLink("View Assignements", "DisplayGroupAssignedHomework", "Homework", new { groupId = Model.GroupId }, new { title = "Display group assignements" })
+                </button>
+            </div>
+
+            <div class="row mb">
+                <button class="btn btn-success btn-xs" title="Display group grades for assignements">
+                    <i class="fa fa-folder-open"></i>
+                    @Html.ActionLink("View Received Grades", "DisplayGroupReceivedGrades", "Grades", new { groupId = Model.GroupId }, new { title = "Display group grades for assignements" })
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

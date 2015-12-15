@@ -16,6 +16,7 @@ namespace E_LearningApplication.Models
     {
         public Answers()
         {
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
             this.Questions = new HashSet<Questions>();
         }
     
@@ -23,6 +24,7 @@ namespace E_LearningApplication.Models
         public string AnswerType { get; set; }
         public string AnswerValue { get; set; }
     
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
     }
 }
