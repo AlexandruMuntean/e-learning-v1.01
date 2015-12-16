@@ -69,6 +69,10 @@ namespace E_LearningApplication.Controllers {
 
                     if (user.AccessStatus.Equals("Unblocked")) {
                         if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe)) {
+                            Session["UserId"] = user.UserId;
+                            Session["UserName"] = user.UserName;
+                            Session["UserRoles"] = Roles.GetRolesForUser(user.UserName);
+
                             return RedirectToLocal(returnUrl);
                         }
                     }
@@ -96,6 +100,9 @@ namespace E_LearningApplication.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult LogOff() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            Session["UserId"] = null;
+            Session["UserName"] = null;
+            Session["UserRoles"] = null;
 
             WebSecurity.Logout();
 

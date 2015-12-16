@@ -4,6 +4,9 @@
     var viewModel = Model.Item1;
     var viewModelList = Model.Item2;
     var _courseModuleId = Model.Item3;
+    
+    var _userId = Session["UserId"];
+    var _sessionUser = Convert.ToInt32(_userId);
 }
 
 <div class="form-panel">
@@ -64,7 +67,7 @@
         </div>
 
         <div class="col-lg-6">
-            @if (ViewBag.CourseModuleHomeworkOwner == viewModel.OwnerId) {
+            @if (_sessionUser == viewModel.OwnerId) {
                 <div class="row mb">
                     <button class="btn btn-success btn-xs" title="Edit group details">
                         <i class="fa fa-pencil"></i>

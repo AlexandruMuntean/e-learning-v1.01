@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var _userRoles = Session["UserRoles"];
+    string[] _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
+                                                                 .Select(x => x.ToString())
+                                                                 .ToArray();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,9 +22,15 @@
         <div class="container-fluid">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                <li>@Html.ActionLink("Prof", "Index", "Prof")</li>
-                <li>@Html.ActionLink("Student", "Index", "Student")</li>
+                @if (_rolesArray.Contains("Admin") == true) {
+                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                }
+                @if (_rolesArray.Contains("Prof") == true) {
+                    <li>@Html.ActionLink("Prof", "Index", "Prof")</li>
+                }
+                @if (_rolesArray.Contains("Student") == true) {
+                    <li>@Html.ActionLink("Student", "Index", "Student")</li>
+                }
                 <li title="View all the groups available for subscription">@Html.ActionLink("View available groups", "DisplayAllGroups", "Groups")</li>
                 <li title="View all the groups I'm subscribed to">@Html.ActionLink("View my groups", "DisplayAssociatedGroups", "Groups")</li>
                 <li title="Creates a new forum topic">@Html.ActionLink("Go to forum", "Forum", "Discussions")</li>

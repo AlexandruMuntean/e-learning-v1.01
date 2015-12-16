@@ -1,5 +1,10 @@
 ﻿@model E_LearningApplication.Models.ViewModels.CourseModuleViewModel
 
+@{
+    var _userId = Session["UserId"];
+    var _sessionUser = Convert.ToInt32(_userId);
+}
+
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Module Details</h2>
 

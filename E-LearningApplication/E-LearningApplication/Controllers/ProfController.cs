@@ -29,7 +29,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/
-        
+
         public ActionResult Index() {
             return View();
         }
@@ -38,7 +38,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/DisplayAllCourses()
-        
+
         public ActionResult DisplayAllCourses() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -60,38 +60,6 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                //get the current user
-                #region get the course owner
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
-                ViewBag.CourseOwnerId = user.UserId;
                 List<CoursesViewModel> cvm = this.viewModelFactory.GetViewModel(courses);
                 return View(cvm);
             }
@@ -109,44 +77,15 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/DisplayCourses
-        
+
         public ActionResult DisplayCourses() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 //get all courses owned by the currently logged in user
                 List<Courses> courses = new List<Courses>();
 
-                //get the current user
-                #region get the course owner
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 #region get owned courses
                 using (var client = new HttpClient()) {
@@ -154,7 +93,7 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.GetAsync("api/course/GetAllOwnedCourses/?id=" + user.UserId).Result;
+                    HttpResponseMessage response = client.GetAsync("api/course/GetAllOwnedCourses/?id=" + _sessionUser).Result;
                     if (response.IsSuccessStatusCode) {
                         IEnumerable<Courses> list = response.Content.ReadAsAsync<IEnumerable<Courses>>().Result;
                         if (list != null) {
@@ -214,39 +153,6 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                //get the current user
-                #region get the course owner
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
-                ViewBag.CourseOwner = user.UserId;
-
                 CoursesViewModel cvm = this.viewModelFactory.GetViewModel(course);
                 return View(cvm);
             }
@@ -264,7 +170,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/CreateCourse
-        
+
         public ActionResult CreateCourse() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             return View();
@@ -272,53 +178,25 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/CreateCourse(courseViewModel)
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateCourse(CoursesViewModel courseViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user to set as course owner
-                #region get new course owner
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
 
                 //create the dto for the new course
                 #region add new course
+
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 CoursesDTO dto = new CoursesDTO();
                 dto.CourdeCode = courseViewModel.CourdeCode;
                 dto.CourseName = courseViewModel.CourseName;
                 dto.NumberOfCredits = courseViewModel.NumberOfCredits;
                 dto.SyllabusId = courseViewModel.SyllabusId;
-                dto.OwnerId = user.UserId;
+                dto.OwnerId = _sessionUser;
 
                 //add new course
                 using (var client = new HttpClient()) {
@@ -356,7 +234,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/EditCourse(id = 0)
-        
+
         public ActionResult EditCourse(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -404,7 +282,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/EditCourse(course)
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditCourse(CoursesViewModel courseViewModel) {
@@ -447,7 +325,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/DeleteCourse(id = 0)
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCourse(int id = 0) {
@@ -491,7 +369,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/DisplayCourseResources(id = 0)
-        
+
         [HttpGet]
         public ActionResult DisplayCourseResources(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -532,7 +410,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/AddCourseResource(id = 0)
-        
+
         public ActionResult AddCourseResource(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
 
@@ -544,7 +422,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/UploadResourcesforCourse(file, id = 0)
-        
+
         [HttpPost]
         public ActionResult UploadResourcesforCourse(HttpPostedFileBase file, int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -577,7 +455,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/DeleteCourseResource(id = 0)
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteCourseResource(int id = 0) {
@@ -611,7 +489,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/ReplaceCourseResource(id = 0)
-        
+
         public ActionResult ReplaceCourseResource(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -659,7 +537,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/ReplaceResourcesforCourse(file, id = 0)
-        
+
         [HttpPost]
         public ActionResult ReplaceResourcesforCourse(HttpPostedFileBase file, int courseId = 0, int resourceId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -784,7 +662,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/CreateModule
-        
+
         public ActionResult CreateModule(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -811,7 +689,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/CreateModule(courseModuleViewModel)
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateModule(CourseModuleViewModel courseModuleViewModel) {
@@ -858,7 +736,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/DeleteModule(id = 0)
-        
+
         [HttpPost]
         public ActionResult DeleteModule(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -897,7 +775,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/EditModule(id = 0)
-        
+
         public ActionResult EditModule(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -944,7 +822,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/EditModule(courseModuleViewModel)
-        
+
         [HttpPost]
         public ActionResult EditModule(CourseModuleViewModel courseModuleViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -1029,7 +907,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Prof/AddModuleResource(id = 0)
-        
+
         public ActionResult AddModuleResource(int moduleId = 0, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
@@ -1055,7 +933,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/UploadResourcesforModule(file, id = 0)
-        
+
         [HttpPost]
         public ActionResult UploadResourcesforModule(HttpPostedFileBase file, int moduleId = 0, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
@@ -1089,7 +967,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/DeleteModuleResource(id = 0)
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteModuleResource(int id = 0) {
@@ -1171,7 +1049,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Prof/ReplaceResourcesforModule(file, id = 0)
-        
+
         [HttpPost]
         public ActionResult ReplaceResourcesforModule(HttpPostedFileBase file, int moduleId = 0, int resourceId = 0, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);

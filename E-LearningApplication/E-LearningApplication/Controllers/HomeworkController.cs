@@ -126,37 +126,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult CreateCourseHomework(HomeworksViewModel homeworkViewModel, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user
-                #region get the course owner
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 HomeworkDTO dto = new HomeworkDTO();
                 dto.HomeworkAccessSpan = homeworkViewModel.HomeworkAccessSpan;
@@ -169,7 +140,7 @@ namespace E_LearningApplication.Controllers {
                 dto.HomeworkType = homeworkViewModel.HomeworkType;
                 dto.CourseId = homeworkViewModel.CourseId;
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
-                dto.OwnerId = user.UserId;
+                dto.OwnerId = _sessionUser;
 
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -213,37 +184,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult CreateCourseModuleHomework(HomeworksViewModel homeworkViewModel, int courseModuleId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user
-                #region get the course owner
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 HomeworkDTO dto = new HomeworkDTO();
                 dto.HomeworkAccessSpan = homeworkViewModel.HomeworkAccessSpan;
@@ -256,7 +198,7 @@ namespace E_LearningApplication.Controllers {
                 dto.HomeworkType = homeworkViewModel.HomeworkType;
                 dto.CourseId = homeworkViewModel.CourseId;
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
-                dto.OwnerId = user.UserId;
+                dto.OwnerId = _sessionUser;
 
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -393,38 +335,6 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
-                ViewBag.CourseHomeworkOwner = user.UserId;
                 Tuple<HomeworksViewModel, List<HomeworkAssignementViewModel>, int> viewModel = new Tuple<HomeworksViewModel, List<HomeworkAssignementViewModel>, int>(
                     this.viewModelFactory.GetViewModel(hw),
                     this.viewModelFactory.GetViewModel(ha),
@@ -488,38 +398,6 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
-                ViewBag.CourseModuleHomeworkOwner = user.UserId;
                 Tuple<HomeworksViewModel, List<HomeworkAssignementViewModel>, int> viewModel = new Tuple<HomeworksViewModel, List<HomeworkAssignementViewModel>, int>(
                     this.viewModelFactory.GetViewModel(hw),
                     this.viewModelFactory.GetViewModel(ha),
@@ -743,37 +621,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult AssignCourseHomework(int id = 0, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 //get the possible students and groups to assign homework to
                 List<Users> users = new List<Users>();
@@ -786,7 +635,7 @@ namespace E_LearningApplication.Controllers {
                         );
                     //to do: switch from getAllUsers to getUsersInCourse after enrollment is implemented
                     HttpResponseMessage response1 = client.GetAsync("api/user/GetAllUsers").Result;
-                    HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + user.UserId).Result;
+                    HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
                     if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode) {
                         var list1 = response1.Content.ReadAsAsync<IEnumerable<Users>>().Result;
                         if (list1 != null) {
@@ -895,37 +744,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult AssignCourseModuleHomework(int id = 0, int courseModuleId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 //get the possible students and groups to assign homework to
                 List<Users> users = new List<Users>();
@@ -938,7 +758,7 @@ namespace E_LearningApplication.Controllers {
                         );
                     //to do: switch from getAllUsers to getUsersInCourse after enrollment is implemented
                     HttpResponseMessage response1 = client.GetAsync("api/user/GetAllUsers").Result;
-                    HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + user.UserId).Result;
+                    HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
                     if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode) {
                         var list1 = response1.Content.ReadAsAsync<IEnumerable<Users>>().Result;
                         if (list1 != null) {
@@ -1122,37 +942,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult DisplayStudentAssignedHomework() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user
-                #region get the user for the associated grades
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 List<AssignementViewModel> homeworks = new List<AssignementViewModel>();
                 using (var client = new HttpClient()) {
@@ -1160,7 +951,7 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.GetAsync("api/homework/GetAllStudentAssignedHomework/?id=" + user.UserId).Result;
+                    HttpResponseMessage response = client.GetAsync("api/homework/GetAllStudentAssignedHomework/?id=" + _sessionUser).Result;
                     if (response.IsSuccessStatusCode) {
                         var list = response.Content.ReadAsAsync<IEnumerable<AssignementViewModel>>().Result;
                         if (list != null) {

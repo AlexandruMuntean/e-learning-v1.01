@@ -12,40 +12,35 @@
                 @Html.LabelFor(item => Model.HomeworkName)
             </div>
             <div class="editor-field mb">
-                @Html.EditorFor(item => Model.HomeworkName)
-                @Html.ValidationMessageFor(item => Model.HomeworkName)
+                @Html.DisplayFor(item => Model.HomeworkName)
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(item => Model.HomeworkDescription)
             </div>
             <div class="editor-field mb">
-                @Html.EditorFor(item => Model.HomeworkDescription)
-                @Html.ValidationMessageFor(item => Model.HomeworkDescription)
+                @Html.DisplayFor(item => Model.HomeworkDescription)
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(item => Model.HomeworkDeadline)
             </div>
             <div class="editor-field mb">
-                @Html.EditorFor(item => Model.HomeworkDeadline)
-                @Html.ValidationMessageFor(item => Model.HomeworkDeadline)
+                @Html.DisplayFor(item => Model.HomeworkDeadline)
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(item => Model.HomeworkPoints)
             </div>
             <div class="editor-field mb">
-                @Html.EditorFor(item => Model.HomeworkPoints)
-                @Html.ValidationMessageFor(model => Model.HomeworkPoints)
+                @Html.DisplayFor(item => Model.HomeworkPoints)
             </div>
 
             <div class="editor-label">
                 @Html.LabelFor(item => Model.HomeworkSubmissionType)
             </div>
             <div class="editor-field mb">
-                @Html.EditorFor(item => Model.HomeworkSubmissionType)
-                @Html.ValidationMessageFor(model => Model.HomeworkSubmissionType)
+                @Html.DisplayFor(item => Model.HomeworkSubmissionType)
             </div>
         </div>
 

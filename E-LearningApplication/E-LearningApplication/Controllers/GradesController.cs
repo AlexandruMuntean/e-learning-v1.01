@@ -314,45 +314,15 @@ namespace E_LearningApplication.Controllers {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 List<ReceivedGradeViewModel> grades = new List<ReceivedGradeViewModel>();
-
-                //get the current user
-                #region get the user for the associated grades
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.GetAsync("api/grades/GetAllStudentReceivedGrades/?id=" + user.UserId).Result;
+                    HttpResponseMessage response = client.GetAsync("api/grades/GetAllStudentReceivedGrades/?id=" + _sessionUser).Result;
                     if (response.IsSuccessStatusCode) {
                         var list = response.Content.ReadAsAsync<IEnumerable<ReceivedGradeViewModel>>().Result;
                         if (list != null) {

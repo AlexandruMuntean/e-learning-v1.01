@@ -26,7 +26,6 @@ namespace E_LearningApplication.Controllers {
 
         #endregion
 
-
         //
         // GET: /Groups/
 
@@ -42,37 +41,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult DisplayAllGroups() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                 //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 List<Groups> groups = new List<Groups>();
                 using (var client = new HttpClient()) {
@@ -80,7 +50,7 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.GetAsync("api/groups/GetAllUnassociatedGroups/?id=" + user.UserId).Result;
+                    HttpResponseMessage response = client.GetAsync("api/groups/GetAllUnassociatedGroups/?id=" + _sessionUser).Result;
                     if (response.IsSuccessStatusCode) {
                         var list = response.Content.ReadAsAsync<IEnumerable<Groups>>().Result;
                         if (list != null) {
@@ -91,7 +61,7 @@ namespace E_LearningApplication.Controllers {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
-                
+
                 List<GroupsViewModel> gvm = this.viewModelFactory.GetViewModel(groups);
                 return View(gvm);
             }
@@ -116,37 +86,8 @@ namespace E_LearningApplication.Controllers {
                 //get all associated groups to the currently logged in user
                 List<Groups> groups = new List<Groups>();
 
-                //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 #region get associated groups
                 using (var client = new HttpClient()) {
@@ -154,7 +95,7 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + user.UserId).Result;
+                    HttpResponseMessage response = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
                     if (response.IsSuccessStatusCode) {
                         var list = response.Content.ReadAsAsync<IEnumerable<Groups>>().Result;
                         if (list != null) {
@@ -278,37 +219,8 @@ namespace E_LearningApplication.Controllers {
         public ActionResult CreateGroup(GroupsViewModel groupViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //get the current user
-                #region get the user for the subscription
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
 
                 Groups group = new Groups();
                 #region create new group
@@ -318,7 +230,7 @@ namespace E_LearningApplication.Controllers {
                 dto.GroupDescription = groupViewModel.GroupDescription;
                 dto.GroupName = groupViewModel.GroupName;
                 dto.GroupType = groupViewModel.GroupType;
-                dto.OwnerId = user.UserId;
+                dto.OwnerId = _sessionUser;
 
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -352,7 +264,7 @@ namespace E_LearningApplication.Controllers {
                 //create dto for the new member
                 GroupMemberDTO dto1 = new GroupMemberDTO();
                 dto1.GroupId = group.GroupId;
-                dto1.MemberId = user.UserId;
+                dto1.MemberId = _sessionUser;
 
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -413,38 +325,6 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                //get the current user
-                #region get the user for the associated groups
-                Users user = new Users();
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var u = response.Content.ReadAsAsync<Users>().Result;
-                        if (u != null) {
-                            user.AccessStatus = u.AccessStatus;
-                            user.Email = u.Email;
-                            user.FirstName = u.FirstName;
-                            user.LastName = u.LastName;
-                            user.MiddleName = u.MiddleName;
-                            user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                            user.UserId = u.UserId;
-                            user.UserName = u.UserName;
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                }
-
-                #endregion
-                ViewBag.GroupOwner = user.UserId;
                 GroupsViewModel gvm = this.viewModelFactory.GetViewModel(group);
                 return View(gvm);
             }
@@ -775,42 +655,13 @@ namespace E_LearningApplication.Controllers {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 if (groupId > 0) {
-                    //get the current user
-                    #region get the user for the subscription
-                    Users user = new Users();
-                    using (var client = new HttpClient()) {
-                        client.BaseAddress = new Uri(this.apiMethodsUrl);
-                        client.DefaultRequestHeaders.Accept.Add(
-                            new MediaTypeWithQualityHeaderValue("application/json")
-                            );
-                        HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                        if (response.IsSuccessStatusCode) {
-                            var u = response.Content.ReadAsAsync<Users>().Result;
-                            if (u != null) {
-                                user.AccessStatus = u.AccessStatus;
-                                user.Email = u.Email;
-                                user.FirstName = u.FirstName;
-                                user.LastName = u.LastName;
-                                user.MiddleName = u.MiddleName;
-                                user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                                user.UserId = u.UserId;
-                                user.UserName = u.UserName;
-                            }
-                            else {
-                                throw new CustomException("Could not complete the operation!");
-                            }
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-
-                    #endregion
+                    var _userId = Session["UserId"];
+                    var _sessionUser = Convert.ToInt32(_userId);
 
                     //create dto for the new member
                     GroupMemberDTO dto = new GroupMemberDTO();
                     dto.GroupId = groupId;
-                    dto.MemberId = user.UserId;
+                    dto.MemberId = _sessionUser;
 
                     using (var client = new HttpClient()) {
                         client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -851,44 +702,15 @@ namespace E_LearningApplication.Controllers {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 if (groupId > 0) {
-                    //get the current user
-                    #region get the user for the unsubscribe operation
-                    Users user = new Users();
-                    using (var client = new HttpClient()) {
-                        client.BaseAddress = new Uri(this.apiMethodsUrl);
-                        client.DefaultRequestHeaders.Accept.Add(
-                            new MediaTypeWithQualityHeaderValue("application/json")
-                            );
-                        HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + User.Identity.Name).Result;
-                        if (response.IsSuccessStatusCode) {
-                            var u = response.Content.ReadAsAsync<Users>().Result;
-                            if (u != null) {
-                                user.AccessStatus = u.AccessStatus;
-                                user.Email = u.Email;
-                                user.FirstName = u.FirstName;
-                                user.LastName = u.LastName;
-                                user.MiddleName = u.MiddleName;
-                                user.StudentIdentificationNumber = u.StudentIdentificationNumber;
-                                user.UserId = u.UserId;
-                                user.UserName = u.UserName;
-                            }
-                            else {
-                                throw new CustomException("Could not complete the operation!");
-                            }
-                        }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
-                    }
-
-                    #endregion
+                    var _userId = Session["UserId"];
+                    var _sessionUser = Convert.ToInt32(_userId);
 
                     using (var client = new HttpClient()) {
                         client.BaseAddress = new Uri(this.apiMethodsUrl);
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json")
                             );
-                        HttpResponseMessage response = client.DeleteAsync("api/groups/RemoveGroupMember/?groupId=" + groupId + "&userId=" + user.UserId).Result;
+                        HttpResponseMessage response = client.DeleteAsync("api/groups/RemoveGroupMember/?groupId=" + groupId + "&userId=" + _sessionUser).Result;
                         if (!response.IsSuccessStatusCode) {
                             throw new CustomException("Could not complete the operation!");
                         }

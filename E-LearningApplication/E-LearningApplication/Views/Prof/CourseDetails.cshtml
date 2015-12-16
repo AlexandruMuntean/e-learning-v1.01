@@ -1,5 +1,10 @@
 ﻿@model E_LearningApplication.Models.ViewModels.CoursesViewModel
 
+@{
+    var _userId = Session["UserId"];
+    var _sessionUser = Convert.ToInt32(_userId);
+}
+
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Course Details</h2>
 
@@ -38,7 +43,7 @@
                 </div>
             </div>
 
-            @if (ViewBag.CourseOwner == Model.OwnerId) {
+            @if (_sessionUser == Model.OwnerId) {
                 <div class="row mb">
                     <button class="btn btn-success btn-xs" title="Edit course module">
                         <i class="fa fa-pencil"></i>
@@ -64,7 +69,7 @@
                 </button>
             </div>
 
-            @if (ViewBag.CourseOwner == Model.OwnerId) {
+            @if (_sessionUser == Model.OwnerId) {
                 <div class="row mb">
                     <button class="btn btn-theme03 btn-xs" title="Add course module">
                         <i class="fa fa-plus-circle"></i>
