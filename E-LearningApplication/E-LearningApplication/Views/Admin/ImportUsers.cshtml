@@ -3,20 +3,21 @@
 
     <div>
         @using (Html.BeginForm("ImportUsers", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" })) {
-            <p>
+            <div class="mb">
                 <label>Choose a role for the users to be imported: </label>
+                <br />
                 @Html.DropDownList("userRole",
                         new List<SelectListItem> {new SelectListItem() { Text = "Admin", Value = "Admin" },
                                                 new SelectListItem() { Text = "Prof", Value = "Prof" },
                                                 new SelectListItem() { Text="Student", Value="Student"}},
-                        "Choose a role for the users...")
-            </p>
-            <p>
+                        "Choose a role...", new { @class = "btn btn-theme03"})
+            </div>
+            <div class="mb">
                 <label>Choose a file: </label>
                 <input type="file" name="file" class="btn btn-info" />
-            </p>
+            </div>
             <p>
-                <input type="submit" name="Submit" id="Submit" value="Upload" class="btn btn-default" />
+                <input type="submit" name="Submit" id="Submit" value="Upload" class="btn btn-facebook" />
             </p>
         }
     </div>

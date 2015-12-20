@@ -23,7 +23,7 @@
             </div>
             <div class="panel-body col-lg-6">
                 <p>
-                    @Html.ActionLink("Show all logs", "DisplayLogs", "Admin", new { @class = "btn btn-default btn-sm" })
+                    @Html.ActionLink("Show all logs", "DisplayLogs", "Admin", new { @class = "btn btn-info btn-sm" })
                 </p>
 
                 <p>
@@ -65,7 +65,7 @@
                         <a href="#" data-toggle="tooltip" title="Show log details">
                             <button class="btn btn-info btn-xs">
                                 <i class="fa fa-expand"></i>
-                                @Html.ActionLink("Details", "LogDetails", new { id = item.Id })
+                                @Html.ActionLink("Details", "LogDetails", new { id = item.Id }, new { title = "Show log details"})
                             </button>
                         </a>
                         |

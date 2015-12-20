@@ -26,8 +26,10 @@ namespace E_LearningApplication.Utils.MailUtil {
             try {
                 SmtpClient smtpClient = new SmtpClient(GmailSmtpClient);
                 smtpClient.Port = GmailPort;
-                smtpClient.Credentials = new NetworkCredential(GmailUserAddress, GmailUserPassword);
                 smtpClient.EnableSsl = GmailSsl;
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Timeout = 20000;
+                smtpClient.Credentials = new NetworkCredential(GmailUserAddress, GmailUserPassword);
 
                 MailMessage message = new MailMessage(sender, receiver, subject, body);
                 smtpClient.Send(message);

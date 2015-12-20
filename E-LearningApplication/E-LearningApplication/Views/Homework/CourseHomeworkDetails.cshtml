@@ -4,7 +4,7 @@
     var viewModel = Model.Item1;
     var viewModelList = Model.Item2;
     var _courseId = Model.Item3;
-    
+
     var _userId = Session["UserId"];
     var _sessionUser = Convert.ToInt32(_userId);
 }
@@ -71,7 +71,7 @@
             <div class="col-lg-6">
                 @if (_sessionUser == viewModel.OwnerId) {
                     <div class="row mb">
-                        <button class="btn btn-success btn-xs" title="Edit group details">
+                        <button class="btn btn-theme03 btn-xs" title="Edit group details">
                             <i class="fa fa-pencil"></i>
                             @Html.ActionLink("Edit", "EditCourseHomework", new { id = viewModel.HomeworkId, courseId = _courseId })
                         </button>
@@ -88,7 +88,7 @@
                 }
 
                 <div class="row mb">
-                    <button class="btn btn-theme03 btn-xs" title="Add assignement for the homework">
+                    <button class="btn btn-theme btn-xs" title="Add assignement for the homework">
                         <i class="fa fa-plus-square-o"></i>
                         @Html.ActionLink("Add Assignement", "AssignCourseHomework", "Homework", new { id = viewModel.HomeworkId, courseId = _courseId }, new { title = "Add assignement for the homework" })
                     </button>
@@ -126,9 +126,11 @@
                                 <i class="fa fa-trash-o"></i> Unassign
                             </button>
                         }
-                        |
                         @if (item.AnswerId != null && item.AnswerId > 0) {
-                            @Html.ActionLink("Grade", "GradeCourseHomework", "Grades", new { assignementId = item.AssignementId, homeworkId = item.HomeworkId, courseId = _courseId }, new { title = "Grade the homework" })
+                            <button class="btn btn-info btn-xs" title="Grade the homework">
+                                <i class="fa fa-pencil-square-o"></i>
+                                @Html.ActionLink("Grade", "GradeCourseHomework", "Grades", new { assignementId = item.AssignementId, homeworkId = item.HomeworkId, courseId = _courseId }, new { title = "Grade the homework" })
+                            </button>
                         }
                         else {
                             <span>Answer not yet submitted</span>

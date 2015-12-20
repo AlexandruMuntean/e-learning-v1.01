@@ -40,7 +40,7 @@
 
             @if (_sessionUser == Model.OwnerId) {
                 <div class="row mb">
-                    <button class="btn btn-success btn-xs" title="Edit group details">
+                    <button class="btn btn-theme btn-xs" title="Edit group details">
                         <i class="fa fa-pencil"></i>
                         @Html.ActionLink("Edit", "EditGroup", new { id = Model.GroupId })
                     </button>
@@ -57,22 +57,22 @@
                 </div>
 
                 <div class="row mb">
-                    <button class="btn btn-success btn-xs" title="Display group members">
-                        <i class="fa fa-folder-open"></i>
+                    <button class="btn btn-theme03 btn-xs" title="Display group members">
+                        <i class="fa fa-cogs"></i>
                         @Html.ActionLink("Manage Members", "DisplayGroupMembers", new { id = Model.GroupId })
                     </button>
                 </div>
             }
 
             <div class="row mb">
-                <button class="btn btn-success btn-xs" title="Display group assignements">
+                <button class="btn btn-warning btn-xs" title="Display group assignements">
                     <i class="fa fa-folder-open"></i>
                     @Html.ActionLink("View Assignements", "DisplayGroupAssignedHomework", "Homework", new { groupId = Model.GroupId }, new { title = "Display group assignements" })
                 </button>
             </div>
 
             <div class="row mb">
-                <button class="btn btn-success btn-xs" title="Display group grades for assignements">
+                <button class="btn btn-warning btn-xs" title="Display group grades for assignements">
                     <i class="fa fa-folder-open"></i>
                     @Html.ActionLink("View Received Grades", "DisplayGroupReceivedGrades", "Grades", new { groupId = Model.GroupId }, new { title = "Display group grades for assignements" })
                 </button>

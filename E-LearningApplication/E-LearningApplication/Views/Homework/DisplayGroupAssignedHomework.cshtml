@@ -58,10 +58,16 @@
                     </td>
                     <td>
                         @if (item.AnswerId != null && item.AnswerId > 0) {
-                            @Html.ActionLink("Resubmit", "SubmitGroupHomework", "Homework", new { homeworkId = item.HomeworkId, assignementId = item.AssignementId, recipientId = item.RecipientId }, new { title = "Resubmit an answer to the assigned homework" })
+                            <button class="btn btn-theme03 btn-xs" title="Grade the homework">
+                                <i class="fa fa-send-o"></i>
+                                @Html.ActionLink("Resubmit", "SubmitGroupHomework", "Homework", new { homeworkId = item.HomeworkId, assignementId = item.AssignementId, recipientId = item.RecipientId }, new { title = "Resubmit an answer to the assigned homework" })
+                            </button>
                         }
                         else {
-                            @Html.ActionLink("Submit", "SubmitGroupHomework", "Homework", new { homeworkId = item.HomeworkId, assignementId = item.AssignementId, recipientId = item.RecipientId }, new { title = "Submit an answer to the assigned homework" })
+                            <button class="btn btn-theme03 btn-xs" title="Grade the homework">
+                                <i class="fa fa-send-o"></i>
+                                @Html.ActionLink("Submit", "SubmitGroupHomework", "Homework", new { homeworkId = item.HomeworkId, assignementId = item.AssignementId, recipientId = item.RecipientId }, new { title = "Submit an answer to the assigned homework" })
+                            </button>
                         }
                     </td>
                 </tr>

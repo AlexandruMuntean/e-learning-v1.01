@@ -3,16 +3,15 @@
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Compose Mail</h2>
 
-    <div>
+    <div class="panel panel-body">
         @using (Html.BeginForm("SendMail", "Home", FormMethod.Post)) {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
 
-            <fieldset>
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Sender)
                 </div>
-                <div class="editor-field">
+                <div class="editor-field mb">
                     @Html.EditorFor(model => model.Sender)
                     @Html.ValidationMessageFor(model => model.Sender)
                 </div>
@@ -20,7 +19,7 @@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Receivers)
                 </div>
-                <div class="editor-field">
+                <div class="editor-field mb">
                     @Html.EditorFor(model => model.Receivers)
                     @Html.ValidationMessageFor(model => model.Receivers)
                 </div>
@@ -28,7 +27,7 @@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.MailSubject)
                 </div>
-                <div class="editor-field">
+                <div class="editor-field mb">
                     @Html.EditorFor(model => model.MailSubject)
                     @Html.ValidationMessageFor(model => model.MailSubject)
                 </div>
@@ -36,15 +35,14 @@
                 <div class="editor-label">
                     @Html.LabelFor(model => model.MailBody)
                 </div>
-                <div class="editor-field">
+                <div class="editor-field mb">
                     @Html.TextAreaFor(model => model.MailBody)
                     @Html.ValidationMessageFor(model => model.MailBody)
                 </div>
 
                 <p>
-                    <input type="submit" value="Send Mail" class="btn btn-default btn-sm" />
+                    <input type="submit" value="Send Mail" class="btn btn-facebook btn-sm" />
                 </p>
-            </fieldset>
         }
     </div>
 
