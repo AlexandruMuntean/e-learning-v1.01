@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using E_LearningServices.CustomExceptions;
 
 namespace E_LearningServices.Services.Interfaces {
     public interface IUserManagement {

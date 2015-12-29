@@ -12,6 +12,8 @@ namespace E_LearningApplication.Models.ViewModels {
         [StringLength(30)]
         public string ResourceType { get; set; }
 
+        public string FileLocation { get; set; }
+
         public string FileId { get; set; }
 
         [Display(Name="File name")]

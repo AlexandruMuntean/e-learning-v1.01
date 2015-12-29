@@ -700,6 +700,7 @@
     <Content Include="Views\Student\MyModuleDetails.cshtml" />
     <Content Include="Views\Student\DisplayMyCourseResources.cshtml" />
     <Content Include="Views\Student\DisplayMyModuleResources.cshtml" />
+    <Content Include="Views\Prof\DowloadCourseResource.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

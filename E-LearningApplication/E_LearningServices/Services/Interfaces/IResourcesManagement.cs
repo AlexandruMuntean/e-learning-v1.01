@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using Google.Apis.Drive.v2;
-//using GoogleDataAPI = Google.Apis.Drive.v2.Data;
+using Google.Apis.Drive.v2;
+using GoogleDataAPI = Google.Apis.Drive.v2.Data;
 using E_LearningServices.Models;
 
 namespace E_LearningServices.Services.Interfaces {
@@ -17,7 +17,7 @@ namespace E_LearningServices.Services.Interfaces {
         /// <param name="_description">The _description.</param>
         /// <param name="_parent">The _parent.</param>
         /// <returns></returns>
-        //GoogleDataAPI.File CreateDirectory(string _title, string _description, string _parent);
+        GoogleDataAPI.File CreateDirectory(string _title, string _description, string _parent);
 
         /// <summary>
         /// Uploads the file to drive.
@@ -25,13 +25,13 @@ namespace E_LearningServices.Services.Interfaces {
         /// <param name="_uploadFile">The _upload file.</param>
         /// <param name="_parent">The _parent.</param>
         /// <returns></returns>
-        //GoogleDataAPI.File UploadFile(string _uploadFile, string _parent);
+        GoogleDataAPI.File UploadFile(string _uploadFile, string _parent);
 
         /// <summary>
         /// Deletes the file from drive.
         /// </summary>
         /// <param name="fileId">The file identifier.</param>
-        //void DeleteFile(String fileId);
+        void DeleteFile(String fileId);
 
         /// <summary>
         /// Updates the fileon drive.
@@ -70,6 +70,8 @@ namespace E_LearningServices.Services.Interfaces {
         /// <exception cref="CustomException"></exception>
         void SaveResourcesToDb(Resources resources);
 
+        string GetFileIdForDirectory(int courseId);
+
         /// <summary>
         /// Deletes the course.
         /// </summary>
@@ -86,6 +88,8 @@ namespace E_LearningServices.Services.Interfaces {
         /// <exception cref="CustomException">
         /// </exception>
         string GetFileIdForADirectory(int? courseId);
+
+        string GetFileIdForAModule(int moduleId);
 
         /// <summary>
         /// Gets the module identifier by name and course identifier.
