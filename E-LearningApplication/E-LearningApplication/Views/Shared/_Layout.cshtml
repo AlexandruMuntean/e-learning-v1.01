@@ -1,8 +1,14 @@
 ﻿@{
+    string[] _rolesArray;
     var _userRoles = Session["UserRoles"];
-    string[] _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
-                                                                 .Select(x => x.ToString())
-                                                                 .ToArray();
+    if (_userRoles != null) {
+        _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
+                                                                  .Select(x => x.ToString())
+                                                                  .ToArray();
+    }
+    else {
+        _rolesArray = new string[1] {"Student"};
+    }
 }
 
 <!DOCTYPE html>
