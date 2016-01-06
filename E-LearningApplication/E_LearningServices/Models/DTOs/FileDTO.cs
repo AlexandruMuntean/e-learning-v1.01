@@ -8,5 +8,6 @@ namespace E_LearningServices.Models.DTOs {
         public int rootId { get; set; }
         public int parentId { get; set; }
         public string fileName { get; set; }
+        public string filePath { get; set; }
     }
 }

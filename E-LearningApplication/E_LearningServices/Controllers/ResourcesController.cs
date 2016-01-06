@@ -81,12 +81,12 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage AddCourseToResources(CoursesDTO dto) {
             try {
                 //adding a course to drive
-                //var result = this._resourcesManagement.CreateDirectory(course.CourseName, "", ElUpToMe);
+                var result = this._resourcesManagement.CreateDirectory(dto.CourseName, "", ElUpToMe);
                 Resources resources = new Resources {
                     ResourceType = "directory",
                     FileLocation = "",
-                    FileId = ElUpToMe, //result.Id,
-                    FileName = dto.CourseName, //result.Title,
+                    FileId = result.Id,
+                    FileName = result.Title,
                     CourseId = _courseManagement.GetCourseIdByCode(dto.CourdeCode),
                     ModuleID = -1
                 };
@@ -103,9 +103,8 @@ namespace E_LearningServices.Controllers {
         [HttpDelete]
         public HttpResponseMessage DeleteCourseFromResources(int id) {
             try {
-                //delete course resources
+                //delete course resources 
                 this._resourcesManagement.DeleteCourse(id);
-
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
@@ -119,7 +118,6 @@ namespace E_LearningServices.Controllers {
             try {
                 //delete the resource
                 this._resourcesManagement.DeleteCourseResource(id);
-
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
@@ -145,12 +143,13 @@ namespace E_LearningServices.Controllers {
         [HttpPost]
         public HttpResponseMessage UploadResourcesForCourses(int id, FileDTO dto) {
             try {
-                //var directoryFather = _resourcesManagement.GetFileIdForADirectory(id);
-                //var result = this._resourcesManagement.UploadFile(dto.fileName, directoryFather);
+
+                var directoryFather = _resourcesManagement.GetFileIdForADirectory(id);
+                var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
                     ResourceType = "file",
                     FileLocation = "",
-                    FileId = dto.parentId.ToString(), //result.Id,
+                    FileId =  result.Id,
                     FileName = dto.fileName,
                     CourseId = dto.parentId,
                     ModuleID = -1
@@ -169,20 +168,19 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage UpdateResourcesForCourse(int id, FileDTO dto) {
             try {
                 //delete old resource
-                //var directoryFather = _resourcesManagement.GetFileIdForADirectory(id);
+                var directoryFather = _resourcesManagement.GetFileIdForDirectory(dto.parentId);
                 this._resourcesManagement.DeleteCourseResource(id);
                 //add new resource
-                //var result = this._resourcesManagement.UploadFile(dto.fileName, directoryFather);
+                var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
                     ResourceType = "file",
                     FileLocation = "",
-                    FileId = dto.parentId.ToString(), //result.Id,
-                    FileName = dto.fileName, //result.Title,
+                    FileId =  result.Id,
+                    FileName = dto.fileName,
                     CourseId = dto.parentId,
                     ModuleID = -1
                 };
                 this._resourcesManagement.SaveResourcesToDb(resources);
-
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
@@ -228,13 +226,13 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage AddModuleToResources(CourseModuleDTO dto) {
             try {
                 //add the associated module resource to db
-                //var directoryFather = _resourcesManagement.GetFileIdForADirectory(module.CourseId);
-                //var result = this._resourcesManagement.CreateDirectory(module.ModuleName, "", directoryFather);
+                var directoryFather = _resourcesManagement.GetFileIdForADirectory(dto.CourseId);
+                var result = this._resourcesManagement.CreateDirectory(dto.ModuleName, "", directoryFather);
                 Resources resources = new Resources {
                     ResourceType = "module",
                     FileLocation = "",
-                    FileId = dto.CourseId.ToString(), //result.Id,
-                    FileName = dto.ModuleName, //result.Title,
+                    FileId = result.Id,
+                    FileName = result.Title,
                     CourseId = dto.CourseId ?? default(int),
                     ModuleID = _resourcesManagement.GetModuleIdByNameAndCourseId(dto.ModuleName, dto.CourseId)
                 };
@@ -252,8 +250,8 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage DeleteModuleFromResources(int id) {
             try {
                 //delete the associated resources
+                //the delete of the information from drive and db is on the DeleteModule function
                 this._resourcesManagement.DeleteModule(id);
-
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
@@ -265,18 +263,17 @@ namespace E_LearningServices.Controllers {
         [HttpPost]
         public HttpResponseMessage UploadResourcesForModule(int id, FileDTO dto) {
             try {
-                //var directoryFather = _resourcesManagement.GetFileIdForADirectory(dto.parentId);
-                //var result = this._resourcesManagement.UploadFile(dto.fileName, directoryFather);
+                var directoryFather = _resourcesManagement.GetFileIdForAModule(dto.parentId);
+                var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
                     ResourceType = "file",
                     FileLocation = "",
-                    FileId = dto.parentId.ToString(), //result.Id,
-                    FileName = dto.fileName, //result.Title,
+                    FileId = result.Id,
+                    FileName = dto.fileName,
                     CourseId = dto.rootId,
                     ModuleID = dto.parentId
                 };
                 this._resourcesManagement.SaveResourcesToDb(resources);
-
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
@@ -289,14 +286,14 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage UpdateResourcesForModule(int id, FileDTO dto) {
             try {
                 //delete old resource
-                //var directoryFather = _resourcesManagement.GetFileIdForADirectory(dto.parentId);
+                var directoryFather = _resourcesManagement.GetFileIdForAModule(dto.parentId);
                 this._resourcesManagement.DeleteModuleResource(id);
                 //add new resource
-                //var result = this._resourcesManagement.UploadFile(dto.fileName, directoryFather);
+                var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
                     ResourceType = "file",
                     FileLocation = "",
-                    FileId = dto.parentId.ToString(), //result.Id,
+                    FileId = result.Id,
                     FileName = dto.fileName, //result.Title,
                     CourseId = dto.rootId, // sau -1? mai vedem
                     ModuleID = dto.parentId

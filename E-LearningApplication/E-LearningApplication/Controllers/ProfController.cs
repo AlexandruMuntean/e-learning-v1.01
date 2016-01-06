@@ -8,9 +8,11 @@ using E_LearningApplication.ViewModelFactories;
 using E_LearningApplication.ViewModelFactories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -432,7 +434,12 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    FileDTO dto = new FileDTO { parentId = id, fileName = file.FileName };
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+
+                    FileDTO dto = new FileDTO { parentId = id, fileName = file.FileName , filePath = path};
                     HttpResponseMessage response =
                         client.PostAsJsonAsync("api/resources/UploadResourcesForCourses/?id=" + id, dto).Result;
                     if (!response.IsSuccessStatusCode) {
@@ -467,6 +474,7 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
+
                     HttpResponseMessage response = client.DeleteAsync("api/resources/DeleteCourseResource/?id=" + id).Result;
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
@@ -481,6 +489,70 @@ namespace E_LearningApplication.Controllers {
                 return View("Error");
             }
             catch (Exception ex) {
+                this.logger.Trace(ex, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed!";
+                return View("Error");
+            }
+        }
+
+        private string GetUrlDownload(string FileId)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("https://docs.google.com/uc?id=").Append(FileId).Append("&export=download");
+            return sb.ToString();
+        }
+
+        public ActionResult DowloadCourseResource(int id = 0)
+        {
+            this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            try
+            {
+                //get the course resource
+                Resources resource = new Resources();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/resources/GetCourseResourceById/?id=" + id).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Resources r = response.Content.ReadAsAsync<Resources>().Result;
+                        if (r != null)
+                        {
+                            resource.CourseId = r.CourseId;
+                            resource.FileId = r.FileId;
+                            resource.FileName = r.FileName;
+                            resource.ModuleID = r.ModuleID;
+                            resource.ResourceId = r.ResourceId;
+                            resource.ResourceType = r.ResourceType;
+
+                            string UrlDownload = GetUrlDownload(resource.FileId);
+                            resource.FileLocation = UrlDownload;
+                        }
+                        else
+                        {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
+                    else
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                ResourceViewModel rvm = viewModelFactory.GetViewModel(resource);
+                return View(rvm);
+            }
+            catch (CustomException ce)
+            {
+                this.logger.Trace(ce, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed! Try again.";
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
                 this.logger.Trace(ex, "Username: " + User.Identity.Name);
                 ViewBag.Error = "Operation could not be completed!";
                 return View("Error");
@@ -547,7 +619,12 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    FileDTO dto = new FileDTO { parentId = courseId, fileName = file.FileName };
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+
+                    FileDTO dto = new FileDTO { parentId = courseId, fileName = file.FileName , filePath = path};
 
                     HttpResponseMessage response =
                         client.PutAsJsonAsync("api/resources/UpdateResourcesForCourse?id=" + resourceId, dto).Result;
@@ -567,6 +644,12 @@ namespace E_LearningApplication.Controllers {
                 ViewBag.Error = "Operation could not be completed!";
                 return View("Error");
             }
+        }
+
+        [HttpPost]
+        public ActionResult DownloadResourcesforCourse(HttpPostedFileBase file, int courseId = 0, int resourceId = 0)
+        {
+            return null;
         }
 
         #endregion
@@ -701,6 +784,7 @@ namespace E_LearningApplication.Controllers {
                 dto.ModuleName = courseModuleViewModel.ModuleName;
                 dto.PreviousModuleId = courseModuleViewModel.PreviousModuleId;
                 dto.CourseId = courseModuleViewModel.CourseId;
+                
 
                 //add the created course module
                 using (var client = new HttpClient()) {
@@ -943,7 +1027,12 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    FileDTO dto = new FileDTO { rootId = courseId, parentId = moduleId, fileName = file.FileName };
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+
+                    FileDTO dto = new FileDTO { rootId = courseId, parentId = moduleId, fileName = file.FileName, filePath = path };
 
                     HttpResponseMessage response =
                         client.PostAsJsonAsync("api/resources/UploadResourcesForModule/?id=" + moduleId, dto).Result;
@@ -973,12 +1062,13 @@ namespace E_LearningApplication.Controllers {
         public ActionResult DeleteModuleResource(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //delete the course resource
+                //delete the module resource
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
+
                     HttpResponseMessage response = client.DeleteAsync("api/resources/DeleteModuleResource/?id=" + id).Result;
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
@@ -1059,7 +1149,12 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    FileDTO dto = new FileDTO { rootId = courseId, parentId = moduleId, fileName = file.FileName };
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+
+                    FileDTO dto = new FileDTO { rootId = courseId, parentId = moduleId, fileName = file.FileName , filePath = path};
 
                     HttpResponseMessage response =
                         client.PutAsJsonAsync("api/resources/UpdateResourcesForModule/?id=" + resourceId, dto).Result;

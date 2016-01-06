@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-//using Google.Apis.Auth.OAuth2;
-//using Google.Apis.Drive.v2;
-//using Google.Apis.Services;
-//using Google.Apis.Util.Store;
-//using GoogleDataAPI = Google.Apis.Drive.v2.Data;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Drive.v2;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using GoogleDataAPI = Google.Apis.Drive.v2.Data;
 using System.Threading;
 using E_LearningServices.Models;
 using E_LearningServices.CustomExceptions;
@@ -19,13 +19,13 @@ namespace E_LearningServices.Services {
     public class ResourcesManagement : IResourcesManagement {
         #region PrivateFields
 
-        //private DriveService _service;
-        //string[] scopes = new string[] { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
+        private DriveService _service;
+        string[] scopes = new string[] { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
         ////the credential to have acces to google drive
-        //private static string clientId = "784803610556-ik1lslqd89pt0r1ctnue5s53sg10gdnb.apps.googleusercontent.com";
-        //private static string clientSecret = "4BD3Q7TOriN-ZdEe4VYVb0V6";          //  https://console.developers.google.com
+        private static string clientId = "784803610556-ik1lslqd89pt0r1ctnue5s53sg10gdnb.apps.googleusercontent.com";
+        private static string clientSecret = "4BD3Q7TOriN-ZdEe4VYVb0V6";          //  https://console.developers.google.com
         ////the id of the ElUpToMe folder
-        //private static readonly string ElUpToMe = "0B3-zDDotAEInbUs3bTJTV3p1Um8";
+        private static readonly string ElUpToMe = "0B3-zDDotAEInbUs3bTJTV3p1Um8";
 
         #endregion
 
@@ -34,28 +34,28 @@ namespace E_LearningServices.Services {
         /// <summary>
         /// Initializes the service.
         /// </summary>
-        //public void InitializeService() {
+        public void InitializeService() {
         //    // here is where we Request the user to give us access, or use the Refresh Token that was previously stored in %AppData%
-        //    var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets {
-        //        ClientId = clientId,
-        //        ClientSecret = clientSecret
-        //    }, scopes,
-        //      Environment.UserName,
-        //      CancellationToken.None,
-        //      new FileDataStore("Daimto.GoogleDrive.Auth.Store")).Result;
+            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets {
+                ClientId = clientId,
+                ClientSecret = clientSecret
+           }, scopes,
+              Environment.UserName,
+             CancellationToken.None,
+              new FileDataStore("Daimto.GoogleDrive.Auth.Store")).Result;
 
-        //    this._service = new DriveService(new BaseClientService.Initializer() {
-        //        HttpClientInitializer = credential,
-        //        ApplicationName = "GoogleDocsAPI",
-        //    });
-        //}
+            this._service = new DriveService(new BaseClientService.Initializer() {
+                HttpClientInitializer = credential,
+                ApplicationName = "GoogleDocsAPI",
+           });
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourcesManagement"/> class.
         /// </summary>
-        //public ResourcesManagement() {
-        //    InitializeService();
-        //}
+        public ResourcesManagement() {
+            InitializeService();
+        }
 
         /// <summary>
         /// Creates the directory on the drive.
@@ -64,44 +64,49 @@ namespace E_LearningServices.Services {
         /// <param name="_description">The _description.</param>
         /// <param name="_parent">The _parent.</param>
         /// <returns></returns>
-        //public GoogleDataAPI.File CreateDirectory(string _title, string _description, string _parent) {
+        public GoogleDataAPI.File CreateDirectory(string _title, string _description, string _parent) {
 
-        //    GoogleDataAPI.File NewDirectory = null;
-        //    // Create metaData for a new Directory
-        //    GoogleDataAPI.File body = new GoogleDataAPI.File();
-        //    body.Title = _title;
-        //    body.Description = _description;
-        //    body.MimeType = "application/vnd.google-apps.folder";
-        //    body.Parents = new List<GoogleDataAPI.ParentReference>() { new GoogleDataAPI.ParentReference() { Id = _parent } };
-        //    try {
-        //        FilesResource.InsertRequest request = _service.Files.Insert(body);
-        //        NewDirectory = request.Execute();
-        //    }
-        //    catch (Exception e) {
-        //        Console.WriteLine("An error occurred: " + e.Message);
-        //    }
+            GoogleDataAPI.File NewDirectory = null;
+            // Create metaData for a new Directory
+            GoogleDataAPI.File body = new GoogleDataAPI.File();
+            body.Title = _title;
+            body.Description = _description;
+            body.MimeType = "application/vnd.google-apps.folder";
+            body.Parents = new List<GoogleDataAPI.ParentReference>() { new GoogleDataAPI.ParentReference() { Id = _parent } };
+            try
+            {
+                FilesResource.InsertRequest request = _service.Files.Insert(body);
+                NewDirectory = request.Execute();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: " + e.Message);
+            }
 
-        //    return NewDirectory;
-        //}
+            return NewDirectory;
+        }
 
         /// <summary>
         /// Gets the type of the MIME.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
-        //private static string GetMimeType(string fileName) {
-        //    try {
-        //        string mimeType = "application/unknown";
-        //        string ext = System.IO.Path.GetExtension(fileName).ToLower();
-        //        Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
-        //        if (regKey != null && regKey.GetValue("Content Type") != null)
-        //            mimeType = regKey.GetValue("Content Type").ToString();
-        //        return mimeType;
-        //    }
-        //    catch (Exception ex) {
-        //        throw new CustomException(ex.Message);
-        //    }
-        //}
+        private static string GetMimeType(string fileName)
+        {
+            try
+            {
+                string mimeType = "application/unknown";
+                string ext = System.IO.Path.GetExtension(fileName).ToLower();
+                Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+                if (regKey != null && regKey.GetValue("Content Type") != null)
+                    mimeType = regKey.GetValue("Content Type").ToString();
+                return mimeType;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
 
         /// <summary>
         /// Uploads the file to drive.
@@ -109,50 +114,60 @@ namespace E_LearningServices.Services {
         /// <param name="_uploadFile">The _upload file.</param>
         /// <param name="_parent">The _parent.</param>
         /// <returns></returns>
-        //public GoogleDataAPI.File UploadFile(string _uploadFile, string _parent) {
-        //    try {
-        //        if (System.IO.File.Exists(_uploadFile)) {
-        //            GoogleDataAPI.File body = new GoogleDataAPI.File();
-        //            body.Title = System.IO.Path.GetFileName(_uploadFile);
-        //            body.Description = "File uploaded by me";
-        //            body.MimeType = GetMimeType(_uploadFile);
-        //            body.Parents = new List<GoogleDataAPI.ParentReference>() { new GoogleDataAPI.ParentReference() { Id = _parent } };
+        public GoogleDataAPI.File UploadFile(string _uploadFile, string _parent)
+        {
+            try
+            {
+                if (System.IO.File.Exists(_uploadFile))
+                {
+                    GoogleDataAPI.File body = new GoogleDataAPI.File();
+                    body.Title = System.IO.Path.GetFileName(_uploadFile);
+                    body.Description = "File uploaded by me";
+                    body.MimeType = GetMimeType(_uploadFile);
+                    body.Parents = new List<GoogleDataAPI.ParentReference>() { new GoogleDataAPI.ParentReference() { Id = _parent } };
 
-        //            // File's content.
-        //            byte[] byteArray = System.IO.File.ReadAllBytes(_uploadFile);
-        //            System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
-        //            try {
-        //                FilesResource.InsertMediaUpload request = _service.Files.Insert(body, stream, GetMimeType(_uploadFile));
-        //                request.Upload();
-        //                return request.ResponseBody;
-        //            }
-        //            catch (Exception e) {
-        //                Console.WriteLine("An error occurred: " + e.Message);
-        //                return null;
-        //            }
-        //        }
-        //        else {
-        //            Console.WriteLine("File does not exist: " + _uploadFile);
-        //            return null;
-        //        }
-        //    }
-        //    catch (Exception ex) {
-        //        throw new CustomException(ex.Message);
-        //    }
-        //}
+                    // File's content.
+                    byte[] byteArray = System.IO.File.ReadAllBytes(_uploadFile);
+                    System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
+                    try
+                    {
+                        FilesResource.InsertMediaUpload request = _service.Files.Insert(body, stream, GetMimeType(_uploadFile));
+                        request.Upload();
+                        return request.ResponseBody;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("An error occurred: " + e.Message);
+                        return null;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("File does not exist: " + _uploadFile);
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
 
         /// <summary>
         /// Deletes the file from drive.
         /// </summary>
         /// <param name="fileId">The file identifier.</param>
-        //public void DeleteFile(String fileId) {
-        //    try {
-        //        _service.Files.Delete(fileId).Execute();
-        //    }
-        //    catch (Exception e) {
-        //        Console.WriteLine("An error occurred when trying delete the file: " + e.Message);
-        //    }
-        //}
+        public void DeleteFile(String fileId)
+        {
+            try
+            {
+                _service.Files.Delete(fileId).Execute();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred when trying delete the file: " + e.Message);
+            }
+        }
 
         /// <summary>
         /// Updates the file on drive.
@@ -163,33 +178,36 @@ namespace E_LearningServices.Services {
         /// <param name="newFilename">The new filename.</param>
         /// <param name="newRevision">if set to <c>true</c> [new revision].</param>
         /// <returns></returns>
-        //public GoogleDataAPI.File updateFile(String fileId, String newTitle, String newDescription, String newFilename, bool newRevision) {
-        //    try {
-        //        // First retrieve the file from the API.
-        //        GoogleDataAPI.File file = _service.Files.Get(fileId).Execute();
+        public GoogleDataAPI.File updateFile(String fileId, String newTitle, String newDescription, String newFilename, bool newRevision)
+        {
+            try
+            {
+                // First retrieve the file from the API.
+                GoogleDataAPI.File file = _service.Files.Get(fileId).Execute();
 
-        //        // File's new metadata.
-        //        file.Title = newTitle;
-        //        file.Description = newDescription;
-        //        file.MimeType = GetMimeType(newFilename);
+                // File's new metadata.
+                file.Title = newTitle;
+                file.Description = newDescription;
+                file.MimeType = GetMimeType(newFilename);
 
-        //        // File's new content.
-        //        byte[] byteArray = System.IO.File.ReadAllBytes(newFilename);
-        //        System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
-        //        // Send the request to the API.
-        //        FilesResource.UpdateMediaUpload request = _service.Files.Update(file, fileId, stream, file.MimeType);
-        //        request.NewRevision = newRevision;
-        //        request.Upload();
+                // File's new content.
+                byte[] byteArray = System.IO.File.ReadAllBytes(newFilename);
+                System.IO.MemoryStream stream = new System.IO.MemoryStream(byteArray);
+                // Send the request to the API.
+                FilesResource.UpdateMediaUpload request = _service.Files.Update(file, fileId, stream, file.MimeType);
+                request.NewRevision = newRevision;
+                request.Upload();
 
-        //        GoogleDataAPI.File updatedFile = request.ResponseBody;
-        //        return updatedFile;
-        //    }
-        //    catch (Exception e) {
-        //        Console.WriteLine("An error occurred: " + e.Message);
-        //        return null;
-        //    }
+                GoogleDataAPI.File updatedFile = request.ResponseBody;
+                return updatedFile;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occurred: " + e.Message);
+                return null;
+            }
 
-        //}
+        }
 
         /// <summary>
         /// Downloads the file from drive.
@@ -197,42 +215,50 @@ namespace E_LearningServices.Services {
         /// <param name="_fileResource">The _file resource.</param>
         /// <param name="_saveTo">The _save to.</param>
         /// <returns></returns>
-        //public Boolean DownloadFile(GoogleDataAPI.File _fileResource, string _saveTo) {
+        public Boolean DownloadFile(GoogleDataAPI.File _fileResource, string _saveTo)
+        {
 
-        //    if (!String.IsNullOrEmpty(_fileResource.DownloadUrl)) {
-        //        try {
-        //            var x = _service.HttpClient.GetByteArrayAsync(_fileResource.DownloadUrl);
-        //            byte[] arrBytes = x.Result;
-        //            System.IO.File.WriteAllBytes(_saveTo, arrBytes);
-        //            return true;
-        //        }
-        //        catch (Exception e) {
-        //            Console.WriteLine("An error occurred: " + e.Message);
-        //            return false;
-        //        }
-        //    }
-        //    else {
-        //        // The file doesn't have any content stored on Drive.
-        //        return false;
-        //    }
-        //}
+            if (!String.IsNullOrEmpty(_fileResource.DownloadUrl))
+            {
+                try
+                {
+                    var x = _service.HttpClient.GetByteArrayAsync(_fileResource.DownloadUrl);
+                    byte[] arrBytes = x.Result;
+                    System.IO.File.WriteAllBytes(_saveTo, arrBytes);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("An error occurred: " + e.Message);
+                    return false;
+                }
+            }
+            else
+            {
+                // The file doesn't have any content stored on Drive.
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gets all files from drive.
         /// </summary>
         /// <returns></returns>
         /// <exception cref="CustomException"></exception>
-        //public IList<Google.Apis.Drive.v2.Data.File> GetAllFiles() {
-        //    try {
-        //        FilesResource.ListRequest listRequest = _service.Files.List();
-        //        IList<Google.Apis.Drive.v2.Data.File> files = listRequest.Execute()
-        //            .Items;
-        //        return files;
-        //    }
-        //    catch (Exception ex) {
-        //        throw new CustomException(ex.Message);
-        //    }
-        //}
+        public IList<Google.Apis.Drive.v2.Data.File> GetAllFiles()
+        {
+            try
+            {
+                FilesResource.ListRequest listRequest = _service.Files.List();
+                IList<Google.Apis.Drive.v2.Data.File> files = listRequest.Execute()
+                    .Items;
+                return files;
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
 
         #endregion
 
@@ -267,9 +293,19 @@ namespace E_LearningServices.Services {
                     var result = db.Resources
                                         .Where(x => x.CourseId == id)
                                         .First();
-                    if (result != null) {
+                    if (result != null) 
+                    {
+                        //sterg din interior spre exterior
+                        var resourceList = db.Resources.Where(x => x.CourseId == result.CourseId).ToList();
+
+                        foreach (var resursa in resourceList)
+                        {
+                                DeleteFile(resursa.FileId);
+                                db.Resources.Remove(resursa);
+                        }
+                        
                         string fileId = result.FileId;
-                        //DeleteFile(fileId);
+                        DeleteFile(fileId);
                         db.Resources.Remove(result);
                         db.SaveChanges();
                     }
@@ -297,9 +333,19 @@ namespace E_LearningServices.Services {
                 using (var db = new ELearningDatabaseEntities()) {
                     var result = db.Resources
                                         .First(x => x.ModuleID == id);
-                    if (result != null) {
+                    if (result != null)
+                    {
+                        var resourceList = db.Resources.Where(x => x.ModuleID == result.ModuleID).ToList();
+
+                        foreach (var resursa in resourceList)
+                        {
+                            DeleteFile(resursa.FileId);
+                            db.Resources.Remove(resursa);
+                        }
+
                         string fileId = result.FileId;
-                        //DeleteFile(fileId);
+                        //for drive
+                        this.DeleteFile(fileId);
                         db.Resources.Remove(result);
                         db.SaveChanges();
                     }
@@ -325,10 +371,11 @@ namespace E_LearningServices.Services {
         /// </exception>
         public string GetFileIdForADirectory(int? courseId) {
             try {
-                
+
+                int courserValue = courseId.GetValueOrDefault();
                 using (var db = new ELearningDatabaseEntities()) {
                     var result = db.Resources
-                                        .Where(x => x.CourseId == courseId)
+                                        .Where(x => x.CourseId == courserValue)
                                         .First();
                     if (result != null) {
                         return result.FileId;
@@ -340,6 +387,59 @@ namespace E_LearningServices.Services {
                 throw new CustomException(ane.Message);
             }
             catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        public string GetFileIdForDirectory(int courseId)
+        {
+            try
+            {
+
+               using (var db = new ELearningDatabaseEntities())
+                {
+                    var result = db.Resources
+                                        .Where(x => x.CourseId == courseId)
+                                        .First();
+                    if (result != null)
+                    {
+                        return result.FileId;
+                    }
+                }
+                return string.Empty;
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        public string GetFileIdForAModule(int moduleId)
+        {
+            try
+            {
+                using (var db = new ELearningDatabaseEntities())
+                {
+                    var result = db.Resources
+                                        .Where(x => x.ModuleID == moduleId)
+                                        .First();
+                    if (result != null)
+                    {
+                        return result.FileId;
+                    }
+                }
+                return string.Empty;
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex)
+            {
                 throw new CustomException(ex.Message);
             }
         }
@@ -432,9 +532,9 @@ namespace E_LearningServices.Services {
                     var resource = db.Resources
                                         .Where(r => r.ResourceId == id)
                                         .First();
-                    if (resource != null) {
+                    if (resource != null){
                         string fildeId = resource.FileId;
-                        //DeleteFile(fildeId);
+                        DeleteFile(fildeId);
                         db.Resources.Remove(resource);
                         db.SaveChanges();
                     }
@@ -461,8 +561,8 @@ namespace E_LearningServices.Services {
                                         .Where(r => r.ResourceId == id)
                                         .First();
                     if (resource != null) {
-                        string fildeId = resource.FileId;
-                        //DeleteFile(fildeId);
+                        string fileId = resource.FileId;
+                        DeleteFile(fileId);
                         db.Resources.Remove(resource);
                         db.SaveChanges();
                     }

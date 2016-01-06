@@ -211,6 +211,7 @@ namespace E_LearningApplication.ViewModelFactories {
                 rvm.ModuleID = resource.ModuleID;
                 rvm.ResourceId = resource.ResourceId;
                 rvm.ResourceType = resource.ResourceType;
+                rvm.FileLocation = resource.FileLocation;
 
                 return rvm;
             }
