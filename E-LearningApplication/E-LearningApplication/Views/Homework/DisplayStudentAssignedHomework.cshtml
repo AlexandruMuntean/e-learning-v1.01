@@ -14,13 +14,13 @@
                     @Html.DisplayNameFor(model => model.HomeworkDescription)
                 </td>
                 <td>
+                    Full description
+                </td>
+                <td>
                     @Html.DisplayNameFor(model => model.HomeworkDeadline)
                 </td>
                 <td>
                     @Html.DisplayNameFor(model => model.HomeworkPoints)
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => model.HomeworkSubmissionType)
                 </td>
                 <td>
                     @Html.DisplayNameFor(model => model.SubjectCode)
@@ -37,13 +37,16 @@
                         @Html.DisplayFor(modelItem => item.HomeworkDescription)
                     </td>
                     <td>
+                        <button class="btn btn-info btn-xs" title="Download course resources">
+                            <i class="fa fa-arrow-down"></i>
+                            @Html.ActionLink("Download", "DowloadCourseResource", "Prof", new { id = item.HomeworkId }, new { title = "Download homework"})
+                        </button>
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.HomeworkDeadline)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.HomeworkPoints)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HomeworkSubmissionType)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.SubjectCode)

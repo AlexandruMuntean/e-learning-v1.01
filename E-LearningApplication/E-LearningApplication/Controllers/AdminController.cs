@@ -36,8 +36,42 @@ namespace E_LearningApplication.Controllers {
 
         public ActionResult Index() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            try {
+                List<Logs> logs = new List<Logs>();
 
-            return View();
+                using (var client = new HttpClient()) {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/admin/GetAllLogs").Result;
+                    if (response.IsSuccessStatusCode) {
+                        IEnumerable<Logs> l = response.Content.ReadAsAsync<IEnumerable<Logs>>().Result;
+                        if (l != null) {
+                            logs = l.ToList();
+                        }
+                        else {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
+                    else {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                List<LogsViewModel> lvm = this.viewModelFactory.GetViewModel(logs);
+                return PartialView("_Index", lvm);
+            }
+            catch (CustomException ce) {
+                this.logger.Trace(ce, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Could not complete the operation!";
+                return View("Error");
+            }
+            catch (Exception ex) {
+                this.logger.Trace(ex, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed!";
+                return View("Error");
+            }
         }
 
 

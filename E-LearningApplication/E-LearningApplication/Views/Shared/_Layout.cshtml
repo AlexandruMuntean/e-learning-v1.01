@@ -1,17 +1,14 @@
 ﻿@{
-    var _userRoles = Session["UserRoles"];
     string[] _rolesArray;
-    if( _userRoles != null)
-    {
+    var _userRoles = Session["UserRoles"];
+    if (_userRoles != null) {
         _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
-                                                               .Select(x => x.ToString())
-                                                                 .ToArray();
+                                                                  .Select(x => x.ToString())
+                                                                  .ToArray();
     }
-    else
-    {
-        _rolesArray = new string[1] { "Prof" };
+    else {
+        _rolesArray = new string[1] { E_LearningApplication.Utils.RolesEnum.Student.ToString() };
     }
-    
 }
 
 <!DOCTYPE html>
@@ -27,30 +24,71 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <header class="navbar navbar-default">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                @if (_rolesArray.Contains("Admin") == true) {
-        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-    }
-    @if (_rolesArray.Contains("Prof") == true) {
-        <li>@Html.ActionLink("Prof", "Index", "Prof")</li>
-    }
-    @if (_rolesArray.Contains("Student") == true) {
-        <li>@Html.ActionLink("Student", "Index", "Student")</li>
-    }
-            
-                
-                <li title="View all the groups available for subscription">@Html.ActionLink("View available groups", "DisplayAllGroups", "Groups")</li>
-                <li title="View all the groups I'm subscribed to">@Html.ActionLink("View my groups", "DisplayAssociatedGroups", "Groups")</li>
-                <li title="Creates a new forum topic">@Html.ActionLink("Go to forum", "Forum", "Discussions")</li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                @Html.Partial("_LoginPartial")
-            </ul>
-        </div>
-    </header>
+    <div class="navbar navbar-default">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (_rolesArray.Contains("Admin") == true) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Admin <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li title="Contains search, block/unblock functionalities">@Html.ActionLink("Display all users", "DisplayUsers", "Admin")</li>
+                                <li title="Contains search, delete functionalities">@Html.ActionLink("Display all logs", "DisplayLogs", "Admin")</li>
+                                <li title="Imports users from a chosen file and assigns roles">@Html.ActionLink("Import users from csv file", "ImportUsers", "Admin")</li>
+                            </ul>
+                        </li>
+                        //delete after submenu works
+                        <li title="Contains search, block/unblock functionalities">@Html.ActionLink("Display all users", "DisplayUsers", "Admin")</li>
+                        <li title="Contains search, delete functionalities">@Html.ActionLink("Display all logs", "DisplayLogs", "Admin")</li>
+                        <li title="Imports users from a chosen file and assigns roles">@Html.ActionLink("Import users from csv file", "ImportUsers", "Admin")</li>
+                    }
+                    @if (_rolesArray.Contains("Prof") == true) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                Prof <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li title="Displays all owned courses">@Html.ActionLink("Display my courses", "DisplayCourses", "Prof")</li>
+                                <li title="Displays all courses">@Html.ActionLink("Display all courses", "DisplayAllCourses", "Prof")</li>
+                            </ul>
+                        </li>
+                        //delete after submenu works
+                        <li title="Displays all owned courses">@Html.ActionLink("Display my courses", "DisplayCourses", "Prof")</li>
+                        <li title="Displays all courses">@Html.ActionLink("Display all courses", "DisplayAllCourses", "Prof")</li>
+                    }
+                    @if (_rolesArray.Contains("Student") == true) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle">
+                                Student <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li title="View all the courses available for enrollment">@Html.ActionLink("View all available courses", "DisplayAllAvailableCourses", "Student")</li>
+                                <li title="View all the courses I'm enrolled to">@Html.ActionLink("View my courses", "DisplayMyCourses", "Student")</li>
+                                <li title="View all the homework assigned to me">@Html.ActionLink("View my homework", "DisplayStudentAssignedHomework", "Homework")</li>
+                                <li title="View all the grades I received">@Html.ActionLink("View my grades", "DisplayStudentReceivedGrades", "Grades")</li>
+                            </ul>
+                        </li>
+                        //delete after submenu works
+                        <li title="View all the courses available for enrollment">@Html.ActionLink("View all available courses", "DisplayAllAvailableCourses", "Student")</li>
+                        <li title="View all the courses I'm enrolled to">@Html.ActionLink("View my courses", "DisplayMyCourses", "Student")</li>
+                        <li title="View all the homework assigned to me">@Html.ActionLink("View my homework", "DisplayStudentAssignedHomework", "Homework")</li>
+                        <li title="View all the grades I received">@Html.ActionLink("View my grades", "DisplayStudentReceivedGrades", "Grades")</li>
+                    }
+                    <li title="View all the groups available for subscription">@Html.ActionLink("View available groups", "DisplayAllGroups", "Groups")</li>
+                    <li title="View all the groups I'm subscribed to">@Html.ActionLink("View my groups", "DisplayAssociatedGroups", "Groups")</li>
+                    <li title="Creates a new forum topic">@Html.ActionLink("Go to forum", "Forum", "Discussions")</li>
+                    <li title="Compose and send a new mail">@Html.ActionLink("Send mail", "ComposeMail", "Discussions")</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.Partial("_LoginPartial")
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div id="body" class="container">
         @RenderSection("featured", required: false)
         <section class="content-wrapper main-content clear-fix">

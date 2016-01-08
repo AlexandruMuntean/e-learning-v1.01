@@ -11,6 +11,7 @@ using GoogleDataAPI = Google.Apis.Drive.v2.Data;
 using System.Threading;
 using E_LearningServices.Models;
 using E_LearningServices.CustomExceptions;
+using E_LearningServices.Utils;
 
 namespace E_LearningServices.Services {
     /// <summary>
@@ -483,9 +484,10 @@ namespace E_LearningServices.Services {
         /// </exception>
         public List<Resources> GetCourseResources(int id) {
             try {
+                var resourceType = ResourceEnum.File.ToString();
                 using (var db = new ELearningDatabaseEntities()) {
                     return db.Resources
-                                .Where(r => r.CourseId == id)
+                                .Where(r => r.CourseId == id && r.ResourceType.Equals(resourceType))
                                 .ToList();
                 }
             }
@@ -585,9 +587,10 @@ namespace E_LearningServices.Services {
         /// </exception>
         public List<Resources> GetModuleResources(int id) {
             try {
+                var resourceType = ResourceEnum.File.ToString();
                 using (var db = new ELearningDatabaseEntities()) {
                     return db.Resources
-                                    .Where(r => r.ModuleID == id)
+                                    .Where(r => r.ModuleID == id && r.ResourceType.Equals(resourceType))
                                     .ToList();
                 }
             }

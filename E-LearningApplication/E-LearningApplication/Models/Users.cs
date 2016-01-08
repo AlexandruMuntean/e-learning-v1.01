@@ -19,14 +19,14 @@ namespace E_LearningApplication.Models
             this.Courses = new HashSet<Courses>();
             this.GroupMembers = new HashSet<GroupMembers>();
             this.Groups = new HashSet<Groups>();
-            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
-            this.Homeworks = new HashSet<Homeworks>();
             this.Messages = new HashSet<Messages>();
             this.ModuleUser = new HashSet<ModuleUser>();
             this.Pages = new HashSet<Pages>();
             this.UsersInCourse = new HashSet<UsersInCourse>();
             this.webpages_Roles = new HashSet<webpages_Roles>();
             this.Forums = new HashSet<Forums>();
+            this.Homeworks = new HashSet<Homeworks>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
         }
     
         public int UserId { get; set; }
@@ -41,13 +41,13 @@ namespace E_LearningApplication.Models
         public virtual ICollection<Courses> Courses { get; set; }
         public virtual ICollection<GroupMembers> GroupMembers { get; set; }
         public virtual ICollection<Groups> Groups { get; set; }
-        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
-        public virtual ICollection<Homeworks> Homeworks { get; set; }
         public virtual ICollection<Messages> Messages { get; set; }
         public virtual ICollection<ModuleUser> ModuleUser { get; set; }
         public virtual ICollection<Pages> Pages { get; set; }
         public virtual ICollection<UsersInCourse> UsersInCourse { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
         public virtual ICollection<Forums> Forums { get; set; }
+        public virtual ICollection<Homeworks> Homeworks { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
     }
 }

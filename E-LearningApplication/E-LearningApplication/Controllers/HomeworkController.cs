@@ -2,11 +2,13 @@
 using E_LearningApplication.Models;
 using E_LearningApplication.Models.DTOs;
 using E_LearningApplication.Models.ViewModels;
+using E_LearningApplication.Utils;
 using E_LearningApplication.Utils.LoggingUtils;
 using E_LearningApplication.ViewModelFactories;
 using E_LearningApplication.ViewModelFactories.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -26,6 +28,18 @@ namespace E_LearningApplication.Controllers {
 
         #endregion
 
+        /// <summary>
+        /// Generates the homework code.
+        /// </summary>
+        /// <returns></returns>
+        private static string GenerateHomeworkCode() {
+            Guid guid = Guid.NewGuid();
+            string guidString = Convert.ToBase64String(guid.ToByteArray());
+            guidString = guidString.Replace("=", "");
+            guidString = guidString.Replace("+", "");
+            return guidString;
+
+        }
 
         #region Prof functionalities
 
@@ -123,7 +137,7 @@ namespace E_LearningApplication.Controllers {
         [Authorize(Roles = "Prof")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCourseHomework(HomeworksViewModel homeworkViewModel, int courseId = 0) {
+        public ActionResult CreateCourseHomework(HomeworksViewModel homeworkViewModel, HttpPostedFileBase file, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 var _userId = Session["UserId"];
@@ -136,12 +150,11 @@ namespace E_LearningApplication.Controllers {
                 dto.HomeworkId = homeworkViewModel.HomeworkId;
                 dto.HomeworkName = homeworkViewModel.HomeworkName;
                 dto.HomeworkPoints = homeworkViewModel.HomeworkPoints;
-                dto.HomeworkSubmissionType = homeworkViewModel.HomeworkSubmissionType;
-                dto.HomeworkType = homeworkViewModel.HomeworkType;
+                dto.HomeworkCode = GenerateHomeworkCode();
                 dto.CourseId = homeworkViewModel.CourseId;
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
                 dto.OwnerId = _sessionUser;
-
+                //save homework to db
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
@@ -152,6 +165,11 @@ namespace E_LearningApplication.Controllers {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
+                //save homework to drive
+                var fileName = dto.HomeworkCode;
+                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                file.SaveAs(path);
+                //////upload homework
 
                 return RedirectToAction("DisplayAllCourseHomework", new { id = courseId });
             }
@@ -181,7 +199,7 @@ namespace E_LearningApplication.Controllers {
         [Authorize(Roles = "Prof")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCourseModuleHomework(HomeworksViewModel homeworkViewModel, int courseModuleId = 0) {
+        public ActionResult CreateCourseModuleHomework(HomeworksViewModel homeworkViewModel, HttpPostedFileBase file, int courseModuleId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 var _userId = Session["UserId"];
@@ -194,12 +212,11 @@ namespace E_LearningApplication.Controllers {
                 dto.HomeworkId = homeworkViewModel.HomeworkId;
                 dto.HomeworkName = homeworkViewModel.HomeworkName;
                 dto.HomeworkPoints = homeworkViewModel.HomeworkPoints;
-                dto.HomeworkSubmissionType = homeworkViewModel.HomeworkSubmissionType;
-                dto.HomeworkType = homeworkViewModel.HomeworkType;
+                dto.HomeworkCode = GenerateHomeworkCode();
                 dto.CourseId = homeworkViewModel.CourseId;
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
                 dto.OwnerId = _sessionUser;
-
+                //save homework to db
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
@@ -210,6 +227,11 @@ namespace E_LearningApplication.Controllers {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
+                //save homework to drive
+                var fileName = dto.HomeworkCode;
+                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                file.SaveAs(path);
+                //////upload homework
 
                 return RedirectToAction("DisplayAllCourseModuleHomework", new { id = courseModuleId });
             }
@@ -315,8 +337,7 @@ namespace E_LearningApplication.Controllers {
                             hw.HomeworkId = h.HomeworkId;
                             hw.HomeworkName = h.HomeworkName;
                             hw.HomeworkPoints = h.HomeworkPoints;
-                            hw.HomeworkSubmissionType = h.HomeworkSubmissionType;
-                            hw.HomeworkType = h.HomeworkType;
+                            hw.HomeworkCode = h.HomeworkCode;
                             hw.CourseId = h.CourseId;
                             hw.CourseModuleId = h.CourseModuleId;
                             hw.OwnerId = h.OwnerId;
@@ -378,8 +399,7 @@ namespace E_LearningApplication.Controllers {
                             hw.HomeworkId = h.HomeworkId;
                             hw.HomeworkName = h.HomeworkName;
                             hw.HomeworkPoints = h.HomeworkPoints;
-                            hw.HomeworkSubmissionType = h.HomeworkSubmissionType;
-                            hw.HomeworkType = h.HomeworkType;
+                            hw.HomeworkCode = h.HomeworkCode;
                             hw.CourseId = h.CourseId;
                             hw.CourseModuleId = h.CourseModuleId;
                             hw.OwnerId = h.OwnerId;
@@ -439,8 +459,7 @@ namespace E_LearningApplication.Controllers {
                             hw.HomeworkId = h.HomeworkId;
                             hw.HomeworkName = h.HomeworkName;
                             hw.HomeworkPoints = h.HomeworkPoints;
-                            hw.HomeworkSubmissionType = h.HomeworkSubmissionType;
-                            hw.HomeworkType = h.HomeworkType;
+                            hw.HomeworkCode = h.HomeworkCode;
                             hw.CourseId = h.CourseId;
                             hw.CourseModuleId = h.CourseModuleId;
                             hw.OwnerId = h.OwnerId;
@@ -474,9 +493,12 @@ namespace E_LearningApplication.Controllers {
         [Authorize(Roles = "Prof")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCourseHomework(HomeworksViewModel homeworkViewModel, int courseId = 0) {
+        public ActionResult EditCourseHomework(HomeworksViewModel homeworkViewModel, HttpPostedFileBase file, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
+
                 //create the homework dto to be passed to the api services
                 HomeworkDTO dto = new HomeworkDTO();
                 dto.HomeworkAccessSpan = homeworkViewModel.HomeworkAccessSpan;
@@ -485,12 +507,11 @@ namespace E_LearningApplication.Controllers {
                 dto.HomeworkId = homeworkViewModel.HomeworkId;
                 dto.HomeworkName = homeworkViewModel.HomeworkName;
                 dto.HomeworkPoints = homeworkViewModel.HomeworkPoints;
-                dto.HomeworkSubmissionType = homeworkViewModel.HomeworkSubmissionType;
-                dto.HomeworkType = homeworkViewModel.HomeworkType;
+                dto.HomeworkCode = homeworkViewModel.HomeworkCode;
                 dto.CourseId = homeworkViewModel.CourseId;
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
-                dto.OwnerId = homeworkViewModel.OwnerId;
-
+                dto.OwnerId = _sessionUser;
+                //update homework on db
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
@@ -500,6 +521,13 @@ namespace E_LearningApplication.Controllers {
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
                     }
+                }
+                if (file != null) {
+                    //update homework on drive
+                    var fileName = dto.HomeworkCode;
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+                    //////upload homework
                 }
 
                 return RedirectToAction("DisplayAllCourseHomework", new { id = courseId });
@@ -538,8 +566,7 @@ namespace E_LearningApplication.Controllers {
                             hw.HomeworkId = h.HomeworkId;
                             hw.HomeworkName = h.HomeworkName;
                             hw.HomeworkPoints = h.HomeworkPoints;
-                            hw.HomeworkSubmissionType = h.HomeworkSubmissionType;
-                            hw.HomeworkType = h.HomeworkType;
+                            hw.HomeworkCode = h.HomeworkCode;
                             hw.CourseId = h.CourseId;
                             hw.CourseModuleId = h.CourseModuleId;
                             hw.OwnerId = h.OwnerId;
@@ -573,9 +600,12 @@ namespace E_LearningApplication.Controllers {
         [Authorize(Roles = "Prof")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCourseModuleHomework(HomeworksViewModel homeworkViewModel, int courseModuleId = 0) {
+        public ActionResult EditCourseModuleHomework(HomeworksViewModel homeworkViewModel, HttpPostedFileBase file, int courseModuleId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
+
                 //create the homework dto to be passed to the api services
                 HomeworkDTO dto = new HomeworkDTO();
                 dto.HomeworkAccessSpan = homeworkViewModel.HomeworkAccessSpan;
@@ -584,12 +614,11 @@ namespace E_LearningApplication.Controllers {
                 dto.HomeworkId = homeworkViewModel.HomeworkId;
                 dto.HomeworkName = homeworkViewModel.HomeworkName;
                 dto.HomeworkPoints = homeworkViewModel.HomeworkPoints;
-                dto.HomeworkSubmissionType = homeworkViewModel.HomeworkSubmissionType;
-                dto.HomeworkType = homeworkViewModel.HomeworkType;
+                dto.HomeworkCode = homeworkViewModel.HomeworkCode;
                 dto.CourseId = homeworkViewModel.CourseId;
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
-                dto.OwnerId = homeworkViewModel.OwnerId;
-
+                dto.OwnerId = _sessionUser;
+                //update homework on db
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
@@ -599,6 +628,13 @@ namespace E_LearningApplication.Controllers {
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
                     }
+                }
+                if (file != null) {
+                    //update homework on drive
+                    var fileName = dto.HomeworkCode;
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+                    //////update homework
                 }
 
                 return RedirectToAction("DisplayAllCourseModuleHomework", new { id = courseModuleId });
@@ -998,7 +1034,7 @@ namespace E_LearningApplication.Controllers {
                             avm.HomeworkId = h.HomeworkId;
                             avm.HomeworkName = h.HomeworkName;
                             avm.HomeworkPoints = h.HomeworkPoints;
-                            avm.HomeworkSubmissionType = h.HomeworkSubmissionType;
+                            avm.HomeworkCode = h.HomeworkCode;
                             avm.AssignementId = assignementId;
                             avm.RecipientId = recipientId;
                         }
@@ -1026,41 +1062,18 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // POST: /Homework/SubmitStudentHomework(assignementViewModel, file)
+        // POST: /Homework/SubmitStudentHomework(assignementId, file)
         [Authorize(Roles = "Student")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitStudentHomework(int assignementId, string assignementType) {
+        public ActionResult SubmitStudentHomework(int assignementId, HttpPostedFileBase file) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 //create the dto for the new answer
                 AnswerDTO dto = new AnswerDTO();
-                if (assignementType.Equals("text")) {
-                    string answerText = Request["answerText"];
-                    if (answerText != null) {
-                        dto.AnswerType = "text";
-                        dto.AnswerValue = answerText;
-                    }
-                    else {
-                        ViewBag.Error = "Please fill in the submission properly!";
-                        return View("Error");
-                    }
-                }
-                else if (assignementType.Equals("file")) {
-                    var file = Request.Files["file"];
-                    if (file != null && file.ContentLength > 0) {
-                        dto.AnswerType = "file";
-                        dto.AnswerValue = file.FileName;
-
-                        ///////////////////////////////////////////////
-                        //TODO: treat the submitted file as a resource
-                    }
-                    else {
-                        ViewBag.Error = "Please fill in the submission properly!";
-                        return View("Error");
-                    }
-                }
-
+                dto.AnswerType = SubmissionTypeEnum.File.ToString();
+                dto.AnswerValue = GenerateHomeworkCode();
+                //save submission in db
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
@@ -1070,8 +1083,12 @@ namespace E_LearningApplication.Controllers {
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
                     }
-
                 }
+                //save submission on drive
+                var fileName = dto.AnswerValue;
+                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                file.SaveAs(path);
+                //////upload submission
 
                 return RedirectToAction("DisplayStudentAssignedHomework");
             }
@@ -1146,7 +1163,7 @@ namespace E_LearningApplication.Controllers {
                             avm.HomeworkId = h.HomeworkId;
                             avm.HomeworkName = h.HomeworkName;
                             avm.HomeworkPoints = h.HomeworkPoints;
-                            avm.HomeworkSubmissionType = h.HomeworkSubmissionType;
+                            avm.HomeworkCode = h.HomeworkCode;
                             avm.AssignementId = assignementId;
                             avm.RecipientId = recipientId;
                         }
@@ -1174,41 +1191,18 @@ namespace E_LearningApplication.Controllers {
         }
 
         //
-        // POST: /Homework/SubmitGroupHomework(assignementViewModel, file)
+        // POST: /Homework/SubmitGroupHomework(assignementId, file)
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitGroupHomework(int assignementId, string assignementType) {
+        public ActionResult SubmitGroupHomework(int assignementId, HttpPostedFileBase file) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 //create the dto for the new answer
                 AnswerDTO dto = new AnswerDTO();
-                if (assignementType.Equals("text")) {
-                    string answerText = Request["answerText"];
-                    if (answerText != null) {
-                        dto.AnswerType = "text";
-                        dto.AnswerValue = answerText;
-                    }
-                    else {
-                        ViewBag.Error = "Please fill in the submission properly!";
-                        return View("Error");
-                    }
-                }
-                else if (assignementType.Equals("file")) {
-                    var file = Request.Files["file"];
-                    if (file != null && file.ContentLength > 0) {
-                        dto.AnswerType = "file";
-                        dto.AnswerValue = file.FileName;
-
-                        ///////////////////////////////////////////////
-                        //TODO: treat the submitted file as a resource
-                    }
-                    else {
-                        ViewBag.Error = "Please fill in the submission properly!";
-                        return View("Error");
-                    }
-                }
-
+                dto.AnswerType = SubmissionTypeEnum.File.ToString();
+                dto.AnswerValue = GenerateHomeworkCode();
+                //save submission to db
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
@@ -1220,6 +1214,11 @@ namespace E_LearningApplication.Controllers {
                     }
 
                 }
+                //save submission to drive
+                var fileName = dto.AnswerValue;
+                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                file.SaveAs(path);
+                //////upload submission
 
                 return RedirectToAction("DisplayGroupAssignedHomework");
             }

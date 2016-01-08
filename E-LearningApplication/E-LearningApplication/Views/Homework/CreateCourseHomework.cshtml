@@ -9,7 +9,7 @@
 
     <div class="panel panel-body">
         <div>
-            @using (Html.BeginForm("CreateCourseHomework", "Homework", new { courseId = _courseId }, FormMethod.Post, new { @class = "panel-default" })) {
+            @using (Html.BeginForm("CreateCourseHomework", "Homework", new { courseId = _courseId }, FormMethod.Post, new { @class = "panel-default", enctype = "multipart/form-data" })) {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
 
@@ -27,6 +27,9 @@
                 <div class="editor-field mb">
                     @Html.EditorFor(model => model.HomeworkDescription)
                     @Html.ValidationMessageFor(model => model.HomeworkDescription)
+                    <br />
+                    <label>Upload the complete description: </label>
+                    <input type="file" name="file" class="btn btn-info" />
                 </div>
 
                 <div class="editor-label">
@@ -38,27 +41,11 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(model => model.HomeworkType)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(model => model.HomeworkType)
-                    @Html.ValidationMessageFor(model => model.HomeworkType)
-                </div>
-
-                <div class="editor-label">
                     @Html.LabelFor(model => model.HomeworkPoints)
                 </div>
                 <div class="editor-field mb">
                     @Html.EditorFor(model => model.HomeworkPoints)
                     @Html.ValidationMessageFor(model => model.HomeworkPoints)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.HomeworkSubmissionType)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(model => model.HomeworkSubmissionType)
-                    @Html.ValidationMessageFor(model => model.HomeworkSubmissionType)
                 </div>
 
                 <div class="editor-label">

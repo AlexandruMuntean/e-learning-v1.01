@@ -7,19 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace E_LearningServices.Models {
+namespace E_LearningServices.Models
+{
     using System;
     using System.Collections.Generic;
-
-    public partial class Forums {
-        public Forums() {
+    
+    public partial class Forums
+    {
+        public Forums()
+        {
             this.Messages = new HashSet<Messages>();
         }
-
+    
         public int ForumId { get; set; }
         public string Category { get; set; }
         public Nullable<int> OwnerId { get; set; }
-
+    
         public virtual ICollection<Messages> Messages { get; set; }
         public virtual Users Users { get; set; }
     }

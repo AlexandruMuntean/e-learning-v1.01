@@ -20,12 +20,11 @@ namespace E_LearningServices.Models
         }
     
         public int HomeworkId { get; set; }
+        public string HomeworkCode { get; set; }
         public string HomeworkName { get; set; }
         public string HomeworkDescription { get; set; }
         public Nullable<System.DateTime> HomeworkDeadline { get; set; }
-        public string HomeworkType { get; set; }
         public Nullable<decimal> HomeworkPoints { get; set; }
-        public string HomeworkSubmissionType { get; set; }
         public Nullable<System.DateTime> HomeworkAccessSpan { get; set; }
         public Nullable<int> CourseId { get; set; }
         public Nullable<int> CourseModuleId { get; set; }

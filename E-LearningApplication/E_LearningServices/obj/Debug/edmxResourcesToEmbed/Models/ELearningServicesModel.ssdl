@@ -107,12 +107,11 @@
       <PropertyRef Name="HomeworkId" />
     </Key>
     <Property Name="HomeworkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HomeworkCode" Type="nvarchar" MaxLength="50" />
     <Property Name="HomeworkName" Type="nvarchar" MaxLength="30" />
     <Property Name="HomeworkDescription" Type="nvarchar" MaxLength="30" />
     <Property Name="HomeworkDeadline" Type="datetime" />
-    <Property Name="HomeworkType" Type="nvarchar" MaxLength="30" />
     <Property Name="HomeworkPoints" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="HomeworkSubmissionType" Type="nvarchar" MaxLength="30" />
     <Property Name="HomeworkAccessSpan" Type="datetime" />
     <Property Name="CourseId" Type="int" />
     <Property Name="CourseModuleId" Type="int" />
@@ -334,7 +333,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Answe__662B2B3B">
+  <Association Name="FK__HomeworkA__Answe__0880433F">
     <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -346,7 +345,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Cours__634EBE90">
+  <Association Name="FK__HomeworkA__Cours__05A3D694">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -358,7 +357,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Cours__6442E2C9">
+  <Association Name="FK__HomeworkA__Cours__0697FACD">
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -370,7 +369,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Grade__671F4F74">
+  <Association Name="FK__HomeworkA__Grade__09746778">
     <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -382,7 +381,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Group__625A9A57">
+  <Association Name="FK__HomeworkA__Group__04AFB25B">
     <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -394,7 +393,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Homew__65370702">
+  <Association Name="FK__HomeworkA__Homew__078C1F06">
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -406,7 +405,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Stude__6166761E">
+  <Association Name="FK__HomeworkA__Stude__03BB8E22">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -418,7 +417,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Homeworks__Cours__5BAD9CC8">
+  <Association Name="FK__Homeworks__Cours__7D0E9093">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -430,7 +429,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Homeworks__Cours__5CA1C101">
+  <Association Name="FK__Homeworks__Cours__7E02B4CC">
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="0..1" />
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -442,7 +441,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Homeworks__Owner__690797E6">
+  <Association Name="FK__Homeworks__Owner__7EF6D905">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -681,43 +680,43 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Groups" EntitySet="Groups" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Answe__662B2B3B" Association="Self.FK__HomeworkA__Answe__662B2B3B">
+    <AssociationSet Name="FK__HomeworkA__Answe__0880433F" Association="Self.FK__HomeworkA__Answe__0880433F">
       <End Role="Answers" EntitySet="Answers" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Cours__634EBE90" Association="Self.FK__HomeworkA__Cours__634EBE90">
+    <AssociationSet Name="FK__HomeworkA__Cours__05A3D694" Association="Self.FK__HomeworkA__Cours__05A3D694">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Cours__6442E2C9" Association="Self.FK__HomeworkA__Cours__6442E2C9">
+    <AssociationSet Name="FK__HomeworkA__Cours__0697FACD" Association="Self.FK__HomeworkA__Cours__0697FACD">
       <End Role="CourseModule" EntitySet="CourseModule" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Grade__671F4F74" Association="Self.FK__HomeworkA__Grade__671F4F74">
+    <AssociationSet Name="FK__HomeworkA__Grade__09746778" Association="Self.FK__HomeworkA__Grade__09746778">
       <End Role="Grades" EntitySet="Grades" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Group__625A9A57" Association="Self.FK__HomeworkA__Group__625A9A57">
+    <AssociationSet Name="FK__HomeworkA__Group__04AFB25B" Association="Self.FK__HomeworkA__Group__04AFB25B">
       <End Role="Groups" EntitySet="Groups" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Homew__65370702" Association="Self.FK__HomeworkA__Homew__65370702">
+    <AssociationSet Name="FK__HomeworkA__Homew__078C1F06" Association="Self.FK__HomeworkA__Homew__078C1F06">
       <End Role="Homeworks" EntitySet="Homeworks" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Stude__6166761E" Association="Self.FK__HomeworkA__Stude__6166761E">
+    <AssociationSet Name="FK__HomeworkA__Stude__03BB8E22" Association="Self.FK__HomeworkA__Stude__03BB8E22">
       <End Role="Users" EntitySet="Users" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__Homeworks__Cours__5BAD9CC8" Association="Self.FK__Homeworks__Cours__5BAD9CC8">
+    <AssociationSet Name="FK__Homeworks__Cours__7D0E9093" Association="Self.FK__Homeworks__Cours__7D0E9093">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Homeworks" EntitySet="Homeworks" />
     </AssociationSet>
-    <AssociationSet Name="FK__Homeworks__Cours__5CA1C101" Association="Self.FK__Homeworks__Cours__5CA1C101">
+    <AssociationSet Name="FK__Homeworks__Cours__7E02B4CC" Association="Self.FK__Homeworks__Cours__7E02B4CC">
       <End Role="CourseModule" EntitySet="CourseModule" />
       <End Role="Homeworks" EntitySet="Homeworks" />
     </AssociationSet>
-    <AssociationSet Name="FK__Homeworks__Owner__690797E6" Association="Self.FK__Homeworks__Owner__690797E6">
+    <AssociationSet Name="FK__Homeworks__Owner__7EF6D905" Association="Self.FK__Homeworks__Owner__7EF6D905">
       <End Role="Users" EntitySet="Users" />
       <End Role="Homeworks" EntitySet="Homeworks" />
     </AssociationSet>

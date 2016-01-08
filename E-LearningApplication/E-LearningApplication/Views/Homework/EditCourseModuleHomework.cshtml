@@ -5,11 +5,14 @@
 
     <div class="panel panel-body">
         <div class="panel-default">
-            @using (Html.BeginForm()) {
+            @using (Html.BeginForm("EditCourseModuleHomework", "Homework", FormMethod.Post, new { enctype = "multipart/form-data" })) {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
 
                 @Html.HiddenFor(item => Model.HomeworkId)
+                @Html.HiddenFor(item => Model.HomeworkCode)
+                @Html.HiddenFor(item => Model.CourseModuleId)
+                @Html.HiddenFor(item => Model.CourseId)
 
                 <div class="editor-label">
                     @Html.LabelFor(item => Model.HomeworkName)
@@ -25,6 +28,9 @@
                 <div class="editor-field mb">
                     @Html.EditorFor(item => Model.HomeworkDescription)
                     @Html.ValidationMessageFor(item => Model.HomeworkDescription)
+                    <br />
+                    <label>Update the complete description: </label>
+                    <input type="file" name="file" class="btn btn-info" />
                 </div>
 
                 <div class="editor-label">
@@ -36,27 +42,11 @@
                 </div>
 
                 <div class="editor-label">
-                    @Html.LabelFor(item => Model.HomeworkType)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(item => Model.HomeworkType)
-                    @Html.ValidationMessageFor(item => Model.HomeworkType)
-                </div>
-
-                <div class="editor-label">
                     @Html.LabelFor(item => Model.HomeworkPoints)
                 </div>
                 <div class="editor-field mb">
                     @Html.EditorFor(item => Model.HomeworkPoints)
                     @Html.ValidationMessageFor(model => Model.HomeworkPoints)
-                </div>
-
-                <div class="editor-label">
-                    @Html.LabelFor(item => Model.HomeworkSubmissionType)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(item => Model.HomeworkSubmissionType)
-                    @Html.ValidationMessageFor(model => Model.HomeworkSubmissionType)
                 </div>
 
                 <div class="editor-label">

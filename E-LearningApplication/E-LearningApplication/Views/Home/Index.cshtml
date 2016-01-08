@@ -1,16 +1,22 @@
-﻿<div class="form-panel">
-    <h1><i class="fa fa-angle-right"></i> Home page</h1>
+﻿@{
+    string[] _rolesArray;
+    var _userRoles = Session["UserRoles"];
+    if (_userRoles != null) {
+        _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
+                                                                  .Select(x => x.ToString())
+                                                                  .ToArray();
+    }
+    else {
+        _rolesArray = new string[1] { "Student" };
+    }
+}
 
-    <div>
-        For all users:
-        <ol>
-            <li title="Compose and send a new mail">@Html.ActionLink("Send mail", "ComposeMail", "Home")</li>
-        </ol>
-    </div>
-</div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
+@if (_rolesArray.Contains("Admin") == true) {
+    Html.RenderAction("Index", "Admin");
+}
+else if (_rolesArray.Contains("Prof") == true) {
+    Html.RenderAction("Index", "Prof");
+}
+else if (_rolesArray.Contains("Student") == true) {
+    Html.RenderAction("Index", "Student");
+}

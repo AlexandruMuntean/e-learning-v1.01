@@ -350,6 +350,7 @@
     <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="Utils\MailUtil\IMailUtil.cs" />
     <Compile Include="Utils\MailUtil\MailUtil.cs" />
     <Compile Include="Utils\PasswordGenerator.cs" />
@@ -637,10 +638,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Admin\DisplayLogs.cshtml" />
     <Content Include="Views\Admin\LogDetails.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\DisplayUsers.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
-    <Content Include="Views\Home\ComposeMail.cshtml" />
+    <Content Include="Views\Discussions\ComposeMail.cshtml" />
     <Content Include="Views\Admin\ImportUsers.cshtml" />
     <Content Include="Views\Prof\AddCourseResource.cshtml" />
     <Content Include="Views\Prof\DisplayCourses.cshtml" />
@@ -648,7 +648,6 @@
     <Content Include="Views\Prof\EditCourse.cshtml" />
     <Content Include="Views\Prof\DisplayModules.cshtml" />
     <Content Include="Views\Prof\CreateModule.cshtml" />
-    <Content Include="Views\Prof\Index.cshtml" />
     <Content Include="Views\Prof\DisplayCourseResources.cshtml" />
     <Content Include="Views\Prof\ReplaceCourseResource.cshtml" />
     <Content Include="Views\Prof\DisplayModuleResources.cshtml" />
@@ -689,7 +688,6 @@
     <Content Include="Views\Grades\DisplayStudentReceivedGrades.cshtml" />
     <Content Include="Views\Grades\GradeCourseHomework.cshtml" />
     <Content Include="Views\Grades\GradeCourseModuleHomework.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Homework\DisplayStudentAssignedHomework.cshtml" />
     <Content Include="Views\Homework\SubmitStudentHomework.cshtml" />
     <Content Include="Views\Student\DisplayAllAvailableCourses.cshtml" />
@@ -701,6 +699,9 @@
     <Content Include="Views\Student\DisplayMyCourseResources.cshtml" />
     <Content Include="Views\Student\DisplayMyModuleResources.cshtml" />
     <Content Include="Views\Prof\DowloadCourseResource.cshtml" />
+    <Content Include="Views\Admin\_Index.cshtml" />
+    <Content Include="Views\Student\_Index.cshtml" />
+    <Content Include="Views\Prof\_Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

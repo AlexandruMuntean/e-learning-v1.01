@@ -17,6 +17,7 @@
         <div class="mb">
             <div class="col-lg-6">
                 @Html.HiddenFor(model => viewModel.HomeworkId)
+                @Html.HiddenFor(model => viewModel.HomeworkCode)
 
                 <div class="display-label">
                     @Html.DisplayNameFor(model => viewModel.HomeworkName)
@@ -30,6 +31,11 @@
                 </div>
                 <div class="display-field mb">
                     @Html.DisplayFor(model => viewModel.HomeworkDescription)
+                    <br />
+                    <button class="btn btn-info btn-xs" title="Download course resources">
+                        <i class="fa fa-arrow-down"></i>
+                        @Html.ActionLink("Download", "DowloadCourseResource", "Prof", new { id = viewModel.HomeworkId }, new { title = "Download homework"})
+                    </button>
                 </div>
 
                 <div class="display-label">
@@ -40,24 +46,10 @@
                 </div>
 
                 <div class="display-label">
-                    @Html.DisplayNameFor(model => viewModel.HomeworkType)
-                </div>
-                <div class="display-field mb">
-                    @Html.DisplayFor(model => viewModel.HomeworkType)
-                </div>
-
-                <div class="display-label">
                     @Html.DisplayNameFor(model => viewModel.HomeworkPoints)
                 </div>
                 <div class="display-field mb">
                     @Html.DisplayFor(model => viewModel.HomeworkPoints)
-                </div>
-
-                <div class="display-label">
-                    @Html.DisplayNameFor(model => viewModel.HomeworkSubmissionType)
-                </div>
-                <div class="display-field mb">
-                    @Html.DisplayFor(model => viewModel.HomeworkSubmissionType)
                 </div>
 
                 <div class="display-label">
@@ -97,8 +89,8 @@
         </div>
     </div>
 
-    <h2><i class="fa fa-angle-right"></i> Homework Assignements</h2>
     <div class="panel panel-body panel-default">
+        <h2><i class="fa fa-angle-right"></i> Homework Assignements</h2>
 
         <table class="table table-striped table-hover mt">
             <tr>

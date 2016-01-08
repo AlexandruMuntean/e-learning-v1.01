@@ -328,6 +328,7 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>ELearningServicesModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\EnumUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -348,7 +349,9 @@
       <DependentUpon>ELearningServicesModel.edmx</DependentUpon>
       <LastGenOutput>ELearningServicesModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

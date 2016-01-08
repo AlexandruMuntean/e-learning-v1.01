@@ -14,82 +14,76 @@
     <div class="panel panel-body panel-default">
         <h2><i class="fa fa-angle-right"></i> Homework Details</h2>
 
-        <div class="row mb">
-            @Html.HiddenFor(model => viewModel.HomeworkId)
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkName)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkName)
-            </div>
+        <div class="mb">
+            <div class="col-lg-6">
+                @Html.HiddenFor(model => viewModel.HomeworkId)
+                @Html.HiddenFor(model => viewModel.HomeworkCode)
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkDescription)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkDescription)
-            </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => viewModel.HomeworkName)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => viewModel.HomeworkName)
+                </div>
 
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkDeadline)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkDeadline)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkType)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkType)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkPoints)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkPoints)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkSubmissionType)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkSubmissionType)
-            </div>
-
-            <div class="display-label">
-                @Html.DisplayNameFor(model => viewModel.HomeworkAccessSpan)
-            </div>
-            <div class="display-field mb">
-                @Html.DisplayFor(model => viewModel.HomeworkAccessSpan)
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            @if (_sessionUser == viewModel.OwnerId) {
-                <div class="row mb">
-                    <button class="btn btn-theme03 btn-xs" title="Edit group details">
-                        <i class="fa fa-pencil"></i>
-                        @Html.ActionLink("Edit", "EditCourseModuleHomework", new { id = viewModel.HomeworkId, courseModuleId = _courseModuleId })
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => viewModel.HomeworkDescription)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => viewModel.HomeworkDescription)
+                    <button class="mt btn btn-info btn-xs" title="Download course resources">
+                        <i class="fa fa-arrow-down"></i>
+                        @Html.ActionLink("Download", "DowloadCourseResource", new { id = viewModel.HomeworkId })
                     </button>
                 </div>
 
-                <div class="row mb">
-                    @using (Html.BeginForm("DeleteCourseModuleHomework", "Homework", new { id = viewModel.HomeworkId, courseModuleId = _courseModuleId }, FormMethod.Post, new { title = "Delete homework from module" })) {
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-danger btn-xs" title="Delete homework from module">
-                            <i class="fa fa-trash-o"></i> Delete
-                        </button>
-                    }
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => viewModel.HomeworkDeadline)
                 </div>
-            }
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => viewModel.HomeworkDeadline)
+                </div>
 
-            <div class="row mb">
-                <button class="btn btn-theme btn-xs" title="Add assignement for the homework">
-                    <i class="fa fa-folder-open"></i>
-                    @Html.ActionLink("Add Assignement", "AssignCourseModuleHomework", "Homework", new { id = viewModel.HomeworkId, courseModuleId = _courseModuleId }, new { title = "Add assignement for the homework" })
-                </button>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => viewModel.HomeworkPoints)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => viewModel.HomeworkPoints)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => viewModel.HomeworkAccessSpan)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => viewModel.HomeworkAccessSpan)
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                @if (_sessionUser == viewModel.OwnerId) {
+                    <div class="row mb">
+                        <button class="btn btn-theme03 btn-xs" title="Edit group details">
+                            <i class="fa fa-pencil"></i>
+                            @Html.ActionLink("Edit", "EditCourseModuleHomework", new { id = viewModel.HomeworkId, courseModuleId = _courseModuleId })
+                        </button>
+                    </div>
+
+                    <div class="row mb">
+                        @using (Html.BeginForm("DeleteCourseModuleHomework", "Homework", new { id = viewModel.HomeworkId, courseModuleId = _courseModuleId }, FormMethod.Post, new { title = "Delete homework from module" })) {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-xs" title="Delete homework from module">
+                                <i class="fa fa-trash-o"></i> Delete
+                            </button>
+                        }
+                    </div>
+                }
+
+                <div class="row mb">
+                    <button class="btn btn-theme btn-xs" title="Add assignement for the homework">
+                        <i class="fa fa-folder-open"></i>
+                        @Html.ActionLink("Add Assignement", "AssignCourseModuleHomework", "Homework", new { id = viewModel.HomeworkId, courseModuleId = _courseModuleId }, new { title = "Add assignement for the homework" })
+                    </button>
+                </div>
             </div>
         </div>
     </div>

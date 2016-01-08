@@ -32,8 +32,7 @@ namespace E_LearningServices.Controllers {
                     dto.HomeworkId = hw.HomeworkId;
                     dto.HomeworkName = hw.HomeworkName;
                     dto.HomeworkPoints = hw.HomeworkPoints;
-                    dto.HomeworkSubmissionType = hw.HomeworkSubmissionType;
-                    dto.HomeworkType = hw.HomeworkType;
+                    dto.HomeworkCode = hw.HomeworkCode;
                     dto.CourseId = hw.CourseId;
                     dto.CourseModuleId = hw.CourseModuleId;
                     dto.OwnerId = hw.OwnerId;
@@ -88,8 +87,7 @@ namespace E_LearningServices.Controllers {
                             HomeworkId = h.HomeworkId,
                             HomeworkName = h.HomeworkName,
                             HomeworkPoints = h.HomeworkPoints,
-                            HomeworkSubmissionType = h.HomeworkSubmissionType,
-                            HomeworkType = h.HomeworkType,
+                            HomeworkCode = h.HomeworkCode,
                             CourseId = h.CourseId,
                             CourseModuleId = h.CourseModuleId,
                             OwnerId = h.OwnerId
@@ -191,8 +189,7 @@ namespace E_LearningServices.Controllers {
                             HomeworkId = h.HomeworkId,
                             HomeworkName = h.HomeworkName,
                             HomeworkPoints = h.HomeworkPoints,
-                            HomeworkSubmissionType = h.HomeworkSubmissionType,
-                            HomeworkType = h.HomeworkType,
+                            HomeworkCode = h.HomeworkCode,
                             CourseId = h.CourseId,
                             CourseModuleId = h.CourseModuleId,
                             OwnerId = h.OwnerId
@@ -221,8 +218,7 @@ namespace E_LearningServices.Controllers {
                 hw.HomeworkId = dto.HomeworkId;
                 hw.HomeworkName = dto.HomeworkName;
                 hw.HomeworkPoints = dto.HomeworkPoints;
-                hw.HomeworkSubmissionType = dto.HomeworkSubmissionType;
-                hw.HomeworkType = dto.HomeworkType;
+                hw.HomeworkCode = dto.HomeworkCode;
                 hw.CourseId = dto.CourseId;
                 hw.CourseModuleId = dto.CourseModuleId;
                 hw.OwnerId = dto.OwnerId;
@@ -260,8 +256,7 @@ namespace E_LearningServices.Controllers {
                 hw.HomeworkId = dto.HomeworkId;
                 hw.HomeworkName = dto.HomeworkName;
                 hw.HomeworkPoints = dto.HomeworkPoints;
-                hw.HomeworkSubmissionType = dto.HomeworkSubmissionType;
-                hw.HomeworkType = dto.HomeworkType;
+                hw.HomeworkCode = dto.HomeworkCode;
                 hw.CourseId = dto.CourseId;
                 hw.CourseModuleId = dto.CourseModuleId;
                 hw.OwnerId = dto.OwnerId;
@@ -353,9 +348,9 @@ namespace E_LearningServices.Controllers {
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (Exception) {
+            catch (Exception ex) {
                 // Log exception code goes here  
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
 
