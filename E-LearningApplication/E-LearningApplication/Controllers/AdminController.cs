@@ -129,7 +129,6 @@ namespace E_LearningApplication.Controllers {
                 List<Users> users = new List<Users>();
                 string searchType = Request["searchTerm"];
                 if (!string.IsNullOrWhiteSpace(searchString)) {
-
                     if (searchType.Equals("UserName")) {
                         //username is unique, so only one result is returned
                         using (var client = new HttpClient()) {
@@ -142,9 +141,6 @@ namespace E_LearningApplication.Controllers {
                                 Users user = response.Content.ReadAsAsync<Users>().Result;
                                 if (user != null) {
                                     users.Add(user);
-                                }
-                                else {
-                                    throw new CustomException("Could not complete the operation!");
                                 }
                             }
                             else {
@@ -164,9 +160,6 @@ namespace E_LearningApplication.Controllers {
                                 IEnumerable<Users> list = response.Content.ReadAsAsync<IEnumerable<Users>>().Result;
                                 if (list != null) {
                                     users = list.ToList();
-                                }
-                                else {
-                                    throw new CustomException("Could not complete the operation!");
                                 }
                             }
                             else {
@@ -573,9 +566,6 @@ namespace E_LearningApplication.Controllers {
                         if (l != null) {
                             logs = l.ToList();
                         }
-                        else {
-                            throw new CustomException("Could not complete the operation!");
-                        }
                     }
                     else {
                         throw new CustomException("Could not complete the operation!");
@@ -622,12 +612,9 @@ namespace E_LearningApplication.Controllers {
                             if (l != null) {
                                 logDates = l.ToList();
                             }
-                            else {
-                                throw new CustomException("Fail.");
-                            }
                         }
                         else {
-                            throw new CustomException("Fail.");
+                            throw new CustomException("Operation could not be completed.");
                         }
                     }
                     foreach (var l in logDates) {
@@ -661,12 +648,9 @@ namespace E_LearningApplication.Controllers {
                                 if (l != null) {
                                     logDates = l.ToList();
                                 }
-                                else {
-                                    throw new CustomException("Fail.");
-                                }
                             }
                             else {
-                                throw new CustomException("Fail.");
+                                throw new CustomException("Operation could not be completed.");
                             }
                         }
                         foreach (var l in logDates) {
@@ -695,12 +679,9 @@ namespace E_LearningApplication.Controllers {
                                     if (l != null) {
                                         logLevels = l.ToList();
                                     }
-                                    else {
-                                        throw new CustomException("Fail.");
-                                    }
                                 }
                                 else {
-                                    throw new CustomException("Fail.");
+                                    throw new CustomException("Operation could not be completed.");
                                 }
                             }
 
@@ -730,12 +711,9 @@ namespace E_LearningApplication.Controllers {
                                         if (l != null) {
                                             logUsers = l.ToList();
                                         }
-                                        else {
-                                            throw new CustomException("Fail.");
-                                        }
                                     }
                                     else {
-                                        throw new CustomException("Fail.");
+                                        throw new CustomException("Operation could not be completed.");
                                     }
                                 }
 

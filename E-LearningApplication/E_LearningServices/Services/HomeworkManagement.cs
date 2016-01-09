@@ -167,20 +167,16 @@ namespace E_LearningServices.Services {
             }
         }
 
-        public string GetNameOfFile(int HomeworkId)
-        {
-            try
-            {
-                using (var db = new ELearningDatabaseEntities())
-                {
+        public string GetNameOfFile(int HomeworkId) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
                     var result = db.Homeworks.Where(x => x.HomeworkId == HomeworkId).First();
                     if (result != null)
                         return result.HomeworkCode;
                 }
                 return string.Empty;
             }
-            catch (ArgumentNullException ane)
-            {
+            catch (ArgumentNullException ane) {
                 throw new CustomException(ane.Message);
             }
         }

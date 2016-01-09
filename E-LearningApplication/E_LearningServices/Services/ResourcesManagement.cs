@@ -522,21 +522,16 @@ namespace E_LearningServices.Services {
             }
         }
 
-        public Resources GetResourceByHomeworkCode(string id)
-        {
-            try
-            {
-                using (var db = new ELearningDatabaseEntities())
-                {
+        public Resources GetResourceByHomeworkCode(string id) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
                     return db.Resources.Where(x => x.FileName == id).First();
                 }
             }
-            catch (ArgumentNullException ane)
-            {
+            catch (ArgumentNullException ane) {
                 throw new CustomException(ane.Message);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 throw new CustomException(ex.Message);
             }
         }
@@ -569,15 +564,11 @@ namespace E_LearningServices.Services {
             }
         }
 
-        public void DeleteHomeworkResource(string fileName)
-        {
-            try
-            {
-                using (var db = new ELearningDatabaseEntities())
-                {
+        public void DeleteHomeworkResource(string fileName) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
                     var resource = db.Resources.Where(x => x.FileName == fileName).First();
-                    if (resource != null)
-                    {
+                    if (resource != null) {
                         string fildeId = resource.FileId;
                         DeleteFile(fildeId);
                         db.Resources.Remove(resource);
@@ -585,12 +576,10 @@ namespace E_LearningServices.Services {
                     }
                 }
             }
-            catch (ArgumentNullException ane)
-            {
+            catch (ArgumentNullException ane) {
                 throw new CustomException(ane.Message);
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 throw new CustomException(ex.Message);
             }
         }

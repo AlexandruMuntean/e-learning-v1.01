@@ -5,4 +5,5 @@ using System.Web;
 
 namespace E_LearningServices.Utils {
     public enum ResourceEnum { File, Directory, Module }
+    public enum GroupTypeEnum { Private, Public }
 }

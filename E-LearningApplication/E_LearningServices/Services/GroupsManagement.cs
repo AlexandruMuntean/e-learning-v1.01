@@ -36,12 +36,12 @@ namespace E_LearningServices.Services {
             try {
                 using (var db = new ELearningDatabaseEntities()) {
                     var unassociatedGroups = (from g in db.Groups
-                                             where !(
-                                             from m in db.GroupMembers
-                                             where m.MemberId == userId
-                                             select m.GroupId)
-                                             .Contains(g.GroupId)
-                                             select g)
+                                              where !(
+                                                      from m in db.GroupMembers
+                                                      where m.MemberId == userId
+                                                      select m.GroupId)
+                                              .Contains(g.GroupId)
+                                              select g)
                                              .ToList();
 
                     return unassociatedGroups;
@@ -105,14 +105,53 @@ namespace E_LearningServices.Services {
         /// Gets the group by name or description.
         /// </summary>
         /// <param name="searchTerm">The search term.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
         /// <exception cref="CustomException"></exception>
-        public List<Groups> GetGroupByNameOrDescription(string searchTerm) {
+        public List<Groups> GetGroupByNameOrDescription(string searchTerm, int userId) {
             try {
                 using (var db = new ELearningDatabaseEntities()) {
-                    return db.Groups
-                                .Where(g => g.GroupDescription.Contains(searchTerm) || g.GroupName.Contains(searchTerm))
-                                .ToList();
+                    var unassociatedGroups = GetAllUnassociatedGroups(userId);
+                    List<Groups> groups = new List<Groups>();
+                    foreach (var group in unassociatedGroups) {
+                        var gr = db.Groups
+                                    .Where(g => group.GroupId == g.GroupId
+                                                && (g.GroupDescription.Contains(searchTerm) || g.GroupName.Contains(searchTerm)))
+                                    .FirstOrDefault();
+                        if (gr != null)
+                            groups.Add(gr);
+                    }
+                    return groups;
+                }
+            }
+            catch (ArgumentNullException ane) {
+                throw new CustomException(ane.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the associated group by name or description.
+        /// </summary>
+        /// <param name="searchTerm">The search term.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<Groups> GetAssociatedGroupByNameOrDescription(string searchTerm, int userId) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    var associatedGroups = db.GroupMembers
+                                                .Where(gm => gm.MemberId == userId)
+                                                .ToList();
+                    List<Groups> groups = new List<Groups>();
+                    foreach (var myGroup in associatedGroups) {
+                        var gr = db.Groups
+                                        .Where(g => g.GroupId == myGroup.GroupId &&
+                                                    (g.GroupDescription.Contains(searchTerm) || g.GroupName.Contains(searchTerm)))
+                                        .FirstOrDefault();
+                        if (gr != null)
+                            groups.Add(gr);
+                    }
+                    return groups;
                 }
             }
             catch (ArgumentNullException ane) {

@@ -8,10 +8,7 @@
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Forum</h2>
     <div class="panel panel-body panel-default">
-        <button type="button" class="btn btn-default mb">
-            <span class="fa fa-plus-circle"></span>
-            @Html.ActionLink("Create New Forum", "CreateForum")
-        </button>
+        @Html.ActionLink("Create New Forum", "CreateForum", new { }, new { @class = "btn btn-primary", @style = "margin-bottom: 15px;" })
 
         <table class="table table-hover table-striped">
             <tr>
@@ -27,16 +24,12 @@
                         @Html.ActionLink(item.Category, "DisplayComments", new { id = item.ForumId })
                     </td>
                     <td>
-                        @if (_sessionUser == item.OwnerId) {
-                            <button class="btn btn-info btn-xs" title="Edit forum details">
-                                <i class="fa fa-pencil"></i>
-                                @Html.ActionLink("Edit", "EditForum", new { id = item.ForumId })
-                            </button>
-                            <span>|</span>
-                            <button class="btn btn-theme03 btn-xs" title="Delete selected forum">
-                                <i class="fa fa-trash-o"></i>
-                                @Html.ActionLink("Delete", "DeleteForum", new { id = item.ForumId })
-                            </button>
+                        @if (_sessionUser == item.OwnerId)
+                        {
+                            <div class="btn-group">
+                                @Html.ActionLink("Edit", "EditForum", new { id = item.ForumId }, new { @class = "btn btn-default btn-sm" })
+                                @Html.ActionLink("Delete", "DeleteForum", new { id = item.ForumId }, new { @class = "btn btn-danger btn-sm" })
+                            </div>
                         }
                     </td>
                 </tr>

@@ -13,7 +13,7 @@
         @using (Html.BeginForm("CourseHomeworkGrading", "Grades", new { assignementId = _assignementId, answerId = viewModel.AnswerId, homeworkId = _homeworkId, courseId = _courseId }, FormMethod.Post, new { @class = "panel-default" })) {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
-            <h2><i class="fa fa-angle-right"></i> Submited Answer Details</h2>
+            <h2><i class="fa fa-angle-right"></i> Submited Answer</h2>
 
             @Html.HiddenFor(model => viewModel.AnswerId)
             @Html.HiddenFor(model => viewModel.AnswerType)

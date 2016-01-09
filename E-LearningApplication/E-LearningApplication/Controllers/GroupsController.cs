@@ -129,6 +129,9 @@ namespace E_LearningApplication.Controllers {
         public ActionResult SearchAllGroups(string searchString) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
+
                 List<Groups> groups = new List<Groups>();
                 if (!string.IsNullOrWhiteSpace(searchString)) {
                     using (var client = new HttpClient()) {
@@ -136,7 +139,7 @@ namespace E_LearningApplication.Controllers {
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json")
                             );
-                        HttpResponseMessage response = client.GetAsync("api/groups/GetGroupByNameOrDescription/?searchTerm=" + searchString).Result;
+                        HttpResponseMessage response = client.GetAsync("api/groups/GetGroupByNameOrDescription/?searchTerm=" + searchString + "&userId=" + _sessionUser).Result;
                         if (response.IsSuccessStatusCode) {
                             var list = response.Content.ReadAsAsync<IEnumerable<Groups>>().Result;
                             if (list != null) {
@@ -169,6 +172,9 @@ namespace E_LearningApplication.Controllers {
         public ActionResult SearchAssociatedGroups(string searchString) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
+
                 List<Groups> groups = new List<Groups>();
                 if (!string.IsNullOrWhiteSpace(searchString)) {
                     using (var client = new HttpClient()) {
@@ -176,7 +182,7 @@ namespace E_LearningApplication.Controllers {
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json")
                             );
-                        HttpResponseMessage response = client.GetAsync("api/groups/GetGroupByNameOrDescription/?searchTerm=" + searchString).Result;
+                        HttpResponseMessage response = client.GetAsync("api/groups/GetAssociatedGroupByNameOrDescription/?searchTerm=" + searchString + "&userId=" + _sessionUser).Result;
                         if (response.IsSuccessStatusCode) {
                             var list = response.Content.ReadAsAsync<IEnumerable<Groups>>().Result;
                             if (list != null) {
@@ -219,67 +225,74 @@ namespace E_LearningApplication.Controllers {
         public ActionResult CreateGroup(GroupsViewModel groupViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                var _userId = Session["UserId"];
-                var _sessionUser = Convert.ToInt32(_userId);
+                var groupType = Request["groupType"];
+                if (groupType != null && !groupType.Equals("")) {
+                    var _userId = Session["UserId"];
+                    var _sessionUser = Convert.ToInt32(_userId);
 
-                Groups group = new Groups();
-                #region create new group
+                    Groups group = new Groups();
+                    #region create new group
 
-                //create the dto for the new group
-                GroupDTO dto = new GroupDTO();
-                dto.GroupDescription = groupViewModel.GroupDescription;
-                dto.GroupName = groupViewModel.GroupName;
-                dto.GroupType = groupViewModel.GroupType;
-                dto.OwnerId = _sessionUser;
+                    //create the dto for the new group
+                    GroupDTO dto = new GroupDTO();
+                    dto.GroupDescription = groupViewModel.GroupDescription;
+                    dto.GroupName = groupViewModel.GroupName;
+                    dto.GroupType = groupViewModel.GroupType;
+                    dto.OwnerId = _sessionUser;
 
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.PostAsJsonAsync("api/groups/AddGroup/?group=", dto).Result;
-                    if (response.IsSuccessStatusCode) {
-                        var g = response.Content.ReadAsAsync<Groups>().Result;
-                        if (g != null) {
-                            group.GroupDescription = g.GroupDescription;
-                            group.GroupId = g.GroupId;
-                            group.GroupName = g.GroupName;
-                            group.GroupType = g.GroupType;
-                            group.OwnerId = g.OwnerId;
+                    using (var client = new HttpClient()) {
+                        client.BaseAddress = new Uri(this.apiMethodsUrl);
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new MediaTypeWithQualityHeaderValue("application/json")
+                            );
+                        HttpResponseMessage response = client.PostAsJsonAsync("api/groups/AddGroup/?group=", dto).Result;
+                        if (response.IsSuccessStatusCode) {
+                            var g = response.Content.ReadAsAsync<Groups>().Result;
+                            if (g != null) {
+                                group.GroupDescription = g.GroupDescription;
+                                group.GroupId = g.GroupId;
+                                group.GroupName = g.GroupName;
+                                group.GroupType = g.GroupType;
+                                group.OwnerId = g.OwnerId;
+                            }
+                            else {
+                                throw new CustomException("Could not complete the operation!");
+                            }
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
                         }
                     }
-                    else {
-                        throw new CustomException("Could not complete the operation!");
+
+                    #endregion
+
+                    #region subscribe to created group
+
+                    //create dto for the new member
+                    GroupMemberDTO dto1 = new GroupMemberDTO();
+                    dto1.GroupId = group.GroupId;
+                    dto1.MemberId = _sessionUser;
+
+                    using (var client = new HttpClient()) {
+                        client.BaseAddress = new Uri(this.apiMethodsUrl);
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new MediaTypeWithQualityHeaderValue("application/json")
+                            );
+                        HttpResponseMessage response = client.PostAsJsonAsync("api/groups/AddGroupMember/?groupMember=", dto1).Result;
+                        if (!response.IsSuccessStatusCode) {
+                            throw new CustomException("Could not complete the operation!");
+                        }
                     }
 
+                    #endregion
+
+                    return RedirectToAction("DisplayAssociatedGroups");
                 }
-
-                #endregion
-
-                #region subscribe to created group
-
-                //create dto for the new member
-                GroupMemberDTO dto1 = new GroupMemberDTO();
-                dto1.GroupId = group.GroupId;
-                dto1.MemberId = _sessionUser;
-
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.PostAsJsonAsync("api/groups/AddGroupMember/?groupMember=", dto1).Result;
-                    if (!response.IsSuccessStatusCode) {
-                        throw new CustomException("Could not complete the operation!");
-                    }
+                else {
+                    this.logger.Trace("Username: " + User.Identity.Name);
+                    ViewBag.Error = "Please choose a type for the group!";
+                    return View("Error");
                 }
-
-                #endregion
-
-                return RedirectToAction("DisplayAssociatedGroups");
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
@@ -395,27 +408,37 @@ namespace E_LearningApplication.Controllers {
         public ActionResult EditGroup(GroupsViewModel groupViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                //create the group dto to be passed to the api services
-                GroupDTO dto = new GroupDTO();
-                dto.GroupDescription = groupViewModel.GroupDescription;
-                dto.GroupId = groupViewModel.GroupId;
-                dto.GroupName = groupViewModel.GroupName;
-                dto.GroupType = groupViewModel.GroupType;
-                dto.OwnerId = groupViewModel.OwnerId;
+                var groupType = Request["groupType"];
+                if (groupType != null && !groupType.Equals("")) {
+                    var _userId = Session["UserId"];
+                    var _sessionUser = Convert.ToInt32(_userId);
 
-                //edit the group
-                using (var client = new HttpClient()) {
-                    client.BaseAddress = new Uri(this.apiMethodsUrl);
-                    client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json")
-                        );
-                    HttpResponseMessage response = client.PutAsJsonAsync("api/groups/UpdateGroup/?id=" + groupViewModel.GroupId, dto).Result;
-                    if (!response.IsSuccessStatusCode) {
-                        throw new CustomException("Could not complete the operation!");
+                    //create the group dto to be passed to the api services
+                    GroupDTO dto = new GroupDTO();
+                    dto.GroupDescription = groupViewModel.GroupDescription;
+                    dto.GroupId = groupViewModel.GroupId;
+                    dto.GroupName = groupViewModel.GroupName;
+                    dto.GroupType = groupViewModel.GroupType;
+                    dto.OwnerId = _sessionUser;
+
+                    //edit the group
+                    using (var client = new HttpClient()) {
+                        client.BaseAddress = new Uri(this.apiMethodsUrl);
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new MediaTypeWithQualityHeaderValue("application/json")
+                            );
+                        HttpResponseMessage response = client.PutAsJsonAsync("api/groups/UpdateGroup/?id=" + groupViewModel.GroupId, dto).Result;
+                        if (!response.IsSuccessStatusCode) {
+                            throw new CustomException("Could not complete the operation!");
+                        }
                     }
+                    return RedirectToAction("DisplayAssociatedGroups");
                 }
-
-                return RedirectToAction("DisplayAssociatedGroups");
+                else {
+                    this.logger.Trace("Username: " + User.Identity.Name);
+                    ViewBag.Error = "Please choose a type for the group!";
+                    return View("Error");
+                }
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);

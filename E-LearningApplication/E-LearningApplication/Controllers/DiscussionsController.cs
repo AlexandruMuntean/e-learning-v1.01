@@ -463,14 +463,14 @@ namespace E_LearningApplication.Controllers {
         #region Mails
 
         //
-        // GET: /Home/ComposeMail
+        // GET: /Discussions/ComposeMail
         public ActionResult ComposeMail() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             return View();
         }
 
         //
-        // POST: /Home/SendMail(mailViewModel)
+        // POST: /Discussions/SendMail(mailViewModel)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SendMail(MailViewModel model) {

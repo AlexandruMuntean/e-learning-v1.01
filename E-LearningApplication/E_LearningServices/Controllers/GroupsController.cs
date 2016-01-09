@@ -23,9 +23,9 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage GetAllUnassociatedGroups(int id) {
             try {
                 List<Groups> groups = this._groupsManagement.GetAllUnassociatedGroups(id);
+                //create the dto list to be returned to the api consumer
+                List<GroupDTO> dtoList = new List<GroupDTO>();
                 if (groups != null) {
-                    //create the dto list to be returned to the api consumer
-                    List<GroupDTO> dtoList = new List<GroupDTO>();
                     foreach (var g in groups) {
                         dtoList.Add(new GroupDTO {
                             GroupId = g.GroupId,
@@ -35,12 +35,8 @@ namespace E_LearningServices.Controllers {
                             OwnerId = g.OwnerId
                         });
                     }
-
-                    return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
                 }
-                else {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
+                return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
             }
             catch (Exception) {
                 // Log exception code goes here  
@@ -52,10 +48,10 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage GetAssociatedGroups(int userId) {
             try {
                 List<Groups> groups = this._groupsManagement.GetAssociatedGroups(userId);
+                //create the dto list to be returned to the api consumer
+                List<GroupDTO> dtoList = new List<GroupDTO>();
 
                 if (groups != null) {
-                    //create the dto list to be returned to the api consumer
-                    List<GroupDTO> dtoList = new List<GroupDTO>();
                     foreach (var g in groups) {
                         dtoList.Add(new GroupDTO {
                             GroupId = g.GroupId,
@@ -65,12 +61,8 @@ namespace E_LearningServices.Controllers {
                             OwnerId = g.OwnerId
                         });
                     }
-
-                    return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
                 }
-                else {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
+                return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
             }
             catch (Exception) {
                 // Log exception code goes here  
@@ -106,13 +98,13 @@ namespace E_LearningServices.Controllers {
         }
 
         [HttpGet]
-        public HttpResponseMessage GetGroupByNameOrDescription(string searchTerm) {
+        public HttpResponseMessage GetGroupByNameOrDescription(string searchTerm, int userId) {
             try {
-                List<Groups> groups = this._groupsManagement.GetGroupByNameOrDescription(searchTerm);
+                List<Groups> groups = this._groupsManagement.GetGroupByNameOrDescription(searchTerm, userId);
+                //create the dto list to be returned to the api consumer
+                List<GroupDTO> dtoList = new List<GroupDTO>();
 
                 if (groups != null) {
-                    //create the dto list to be returned to the api consumer
-                    List<GroupDTO> dtoList = new List<GroupDTO>();
                     foreach (var g in groups) {
                         dtoList.Add(new GroupDTO {
                             GroupDescription = g.GroupDescription,
@@ -122,12 +114,34 @@ namespace E_LearningServices.Controllers {
                             OwnerId = g.OwnerId
                         });
                     }
+                }
+                return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
+            }
+            catch (Exception) {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
 
-                    return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
+        [HttpGet]
+        public HttpResponseMessage GetAssociatedGroupByNameOrDescription(string searchTerm, int userId) {
+            try {
+                List<Groups> groups = this._groupsManagement.GetAssociatedGroupByNameOrDescription(searchTerm, userId);
+                //create the dto list to be returned to the api consumer
+                List<GroupDTO> dtoList = new List<GroupDTO>();
+
+                if (groups != null) {
+                    foreach (var g in groups) {
+                        dtoList.Add(new GroupDTO {
+                            GroupDescription = g.GroupDescription,
+                            GroupId = g.GroupId,
+                            GroupName = g.GroupName,
+                            GroupType = g.GroupType,
+                            OwnerId = g.OwnerId
+                        });
+                    }
                 }
-                else {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
+                return Request.CreateResponse<List<GroupDTO>>(HttpStatusCode.OK, dtoList);
             }
             catch (Exception) {
                 // Log exception code goes here  

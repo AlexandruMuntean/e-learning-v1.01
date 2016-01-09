@@ -16,24 +16,23 @@
                         @Html.DisplayFor(modelItem => item.FileName)
                     </td>
                     <td>
-                        @using (Html.BeginForm("DeleteCourseResource", "Prof", new { id = item.ResourceId }, FormMethod.Post)) {
+                        @using (Html.BeginForm("DeleteCourseResource", "Prof", new { id = item.ResourceId }, FormMethod.Post, new { style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-xs" title="Delete course resources">
                                 <i class="fa fa-trash-o"></i> Delete
                             </button>
                         }
+
                         <button class="btn btn-info btn-xs" title="Replace course resources">
                             <i class="fa fa-refresh"></i>
-                            @Html.ActionLink("Replace", "ReplaceCourseResource", new {id = item.ResourceId})
+                            @Html.ActionLink("Replace", "ReplaceCourseResource", new { id = item.ResourceId })
                         </button>
 
-                        @if (item.ResourceType == "file")
-                        {
-                            <button class="btn btn-info btn-xs" title="Download course resources">
-                                <i class="fa fa-arrow-down"></i>
-                                @Html.ActionLink("Download Resources", "DowloadCourseResource", new {id = item.ResourceId})
-                            </button>
-                        }
+                        <button class="btn btn-info btn-xs" title="Download course resources">
+                            <i class="fa fa-arrow-down"></i>
+                            @Html.ActionLink("Download Resources", "DowloadCourseResource", new { id = item.ResourceId })
+                        </button>
+
                     </td>
                 </tr>
             }

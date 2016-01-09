@@ -43,9 +43,19 @@ namespace E_LearningServices.Services.Interfaces {
         /// Gets the group by name or description.
         /// </summary>
         /// <param name="searchTerm">The search term.</param>
+        /// <param name="userId">The user identifier.</param>
         /// <returns></returns>
         /// <exception cref="CustomException"></exception>
-        List<Groups> GetGroupByNameOrDescription(string searchTerm);
+        List<Groups> GetGroupByNameOrDescription(string searchTerm, int userId);
+
+        /// <summary>
+        /// Gets the associated group by name or description.
+        /// </summary>
+        /// <param name="searchTerm">The search term.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<Groups> GetAssociatedGroupByNameOrDescription(string searchTerm, int userId);
 
         /// <summary>
         /// Adds the group.

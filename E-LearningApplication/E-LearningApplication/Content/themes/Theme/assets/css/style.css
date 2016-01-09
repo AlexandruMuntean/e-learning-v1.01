@@ -2216,9 +2216,12 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #68dff0;
+    background: #37bc9b;
     color: #fff;
     padding: 10px 0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
 }
 
 

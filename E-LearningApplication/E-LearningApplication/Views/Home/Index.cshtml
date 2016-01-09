@@ -11,12 +11,16 @@
     }
 }
 
-@if (_rolesArray.Contains("Admin") == true) {
-    Html.RenderAction("Index", "Admin");
-}
-else if (_rolesArray.Contains("Prof") == true) {
-    Html.RenderAction("Index", "Prof");
-}
-else if (_rolesArray.Contains("Student") == true) {
-    Html.RenderAction("Index", "Student");
-}
+<div class="form-panel">
+    <h1 class="mt mb"><i class="fa fa-angle-double-right"></i> Welcome</h1>
+
+    @if (_rolesArray.Contains("Admin") == true) {
+        Html.RenderAction("Index", "Admin");
+    }
+    else if (_rolesArray.Contains("Prof") == true) {
+        Html.RenderAction("Index", "Prof");
+    }
+    else if (_rolesArray.Contains("Student") == true) {
+        Html.RenderAction("Index", "Student");
+    }
+</div>

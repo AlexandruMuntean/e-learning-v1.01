@@ -478,7 +478,7 @@ namespace E_LearningApplication.Controllers {
                     var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
                     file.SaveAs(path);
 
-                    FileDTO dto = new FileDTO { parentId = id, fileName = file.FileName , filePath = path};
+                    FileDTO dto = new FileDTO { parentId = id, fileName = file.FileName, filePath = path };
                     HttpResponseMessage response =
                         client.PostAsJsonAsync("api/resources/UploadResourcesForCourses/?id=" + id, dto).Result;
                     if (!response.IsSuccessStatusCode) {
@@ -534,32 +534,26 @@ namespace E_LearningApplication.Controllers {
             }
         }
 
-        private string GetUrlDownload(string FileId)
-        {
+        private string GetUrlDownload(string FileId) {
             StringBuilder sb = new StringBuilder();
             sb.Append("https://docs.google.com/uc?id=").Append(FileId).Append("&export=download");
             return sb.ToString();
         }
 
-        public ActionResult DowloadCourseResource(int id = 0)
-        {
+        public ActionResult DowloadCourseResource(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
-            try
-            {
+            try {
                 //get the course resource
                 Resources resource = new Resources();
-                using (var client = new HttpClient())
-                {
+                using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
                     HttpResponseMessage response = client.GetAsync("api/resources/GetCourseResourceById/?id=" + id).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
+                    if (response.IsSuccessStatusCode) {
                         Resources r = response.Content.ReadAsAsync<Resources>().Result;
-                        if (r != null)
-                        {
+                        if (r != null) {
                             resource.CourseId = r.CourseId;
                             resource.FileId = r.FileId;
                             resource.FileName = r.FileName;
@@ -570,13 +564,11 @@ namespace E_LearningApplication.Controllers {
                             string UrlDownload = GetUrlDownload(resource.FileId);
                             resource.FileLocation = UrlDownload;
                         }
-                        else
-                        {
+                        else {
                             throw new CustomException("Could not complete the operation!");
                         }
                     }
-                    else
-                    {
+                    else {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
@@ -584,14 +576,12 @@ namespace E_LearningApplication.Controllers {
                 ResourceViewModel rvm = viewModelFactory.GetViewModel(resource);
                 return View(rvm);
             }
-            catch (CustomException ce)
-            {
+            catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
                 ViewBag.Error = "Operation could not be completed! Try again.";
                 return View("Error");
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 this.logger.Trace(ex, "Username: " + User.Identity.Name);
                 ViewBag.Error = "Operation could not be completed!";
                 return View("Error");
@@ -663,7 +653,7 @@ namespace E_LearningApplication.Controllers {
                     var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
                     file.SaveAs(path);
 
-                    FileDTO dto = new FileDTO { parentId = courseId, fileName = file.FileName , filePath = path};
+                    FileDTO dto = new FileDTO { parentId = courseId, fileName = file.FileName, filePath = path };
 
                     HttpResponseMessage response =
                         client.PutAsJsonAsync("api/resources/UpdateResourcesForCourse?id=" + resourceId, dto).Result;
@@ -686,8 +676,7 @@ namespace E_LearningApplication.Controllers {
         }
 
         [HttpPost]
-        public ActionResult DownloadResourcesforCourse(HttpPostedFileBase file, int courseId = 0, int resourceId = 0)
-        {
+        public ActionResult DownloadResourcesforCourse(HttpPostedFileBase file, int courseId = 0, int resourceId = 0) {
             return null;
         }
 
@@ -789,6 +778,26 @@ namespace E_LearningApplication.Controllers {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 if (id != 0) {
+                    ViewBag.CourseCode = "";
+                    using (var client = new HttpClient()) {
+                        client.BaseAddress = new Uri(this.apiMethodsUrl);
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new MediaTypeWithQualityHeaderValue("application/json")
+                            );
+                        HttpResponseMessage response = client.GetAsync("api/course/GetCourseById/?id=" + id).Result;
+                        if (response.IsSuccessStatusCode) {
+                            var c = response.Content.ReadAsAsync<Courses>().Result;
+                            if (c != null) {
+                                ViewBag.CourseCode = c.CourdeCode;
+                            }
+                            else {
+                                throw new CustomException("Could not complete the operation!");
+                            }
+                        }
+                        else {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
                     CourseModuleViewModel cmvm = new CourseModuleViewModel();
                     cmvm.CourseId = id;
                     return View(cmvm);
@@ -823,7 +832,7 @@ namespace E_LearningApplication.Controllers {
                 dto.ModuleName = courseModuleViewModel.ModuleName;
                 dto.PreviousModuleId = courseModuleViewModel.PreviousModuleId;
                 dto.CourseId = courseModuleViewModel.CourseId;
-                
+
 
                 //add the created course module
                 using (var client = new HttpClient()) {
@@ -843,7 +852,7 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                return RedirectToAction("DisplayCourses");
+                return RedirectToAction("DisplayModules", new { id = dto.CourseId });
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
@@ -861,7 +870,7 @@ namespace E_LearningApplication.Controllers {
         // POST: /Prof/DeleteModule(id = 0)
 
         [HttpPost]
-        public ActionResult DeleteModule(int id = 0) {
+        public ActionResult DeleteModule(int id = 0, int courseId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 //delete the module
@@ -882,7 +891,7 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                return RedirectToAction("DisplayCourses");
+                return RedirectToAction("DisplayModules", new { id = courseId });
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
@@ -970,7 +979,7 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                return RedirectToAction("DisplayCourses");
+                return RedirectToAction("DisplayModules", new { id = dto.CourseId });
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
@@ -1098,7 +1107,7 @@ namespace E_LearningApplication.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteModuleResource(int id = 0) {
+        public ActionResult DeleteModuleResource(int id = 0, int moduleId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
                 //delete the module resource
@@ -1114,7 +1123,7 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
-                return RedirectToAction("DisplayCourses");
+                return RedirectToAction("DisplayModuleResources", new { id = moduleId });
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
@@ -1193,7 +1202,7 @@ namespace E_LearningApplication.Controllers {
                     var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
                     file.SaveAs(path);
 
-                    FileDTO dto = new FileDTO { rootId = courseId, parentId = moduleId, fileName = file.FileName , filePath = path};
+                    FileDTO dto = new FileDTO { rootId = courseId, parentId = moduleId, fileName = file.FileName, filePath = path };
 
                     HttpResponseMessage response =
                         client.PutAsJsonAsync("api/resources/UpdateResourcesForModule/?id=" + resourceId, dto).Result;
@@ -1201,7 +1210,7 @@ namespace E_LearningApplication.Controllers {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
-                return RedirectToAction("DisplayModules", new { id = courseId });
+                return RedirectToAction("DisplayModuleResources", new { id = moduleId });
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);

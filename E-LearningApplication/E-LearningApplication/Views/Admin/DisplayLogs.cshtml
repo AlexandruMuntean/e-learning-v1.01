@@ -62,14 +62,11 @@
                         @Html.DisplayFor(modelItem => item.EventInfo)
                     </td>
                     <td>
-                        <a href="#" data-toggle="tooltip" title="Show log details">
-                            <button class="btn btn-info btn-xs">
-                                <i class="fa fa-expand"></i>
-                                @Html.ActionLink("Details", "LogDetails", new { id = item.Id }, new { title = "Show log details"})
-                            </button>
-                        </a>
-                        |
-                        @using (Html.BeginForm("DeleteLog", "Admin", new { id = item.Id }, FormMethod.Post)) {
+                        <button class="btn btn-info btn-xs">
+                            <i class="fa fa-expand"></i>
+                            @Html.ActionLink("Details", "LogDetails", new { id = item.Id }, new { title = "Show log details" })
+                        </button>
+                        @using (Html.BeginForm("DeleteLog", "Admin", new { id = item.Id }, FormMethod.Post, new { style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()
                             <a href="#" data-toggle="tooltip" title="Delete selected log entry">
                                 <button type="submit" class="btn btn-danger btn-xs">

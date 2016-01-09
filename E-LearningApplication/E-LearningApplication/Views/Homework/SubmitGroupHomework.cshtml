@@ -45,7 +45,8 @@
         </div>
 
         <div class="mb col-lg-6">
-            @using (Html.BeginForm("SubmitGroupHomework", "Homework", new { assignementId = Model.AssignementId, enctype = "multipart/form-data" }, FormMethod.Post)) {
+            @using (Html.BeginForm("SubmitGroupHomework", "Homework", new { assignementId = Model.AssignementId, groupId = Model.RecipientId }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+                @Html.AntiForgeryToken()
                 <div class="mb">
                     <label>Choose a file: </label>
                     <input type="file" name="file" class="btn btn-info" />

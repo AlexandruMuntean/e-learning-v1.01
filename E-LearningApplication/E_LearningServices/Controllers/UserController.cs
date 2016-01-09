@@ -22,8 +22,8 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage GetAllUsers() {
             try {
                 List<Users> users = this._userManagement.GetAllUsers();
+                List<UsersDTO> dtoList = new List<UsersDTO>();
                 if (users != null) {
-                    List<UsersDTO> dtoList = new List<UsersDTO>();
                     foreach (var user in users) {
                         dtoList.Add(new UsersDTO {
                             UserId = user.UserId,
@@ -36,12 +36,8 @@ namespace E_LearningServices.Controllers {
                             UserName = user.UserName
                         });
                     }
-
-                    return Request.CreateResponse<List<UsersDTO>>(HttpStatusCode.OK, dtoList);
                 }
-                else {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
+                return Request.CreateResponse<List<UsersDTO>>(HttpStatusCode.OK, dtoList);
             }
             catch (Exception) {
                 // Log exception code goes here  
@@ -81,22 +77,18 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage GetUserByUserName(string username) {
             try {
                 Users user = this._userManagement.GetUserByUserName(username);
+                UsersDTO dto = new UsersDTO();
                 if (user != null) {
-                    UsersDTO dto = new UsersDTO {
-                        UserId = user.UserId,
-                        AccessStatus = user.AccessStatus,
-                        Email = user.Email,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        MiddleName = user.MiddleName,
-                        StudentIdentificationNumber = user.StudentIdentificationNumber,
-                        UserName = user.UserName
-                    };
-                    return Request.CreateResponse<UsersDTO>(HttpStatusCode.OK, dto);
+                    dto.UserId = user.UserId;
+                    dto.AccessStatus = user.AccessStatus;
+                    dto.Email = user.Email;
+                    dto.FirstName = user.FirstName;
+                    dto.LastName = user.LastName;
+                    dto.MiddleName = user.MiddleName;
+                    dto.StudentIdentificationNumber = user.StudentIdentificationNumber;
+                    dto.UserName = user.UserName;
                 }
-                else {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
+                return Request.CreateResponse<UsersDTO>(HttpStatusCode.OK, dto);
             }
             catch (Exception) {
                 // Log exception code goes here  
@@ -108,25 +100,23 @@ namespace E_LearningServices.Controllers {
         public HttpResponseMessage GetUserByLastName(string lastName) {
             try {
                 List<Users> users = this._userManagement.GetUserByLastName(lastName);
-                if(users != null) {
                 List<UsersDTO> dtoList = new List<UsersDTO>();
-                foreach (var user in users) {
-                    dtoList.Add(new UsersDTO {
-                        UserId = user.UserId,
-                        AccessStatus = user.AccessStatus,
-                        Email = user.Email,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        MiddleName = user.MiddleName,
-                        StudentIdentificationNumber = user.StudentIdentificationNumber,
-                        UserName = user.UserName
-                    });
+                if (users != null) {
+                    foreach (var user in users) {
+                        dtoList.Add(new UsersDTO {
+                            UserId = user.UserId,
+                            AccessStatus = user.AccessStatus,
+                            Email = user.Email,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            MiddleName = user.MiddleName,
+                            StudentIdentificationNumber = user.StudentIdentificationNumber,
+                            UserName = user.UserName
+                        });
+                    }
                 }
                 return Request.CreateResponse<List<UsersDTO>>(HttpStatusCode.OK, dtoList);
-                }
-                else {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
+
             }
             catch (Exception) {
                 // Log exception code goes here  
@@ -136,7 +126,7 @@ namespace E_LearningServices.Controllers {
 
         [HttpPut]
         public HttpResponseMessage UpdateUser(int id, UsersDTO dto) {
-            try { 
+            try {
                 Users user = new Users();
                 user.AccessStatus = dto.AccessStatus;
                 user.Email = dto.Email;
@@ -148,7 +138,7 @@ namespace E_LearningServices.Controllers {
                 user.UserName = dto.UserName;
 
                 this._userManagement.UpdateUser(user);
-                
+
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
