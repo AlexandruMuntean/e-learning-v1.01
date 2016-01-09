@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="ELearningDatabaseModel.Grades" Width="1.5" PointX="9" PointY="13.75" />
         <EntityTypeShape EntityType="ELearningDatabaseModel.GroupMembers" Width="1.5" PointX="5.25" PointY="25.125" />
         <EntityTypeShape EntityType="ELearningDatabaseModel.Groups" Width="1.5" PointX="3" PointY="30" />
-        <EntityTypeShape EntityType="ELearningDatabaseModel.Logs" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ELearningDatabaseModel.Logs" Width="3.125" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ELearningDatabaseModel.Messages" Width="1.5" PointX="3" PointY="20.25" />
         <EntityTypeShape EntityType="ELearningDatabaseModel.ModuleUser" Width="1.5" PointX="13.5" PointY="20.75" />
         <EntityTypeShape EntityType="ELearningDatabaseModel.Pages" Width="1.5" PointX="3" PointY="33.75" />

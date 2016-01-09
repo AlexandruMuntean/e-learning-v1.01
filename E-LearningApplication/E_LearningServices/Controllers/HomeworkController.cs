@@ -8,12 +8,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using E_LearningServices.Utils;
 
 namespace E_LearningServices.Controllers {
     public class HomeworkController : ApiController {
         #region PrivateFields
 
         private IHomeworkManagement _homeworkManagement = new HomeworkManagement();
+        private IResourcesManagement _resourcesManagement = new ResourcesManagement();
 
         #endregion
 
@@ -228,6 +230,143 @@ namespace E_LearningServices.Controllers {
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception) {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage UploadResourcesForHomework(int id, FileDTO fileDto)
+        {
+            try
+            {
+
+                var directoryFather = _resourcesManagement.GetFileIdForADirectory(id);
+                var result = this._resourcesManagement.UploadFile(fileDto.filePath, directoryFather);
+                Resources resources = new Resources
+                {
+                    ResourceType = ResourceEnum.File.ToString(),
+                    FileLocation = "",
+                    FileId = result.Id,
+                    FileName = fileDto.fileName,
+                    CourseId = fileDto.parentId,
+                    ModuleID = -1
+                };
+                this._resourcesManagement.SaveResourcesToDb(resources);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage UploadResourcesForHomeworkModule(int id, FileDTO fileDto)
+        {
+            try
+            {
+                var directoryFather = _resourcesManagement.GetFileIdForAModule(fileDto.parentId);
+                var result = this._resourcesManagement.UploadFile(fileDto.filePath, directoryFather);
+                Resources resources = new Resources
+                {
+                    ResourceType = ResourceEnum.File.ToString(),
+                    FileLocation = "",
+                    FileId = result.Id,
+                    FileName = fileDto.fileName,
+                    CourseId = fileDto.rootId,
+                    ModuleID = fileDto.parentId
+                };
+                this._resourcesManagement.SaveResourcesToDb(resources);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage UpdateResourcesForHomework(int id, FileDTO fileDto)
+        {
+            try
+            {
+                //sterg fosta resursa
+                string nameOfFile = this._homeworkManagement.GetNameOfFile(id);
+                this._resourcesManagement.DeleteHomeworkResource(nameOfFile);
+                //fac upload cu noua resursa
+                var directoryFather = _resourcesManagement.GetFileIdForDirectory(fileDto.parentId);
+                var result = this._resourcesManagement.UploadFile(fileDto.filePath, directoryFather);
+                Resources resources = new Resources
+                {
+                    ResourceType = ResourceEnum.File.ToString(),
+                    FileLocation = "",
+                    FileId = result.Id,
+                    FileName = fileDto.fileName,
+                    CourseId = fileDto.parentId,
+                    ModuleID = -1
+                };
+                this._resourcesManagement.SaveResourcesToDb(resources);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteCourseHomework(int id)
+        {
+            try
+            {
+
+                //delete the resource
+                //iau numele temei( acesta fiindf codul autogenerat)
+                string nameOfFile = this._homeworkManagement.GetNameOfFile(id);
+                this._resourcesManagement.DeleteHomeworkResource(nameOfFile);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetHomeworkResourceById(string id)
+        {
+            try
+            {
+                Resources resource = this._resourcesManagement.GetResourceByHomeworkCode(id);
+
+                if (resource != null)
+                {
+                    ResourcesDTO dto = new ResourcesDTO
+                    {
+                        CourseId = resource.CourseId,
+                        FileId = resource.FileId,
+                        FileName = resource.FileName,
+                        ModuleID = resource.ModuleID,
+                        ResourceId = resource.ResourceId,
+                        ResourceType = resource.ResourceType
+                    };
+
+                    return Request.CreateResponse<ResourcesDTO>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
+                }
+            }
+            catch (Exception)
+            {
                 // Log exception code goes here  
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
             }

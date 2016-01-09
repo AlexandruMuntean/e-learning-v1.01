@@ -702,6 +702,7 @@
     <Content Include="Views\Admin\_Index.cshtml" />
     <Content Include="Views\Student\_Index.cshtml" />
     <Content Include="Views\Prof\_Index.cshtml" />
+    <Content Include="Views\Homework\DowloadCourseResource.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

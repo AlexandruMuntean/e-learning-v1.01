@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -155,21 +156,32 @@ namespace E_LearningApplication.Controllers {
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
                 dto.OwnerId = _sessionUser;
                 //save homework to db
-                using (var client = new HttpClient()) {
+                using (var client = new HttpClient())
+                {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.PostAsJsonAsync("api/homework/AddHomework/?homework=", dto).Result;
-                    if (!response.IsSuccessStatusCode) {
+                    HttpResponseMessage response =
+                        client.PostAsJsonAsync("api/homework/AddHomework/?homework=", dto).Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+
+                    //save homework to drive
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+                    //////upload homework
+                    FileDTO fileDto = new FileDTO {parentId = courseId, fileName = dto.HomeworkCode, filePath = path};
+                    HttpResponseMessage responseDrive =
+                        client.PostAsJsonAsync("api/homework/UploadResourcesForHomework/?id=" + courseId, fileDto).Result;
+                    if (!responseDrive.IsSuccessStatusCode)
+                    {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }
-                //save homework to drive
-                var fileName = dto.HomeworkCode;
-                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
-                file.SaveAs(path);
-                //////upload homework
 
                 return RedirectToAction("DisplayAllCourseHomework", new { id = courseId });
             }
@@ -192,6 +204,70 @@ namespace E_LearningApplication.Controllers {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             ViewBag.CourseModuleId = id;
             return View();
+        }
+
+        private string GetUrlDownload(string FileId)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("https://docs.google.com/uc?id=").Append(FileId).Append("&export=download");
+            return sb.ToString();
+        }
+
+        public ActionResult DowloadCourseResource(string id)
+        {
+            this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            try
+            {
+                //get the course resource
+                Resources resource = new Resources();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/homework/GetHomeworkResourceById/?id=" + id).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Resources r = response.Content.ReadAsAsync<Resources>().Result;
+                        if (r != null)
+                        {
+                            resource.CourseId = r.CourseId;
+                            resource.FileId = r.FileId;
+                            resource.FileName = r.FileName;
+                            resource.ModuleID = r.ModuleID;
+                            resource.ResourceId = r.ResourceId;
+                            resource.ResourceType = r.ResourceType;
+
+                            string UrlDownload = GetUrlDownload(resource.FileId);
+                            resource.FileLocation = UrlDownload;
+                        }
+                        else
+                        {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
+                    else
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                ResourceViewModel rvm = viewModelFactory.GetViewModel(resource);
+                return View(rvm);
+            }
+            catch (CustomException ce)
+            {
+                this.logger.Trace(ce, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed! Try again.";
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                this.logger.Trace(ex, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed!";
+                return View("Error");
+            }
         }
 
         //
@@ -217,22 +293,33 @@ namespace E_LearningApplication.Controllers {
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
                 dto.OwnerId = _sessionUser;
                 //save homework to db
-                using (var client = new HttpClient()) {
+                using (var client = new HttpClient())
+                {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.PostAsJsonAsync("api/homework/AddHomework/?homework=", dto).Result;
-                    if (!response.IsSuccessStatusCode) {
+                    HttpResponseMessage response =
+                        client.PostAsJsonAsync("api/homework/AddHomework/?homework=", dto).Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
                         throw new CustomException("Could not complete the operation!");
                     }
-                }
-                //save homework to drive
-                var fileName = dto.HomeworkCode;
-                var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
-                file.SaveAs(path);
-                //////upload homework
 
+                    //save homework to drive
+                    var fileName = file.FileName;
+                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                    file.SaveAs(path);
+                    //////upload homework
+                     FileDTO fileDto = new FileDTO { rootId = homeworkViewModel.CourseId.GetValueOrDefault() , parentId = courseModuleId, fileName = dto.HomeworkCode, filePath = path};
+                    HttpResponseMessage responseDrive =
+                        client.PostAsJsonAsync("api/homework/UploadResourcesForHomeworkModule/?id=" + courseModuleId, fileDto).Result;
+                    if (!responseDrive.IsSuccessStatusCode)
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                    
+                }
                 return RedirectToAction("DisplayAllCourseModuleHomework", new { id = courseModuleId });
             }
             catch (CustomException ce) {
@@ -260,10 +347,18 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
+
+                    HttpResponseMessage responseDrive = client.DeleteAsync("api/homework/DeleteCourseHomework/?id=" + id).Result;
+                    if (!responseDrive.IsSuccessStatusCode)
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+
                     HttpResponseMessage response = client.DeleteAsync("api/homework/DeleteHomework/?id=" + id).Result;
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
                     }
+                    
                 }
 
                 return RedirectToAction("DisplayAllCourseHomework", new { id = courseId });
@@ -512,22 +607,41 @@ namespace E_LearningApplication.Controllers {
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
                 dto.OwnerId = _sessionUser;
                 //update homework on db
-                using (var client = new HttpClient()) {
+                using (var client = new HttpClient())
+                {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.PutAsJsonAsync("api/homework/UpdateHomework/?id=" + homeworkViewModel.HomeworkId, dto).Result;
-                    if (!response.IsSuccessStatusCode) {
+                    HttpResponseMessage response =
+                        client.PutAsJsonAsync("api/homework/UpdateHomework/?id=" + homeworkViewModel.HomeworkId, dto)
+                            .Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
                         throw new CustomException("Could not complete the operation!");
                     }
-                }
-                if (file != null) {
-                    //update homework on drive
-                    var fileName = dto.HomeworkCode;
-                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
-                    file.SaveAs(path);
-                    //////upload homework
+
+                    if (file != null)
+                    {
+                        //update homework on drive
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                        file.SaveAs(path);
+                        //////upload homework
+                        FileDTO fileDto = new FileDTO
+                        {
+                            parentId = courseId,
+                            fileName = dto.HomeworkCode,
+                            filePath = path
+                        };
+                        HttpResponseMessage responseDrive =
+                            client.PostAsJsonAsync("api/homework/UpdateResourcesForHomework/?id=" + homeworkViewModel.HomeworkId, fileDto)
+                                .Result;
+                        if (!responseDrive.IsSuccessStatusCode)
+                        {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
                 }
 
                 return RedirectToAction("DisplayAllCourseHomework", new { id = courseId });

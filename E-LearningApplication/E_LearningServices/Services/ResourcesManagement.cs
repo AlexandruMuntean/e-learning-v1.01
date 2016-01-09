@@ -522,6 +522,25 @@ namespace E_LearningServices.Services {
             }
         }
 
+        public Resources GetResourceByHomeworkCode(string id)
+        {
+            try
+            {
+                using (var db = new ELearningDatabaseEntities())
+                {
+                    return db.Resources.Where(x => x.FileName == id).First();
+                }
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Deletes the course resource.
         /// </summary>
@@ -546,6 +565,32 @@ namespace E_LearningServices.Services {
                 throw new CustomException(ane.Message);
             }
             catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        public void DeleteHomeworkResource(string fileName)
+        {
+            try
+            {
+                using (var db = new ELearningDatabaseEntities())
+                {
+                    var resource = db.Resources.Where(x => x.FileName == fileName).First();
+                    if (resource != null)
+                    {
+                        string fildeId = resource.FileId;
+                        DeleteFile(fildeId);
+                        db.Resources.Remove(resource);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex)
+            {
                 throw new CustomException(ex.Message);
             }
         }

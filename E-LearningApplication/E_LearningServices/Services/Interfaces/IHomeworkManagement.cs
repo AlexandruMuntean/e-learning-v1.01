@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using E_LearningServices.CustomExceptions;
 
 namespace E_LearningServices.Services.Interfaces {
     public interface IHomeworkManagement {
@@ -67,6 +68,8 @@ namespace E_LearningServices.Services.Interfaces {
         /// <returns></returns>
         /// <exception cref="CustomException"></exception>
         Answers GetAnswerForAssignement(int assignementId);
+
+        string GetNameOfFile(int HomeworkId);
 
         /// <summary>
         /// Adds the homework.

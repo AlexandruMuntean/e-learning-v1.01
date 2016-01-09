@@ -341,7 +341,7 @@
     </Key>
     <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ResourceType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="FileLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FileLocation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="PageId" Type="Int32" />
     <Property Name="FileId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />

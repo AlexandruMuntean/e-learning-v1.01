@@ -1,0 +1,24 @@
+﻿@model E_LearningApplication.Models.ViewModels.ResourceViewModel
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Download Course Resource</h2>
+
+    <div class="panel panel-body panel-default">
+        @using (Html.BeginForm("DownloadResourcesforCourse", "Prof", new { courseId = Model.CourseId, resourceId = Model.ResourceId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="mb">
+                <label>Resource to be download:</label>
+                @Html.DisplayNameFor(model => model.FileName)
+                @Html.DisplayFor(model => model.FileName)
+            </div>
+            <div class="mb">
+
+            </div>
+            <p>
+                <a href="@Model.FileLocation">
+                    <button type="button" class="btn btn-facebook btn-sm">Download the file</button>
+                </a>
+
+            </p>
+        }
+    </div>
+</div>
