@@ -319,6 +319,36 @@ namespace E_LearningServices.Controllers {
             }
         }
 
+        [HttpPost]
+        public HttpResponseMessage UpdateResourcesForHomeworkinModules(int id, FileDTO fileDto)
+        {
+            try
+            {
+                //sterg fosta resursa
+                string nameOfFile = this._homeworkManagement.GetNameOfFile(id);
+                this._resourcesManagement.DeleteHomeworkResource(nameOfFile);
+                //fac upload cu noua resursa
+                var directoryFather = _resourcesManagement.GetFileIdForAModule(fileDto.parentId);
+                var result = this._resourcesManagement.UploadFile(fileDto.filePath, directoryFather);
+                Resources resources = new Resources
+                {
+                    ResourceType = ResourceEnum.File.ToString(),
+                    FileLocation = "",
+                    FileId = result.Id,
+                    FileName = fileDto.fileName,
+                    CourseId = fileDto.rootId,
+                    ModuleID = fileDto.parentId
+                };
+                this._resourcesManagement.SaveResourcesToDb(resources);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
 
         [HttpDelete]
         public HttpResponseMessage DeleteCourseHomework(int id)

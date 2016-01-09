@@ -740,22 +740,43 @@ namespace E_LearningApplication.Controllers {
                 dto.CourseModuleId = homeworkViewModel.CourseModuleId;
                 dto.OwnerId = _sessionUser;
                 //update homework on db
-                using (var client = new HttpClient()) {
+                using (var client = new HttpClient())
+                {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    HttpResponseMessage response = client.PutAsJsonAsync("api/homework/UpdateHomework/?id=" + homeworkViewModel.HomeworkId, dto).Result;
-                    if (!response.IsSuccessStatusCode) {
+                    HttpResponseMessage response =
+                        client.PutAsJsonAsync("api/homework/UpdateHomework/?id=" + homeworkViewModel.HomeworkId, dto)
+                            .Result;
+
+                    if (!response.IsSuccessStatusCode)
+                    {
                         throw new CustomException("Could not complete the operation!");
                     }
-                }
-                if (file != null) {
-                    //update homework on drive
-                    var fileName = dto.HomeworkCode;
-                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
-                    file.SaveAs(path);
-                    //////update homework
+
+                    if (file != null)
+                    {
+                        //update homework on drive
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
+                        file.SaveAs(path);
+                        //////upload homework
+                        FileDTO fileDto = new FileDTO
+                        {
+                            rootId = homeworkViewModel.CourseId.GetValueOrDefault(),
+                            parentId = courseModuleId,
+                            fileName = dto.HomeworkCode,
+                            filePath = path
+                        };
+                        HttpResponseMessage responseDrive =
+                            client.PostAsJsonAsync("api/homework/UpdateResourcesForHomeworkinModules/?id=" + homeworkViewModel.HomeworkId, fileDto)
+                                .Result;
+                        if (!responseDrive.IsSuccessStatusCode)
+                        {
+                            throw new CustomException("Could not complete the operation!");
+                        }
+                    }
                 }
 
                 return RedirectToAction("DisplayAllCourseModuleHomework", new { id = courseModuleId });
