@@ -1,0 +1,87 @@
+﻿@model IEnumerable<E_LearningApplication.Models.ViewModels.LogsViewModel>
+
+<h3><i class="fa fa-angle-right"></i> Display Logs</h3>
+<div class="panel panel-body panel-default">
+    <div class="col-lg-12">
+        <div class="panel-body col-lg-6">
+            @using (Html.BeginForm("SearchLog", "Admin", FormMethod.Get)) {
+
+                <h5><i class="fa fa-search"></i> Search by</h5>
+
+                <label>Search logs by event level</label>
+                <input type="text" name="searchEventLevel">
+                <br />
+                <label>Search logs by event datetime</label>
+                <input type="text" name="searchEventDatetime">
+                <br />
+                <label>Search logs by event information</label>
+                <input type="text" name="searchEventInfo" />
+                <br />
+                <input type="submit" value="Search" class="btn btn-theme02 btn-xs" />
+            }
+        </div>
+        <div class="panel-body col-lg-6">
+            <p>
+                @Html.ActionLink("Show all logs", "DisplayLogs", "Admin", new { @class = "btn btn-info btn-sm" })
+            </p>
+
+            <p>
+                @using (Html.BeginForm("DeleteAllLogs", "Admin", FormMethod.Post)) {
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Delete All Logs" class="btn btn-theme02 btn-xs" />
+                }
+            </p>
+        </div>
+    </div>
+</div>
+<div class="panel panel-body panel-default">
+    <table class="table table-striped table-hover mt">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventInfo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventLevel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventInfo)
+                </td>
+                <td>
+                    <button class="btn btn-info btn-xs">
+                        <i class="fa fa-expand"></i>
+                        @Html.ActionLink("Details", "LogDetails", new { id = item.Id }, new { title = "Show log details" })
+                    </button>
+                    @using (Html.BeginForm("DeleteLog", "Admin", new { id = item.Id }, FormMethod.Post, new { style = "display: inline-block" })) {
+                        @Html.AntiForgeryToken()
+                        <a href="#" data-toggle="tooltip" title="Delete selected log entry">
+                            <button type="submit" class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash-o"></i> Delete
+                            </button>
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
