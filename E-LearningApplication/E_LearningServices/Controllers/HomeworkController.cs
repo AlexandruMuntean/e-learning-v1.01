@@ -339,6 +339,26 @@ namespace E_LearningServices.Controllers {
             }
         }
 
+        [HttpDelete]
+        public HttpResponseMessage DeleteModuleHomework(int id)
+        {
+            try
+            {
+
+                //delete the resource
+                //iau numele temei( acesta fiindf codul autogenerat)
+                string nameOfFile = this._homeworkManagement.GetNameOfFile(id);
+                this._resourcesManagement.DeleteHomeworkResource(nameOfFile);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+
         [HttpGet]
         public HttpResponseMessage GetHomeworkResourceById(string id)
         {

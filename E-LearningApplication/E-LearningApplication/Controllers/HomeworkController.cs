@@ -388,6 +388,13 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
+
+                    HttpResponseMessage responseDrive = client.DeleteAsync("api/homework/DeleteModuleHomework/?id=" + id).Result;
+                    if (!responseDrive.IsSuccessStatusCode)
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+
                     HttpResponseMessage response = client.DeleteAsync("api/homework/DeleteHomework/?id=" + id).Result;
                     if (!response.IsSuccessStatusCode) {
                         throw new CustomException("Could not complete the operation!");
