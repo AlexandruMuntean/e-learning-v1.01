@@ -350,7 +350,9 @@
     <Compile Include="Models\webpages_Roles.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utils\EnumUtil.cs" />
+    <Compile Include="Utils\EnumUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\MailUtil\IMailUtil.cs" />
     <Compile Include="Utils\MailUtil\MailUtil.cs" />
     <Compile Include="Utils\PasswordGenerator.cs" />

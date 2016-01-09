@@ -33,7 +33,7 @@
                     @Html.DisplayFor(model => viewModel.HomeworkDescription)
                     <button class="mt btn btn-info btn-xs" title="Download course resources">
                         <i class="fa fa-arrow-down"></i>
-                        @Html.ActionLink("Download", "DowloadCourseResource", new { id = viewModel.HomeworkId })
+                        @Html.ActionLink("Download", "DowloadCourseResource", "Homework", new { id = viewModel.HomeworkCode }, new { title = "Download homework" })
                     </button>
                 </div>
 
