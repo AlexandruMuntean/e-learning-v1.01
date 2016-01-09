@@ -16,9 +16,9 @@ namespace E_LearningServices.Models
     {
         public CourseModule()
         {
+            this.ModuleUser = new HashSet<ModuleUser>();
             this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
             this.Homeworks = new HashSet<Homeworks>();
-            this.ModuleUser = new HashSet<ModuleUser>();
         }
     
         public int ModuleId { get; set; }
@@ -30,8 +30,8 @@ namespace E_LearningServices.Models
     
         public virtual Courses Courses { get; set; }
         public virtual Grades Grades { get; set; }
+        public virtual ICollection<ModuleUser> ModuleUser { get; set; }
         public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
         public virtual ICollection<Homeworks> Homeworks { get; set; }
-        public virtual ICollection<ModuleUser> ModuleUser { get; set; }
     }
 }

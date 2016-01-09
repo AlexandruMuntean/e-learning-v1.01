@@ -50,7 +50,6 @@
                                     <i class="fa fa-pencil"></i>
                                     @Html.ActionLink("Edit", "EditComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
                                 </button>
-                                @Html.Display(" | ")
                                 <button class="btn btn-theme03 btn-xs">
                                     <i class="fa fa-trash-o"></i>
                                     @Html.ActionLink("Delete", "DeleteComment", new { id = item.MessageId, idForum = Model.forum.ForumId })

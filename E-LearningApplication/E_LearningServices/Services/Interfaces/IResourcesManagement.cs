@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using E_LearningServices.CustomExceptions;
 using Google.Apis.Drive.v2;
 using GoogleDataAPI = Google.Apis.Drive.v2.Data;
 using E_LearningServices.Models;
@@ -89,6 +90,8 @@ namespace E_LearningServices.Services.Interfaces {
         /// </exception>
         string GetFileIdForADirectory(int? courseId);
 
+        void DeleteHomeworkResource(string FileName);
+
         string GetFileIdForAModule(int moduleId);
 
         /// <summary>
@@ -153,5 +156,7 @@ namespace E_LearningServices.Services.Interfaces {
         List<Resources> GetModuleResources(int id);
 
         #endregion
+
+        Resources GetResourceByHomeworkCode(string id);
     }
 }

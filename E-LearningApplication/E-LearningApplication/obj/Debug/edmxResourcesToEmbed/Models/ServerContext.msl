@@ -100,37 +100,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="HomeworkAssignements">
-      <EntityTypeMapping TypeName="ELearningDatabaseModel.HomeworkAssignements">
-        <MappingFragment StoreEntitySet="HomeworkAssignements">
-          <ScalarProperty Name="GradeId" ColumnName="GradeId" />
-          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
-          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
-          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
-          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-          <ScalarProperty Name="AssignementId" ColumnName="AssignementId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Homeworks">
-      <EntityTypeMapping TypeName="ELearningDatabaseModel.Homeworks">
-        <MappingFragment StoreEntitySet="Homeworks">
-          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
-          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="HomeworkAccessSpan" ColumnName="HomeworkAccessSpan" />
-          <ScalarProperty Name="HomeworkSubmissionType" ColumnName="HomeworkSubmissionType" />
-          <ScalarProperty Name="HomeworkPoints" ColumnName="HomeworkPoints" />
-          <ScalarProperty Name="HomeworkType" ColumnName="HomeworkType" />
-          <ScalarProperty Name="HomeworkDeadline" ColumnName="HomeworkDeadline" />
-          <ScalarProperty Name="HomeworkDescription" ColumnName="HomeworkDescription" />
-          <ScalarProperty Name="HomeworkName" ColumnName="HomeworkName" />
-          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Logs">
       <EntityTypeMapping TypeName="ELearningDatabaseModel.Logs">
         <MappingFragment StoreEntitySet="Logs">
@@ -289,5 +258,35 @@
         <ScalarProperty Name="RoleId" ColumnName="RoleId" />
       </EndProperty>
     </AssociationSetMapping>
+    <EntitySetMapping Name="Homeworks">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Homeworks">
+        <MappingFragment StoreEntitySet="Homeworks">
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="HomeworkAccessSpan" ColumnName="HomeworkAccessSpan" />
+          <ScalarProperty Name="HomeworkPoints" ColumnName="HomeworkPoints" />
+          <ScalarProperty Name="HomeworkDeadline" ColumnName="HomeworkDeadline" />
+          <ScalarProperty Name="HomeworkDescription" ColumnName="HomeworkDescription" />
+          <ScalarProperty Name="HomeworkName" ColumnName="HomeworkName" />
+          <ScalarProperty Name="HomeworkCode" ColumnName="HomeworkCode" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HomeworkAssignements">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.HomeworkAssignements">
+        <MappingFragment StoreEntitySet="HomeworkAssignements">
+          <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="AssignementId" ColumnName="AssignementId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

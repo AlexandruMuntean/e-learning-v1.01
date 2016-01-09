@@ -36,31 +36,21 @@
                 @Html.DisplayFor(item => Model.HomeworkPoints)
             </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(item => Model.HomeworkSubmissionType)
-            </div>
-            <div class="editor-field mb">
-                @Html.DisplayFor(item => Model.HomeworkSubmissionType)
+            <div class="mb">
+                <button class="btn btn-info btn-xs" title="Download homework description">
+                    <i class="fa fa-arrow-down"></i>
+                    @Html.ActionLink("Download", "DowloadCourseResource", "Prof", new { id = Model.HomeworkId }, new { title = "Download homework"})
+                </button>
             </div>
         </div>
 
         <div class="mb col-lg-6">
-            @using (Html.BeginForm("SubmitGroupHomework", "Homework", new { assignementId = Model.AssignementId, assignementType = Model.HomeworkSubmissionType }, FormMethod.Post)) {
+            @using (Html.BeginForm("SubmitGroupHomework", "Homework", new { assignementId = Model.AssignementId, groupId = Model.RecipientId }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
                 @Html.AntiForgeryToken()
-                if (Model.HomeworkSubmissionType.Equals("text")) {
-                    <div class="mb">
-                        <label>Enter a solution as plain text:</label>
-                        <br />
-                        <textarea name="answerText"></textarea>
-                    </div>
-                }
-                else
-                    if (Model.HomeworkSubmissionType.Equals("file")) {
-                        <div class="mb">
-                            <label>Choose a file: </label>
-                            <input type="file" name="file" class="btn btn-info" />
-                        </div>
-                    }
+                <div class="mb">
+                    <label>Choose a file: </label>
+                    <input type="file" name="file" class="btn btn-info" />
+                </div>
 
                 <p>
                     <input type="submit" value="Submit" class="btn btn-facebook btn-sm" />

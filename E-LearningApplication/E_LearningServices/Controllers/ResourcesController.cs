@@ -2,6 +2,7 @@
 using E_LearningServices.Models.DTOs;
 using E_LearningServices.Services;
 using E_LearningServices.Services.Interfaces;
+using E_LearningServices.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,7 +84,7 @@ namespace E_LearningServices.Controllers {
                 //adding a course to drive
                 var result = this._resourcesManagement.CreateDirectory(dto.CourseName, "", ElUpToMe);
                 Resources resources = new Resources {
-                    ResourceType = "directory",
+                    ResourceType = ResourceEnum.Directory.ToString(),
                     FileLocation = "",
                     FileId = result.Id,
                     FileName = result.Title,
@@ -147,7 +148,7 @@ namespace E_LearningServices.Controllers {
                 var directoryFather = _resourcesManagement.GetFileIdForADirectory(id);
                 var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
-                    ResourceType = "file",
+                    ResourceType = ResourceEnum.File.ToString(),
                     FileLocation = "",
                     FileId =  result.Id,
                     FileName = dto.fileName,
@@ -173,7 +174,7 @@ namespace E_LearningServices.Controllers {
                 //add new resource
                 var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
-                    ResourceType = "file",
+                    ResourceType = ResourceEnum.File.ToString(),
                     FileLocation = "",
                     FileId =  result.Id,
                     FileName = dto.fileName,
@@ -229,7 +230,7 @@ namespace E_LearningServices.Controllers {
                 var directoryFather = _resourcesManagement.GetFileIdForADirectory(dto.CourseId);
                 var result = this._resourcesManagement.CreateDirectory(dto.ModuleName, "", directoryFather);
                 Resources resources = new Resources {
-                    ResourceType = "module",
+                    ResourceType = ResourceEnum.Module.ToString(),
                     FileLocation = "",
                     FileId = result.Id,
                     FileName = result.Title,
@@ -266,7 +267,7 @@ namespace E_LearningServices.Controllers {
                 var directoryFather = _resourcesManagement.GetFileIdForAModule(dto.parentId);
                 var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
-                    ResourceType = "file",
+                    ResourceType = ResourceEnum.File.ToString(),
                     FileLocation = "",
                     FileId = result.Id,
                     FileName = dto.fileName,
@@ -291,7 +292,7 @@ namespace E_LearningServices.Controllers {
                 //add new resource
                 var result = this._resourcesManagement.UploadFile(dto.filePath, directoryFather);
                 Resources resources = new Resources {
-                    ResourceType = "file",
+                    ResourceType = ResourceEnum.File.ToString(),
                     FileLocation = "",
                     FileId = result.Id,
                     FileName = dto.fileName, //result.Title,

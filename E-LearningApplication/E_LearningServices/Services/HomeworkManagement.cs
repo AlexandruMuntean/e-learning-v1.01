@@ -167,6 +167,20 @@ namespace E_LearningServices.Services {
             }
         }
 
+        public string GetNameOfFile(int HomeworkId) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    var result = db.Homeworks.Where(x => x.HomeworkId == HomeworkId).First();
+                    if (result != null)
+                        return result.HomeworkCode;
+                }
+                return string.Empty;
+            }
+            catch (ArgumentNullException ane) {
+                throw new CustomException(ane.Message);
+            }
+        }
+
         /// <summary>
         /// Adds the homework.
         /// </summary>
@@ -347,7 +361,7 @@ namespace E_LearningServices.Services {
                             HomeworkId = hw.HomeworkId,
                             HomeworkName = hw.HomeworkName,
                             HomeworkPoints = hw.HomeworkPoints,
-                            HomeworkSubmissionType = hw.HomeworkSubmissionType,
+                            HomeworkCode = hw.HomeworkCode,
                             RecipientId = studentId,
                             SubjectCode = code
                         });
@@ -400,7 +414,7 @@ namespace E_LearningServices.Services {
                             HomeworkId = hw.HomeworkId,
                             HomeworkName = hw.HomeworkName,
                             HomeworkPoints = hw.HomeworkPoints,
-                            HomeworkSubmissionType = hw.HomeworkSubmissionType,
+                            HomeworkCode = hw.HomeworkCode,
                             RecipientId = groupId,
                             SubjectCode = code
                         });
@@ -430,7 +444,7 @@ namespace E_LearningServices.Services {
                     //if answer doesn't already exist
                     if (ha.AnswerId == null) {
                         //add the new answer
-                        db.Answers.Attach(answer);
+                        db.Answers.Add(answer);
                         db.SaveChanges();
 
                         //add the newly created answer to the homework

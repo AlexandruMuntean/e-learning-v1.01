@@ -10,7 +10,7 @@ namespace E_LearningApplication.Models.ViewModels {
         public string HomeworkDescription { get; set; }
         public Nullable<System.DateTime> HomeworkDeadline { get; set; }
         public Nullable<decimal> HomeworkPoints { get; set; }
-        public string HomeworkSubmissionType { get; set; }
+        public string HomeworkCode { get; set; }
         public int AssignementId { get; set; }
         public Nullable<int> RecipientId { get; set; }
         public string SubjectCode { get; set; }

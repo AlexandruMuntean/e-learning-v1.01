@@ -8,40 +8,36 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
 
-                <div class="editor-label">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Sender)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(model => model.Sender)
+                    <br/>
+                    @Html.TextBoxFor(model => model.Sender, new { @class= "form-control" })
                     @Html.ValidationMessageFor(model => model.Sender)
                 </div>
 
-                <div class="editor-label">
+                <div class="form-group">
                     @Html.LabelFor(model => model.Receivers)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(model => model.Receivers)
+                    <br />
+                    @Html.TextBoxFor(model => model.Receivers, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Receivers)
                 </div>
 
-                <div class="editor-label">
+                <div class="form-group">
                     @Html.LabelFor(model => model.MailSubject)
-                </div>
-                <div class="editor-field mb">
-                    @Html.EditorFor(model => model.MailSubject)
+                    <br />
+                    @Html.TextBoxFor(model => model.MailSubject, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.MailSubject)
                 </div>
 
-                <div class="editor-label">
+                <div class="form-group">
                     @Html.LabelFor(model => model.MailBody)
-                </div>
-                <div class="editor-field mb">
-                    @Html.TextAreaFor(model => model.MailBody)
+                    <br />
+                    @Html.TextAreaFor(model => model.MailBody, new { @class = "form-control", @rows="5" })
                     @Html.ValidationMessageFor(model => model.MailBody)
                 </div>
 
                 <p>
-                    <input type="submit" value="Send Mail" class="btn btn-facebook btn-sm" />
+                    <input type="submit" value="Send Mail" class="btn btn-primary" />
                 </p>
         }
     </div>

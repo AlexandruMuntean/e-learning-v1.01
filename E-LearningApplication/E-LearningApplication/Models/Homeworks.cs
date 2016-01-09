@@ -7,33 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace E_LearningApplication.Models
-{
+namespace E_LearningApplication.Models {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Homeworks
-    {
-        public Homeworks()
-        {
+
+    public partial class Homeworks {
+        public Homeworks() {
             this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
         }
-    
+
         public int HomeworkId { get; set; }
+        public string HomeworkCode { get; set; }
         public string HomeworkName { get; set; }
         public string HomeworkDescription { get; set; }
         public Nullable<System.DateTime> HomeworkDeadline { get; set; }
-        public string HomeworkType { get; set; }
         public Nullable<decimal> HomeworkPoints { get; set; }
-        public string HomeworkSubmissionType { get; set; }
         public Nullable<System.DateTime> HomeworkAccessSpan { get; set; }
         public Nullable<int> CourseId { get; set; }
         public Nullable<int> CourseModuleId { get; set; }
         public Nullable<int> OwnerId { get; set; }
-    
+
         public virtual CourseModule CourseModule { get; set; }
         public virtual Courses Courses { get; set; }
-        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
         public virtual Users Users { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
     }
 }

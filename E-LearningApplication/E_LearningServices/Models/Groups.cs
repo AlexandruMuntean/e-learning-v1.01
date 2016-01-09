@@ -17,8 +17,8 @@ namespace E_LearningServices.Models
         public Groups()
         {
             this.GroupMembers = new HashSet<GroupMembers>();
-            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
             this.Tests = new HashSet<Tests>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
         }
     
         public int GroupId { get; set; }
@@ -29,7 +29,7 @@ namespace E_LearningServices.Models
     
         public virtual ICollection<GroupMembers> GroupMembers { get; set; }
         public virtual Users Users { get; set; }
-        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
         public virtual ICollection<Tests> Tests { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
     }
 }

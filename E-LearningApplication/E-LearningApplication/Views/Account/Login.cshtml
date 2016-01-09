@@ -6,9 +6,11 @@
 }
 
 @Styles.Render("~/Content/themes/Theme/assets/css/login.css")
+@Styles.Render("~/Content/themes/Theme/assets/font-awesome/cssApp")
+@Styles.Render("~/Content/themes/Theme/assets/font-awesome/fontsApp")
 
 <div id="loginForm" class="login">
-    <h1>Welcome</h1>
+    <h1 class="mb"><i class="fa fa-graduation-cap"></i> E-Learning Platform</h1>
     @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)

@@ -11,6 +11,7 @@ using GoogleDataAPI = Google.Apis.Drive.v2.Data;
 using System.Threading;
 using E_LearningServices.Models;
 using E_LearningServices.CustomExceptions;
+using E_LearningServices.Utils;
 
 namespace E_LearningServices.Services {
     /// <summary>
@@ -483,9 +484,10 @@ namespace E_LearningServices.Services {
         /// </exception>
         public List<Resources> GetCourseResources(int id) {
             try {
+                var resourceType = ResourceEnum.File.ToString();
                 using (var db = new ELearningDatabaseEntities()) {
                     return db.Resources
-                                .Where(r => r.CourseId == id)
+                                .Where(r => r.CourseId == id && r.ResourceType.Equals(resourceType))
                                 .ToList();
                 }
             }
@@ -520,6 +522,20 @@ namespace E_LearningServices.Services {
             }
         }
 
+        public Resources GetResourceByHomeworkCode(string id) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    return db.Resources.Where(x => x.FileName == id).First();
+                }
+            }
+            catch (ArgumentNullException ane) {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Deletes the course resource.
         /// </summary>
@@ -533,6 +549,26 @@ namespace E_LearningServices.Services {
                                         .Where(r => r.ResourceId == id)
                                         .First();
                     if (resource != null){
+                        string fildeId = resource.FileId;
+                        DeleteFile(fildeId);
+                        db.Resources.Remove(resource);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (ArgumentNullException ane) {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        public void DeleteHomeworkResource(string fileName) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    var resource = db.Resources.Where(x => x.FileName == fileName).First();
+                    if (resource != null) {
                         string fildeId = resource.FileId;
                         DeleteFile(fildeId);
                         db.Resources.Remove(resource);
@@ -585,9 +621,10 @@ namespace E_LearningServices.Services {
         /// </exception>
         public List<Resources> GetModuleResources(int id) {
             try {
+                var resourceType = ResourceEnum.File.ToString();
                 using (var db = new ELearningDatabaseEntities()) {
                     return db.Resources
-                                    .Where(r => r.ModuleID == id)
+                                    .Where(r => r.ModuleID == id && r.ResourceType.Equals(resourceType))
                                     .ToList();
                 }
             }

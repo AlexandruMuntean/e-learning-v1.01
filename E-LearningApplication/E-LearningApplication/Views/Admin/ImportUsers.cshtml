@@ -1,4 +1,15 @@
-﻿<div class="form-panel">
+﻿@{
+    var _rolesEnum = Enum.GetValues(typeof(E_LearningApplication.Utils.RolesEnum));
+    var _options = new List<SelectListItem>();
+    _options.Add(new SelectListItem() { Text = "Choose a role...", Value = "" });
+    foreach (var e in _rolesEnum) {
+        _options.Add(
+            new SelectListItem() { Text = e.ToString(), Value = e.ToString()}
+            );
+    }
+}
+
+<div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Import Users</h2>
 
     <div>
@@ -6,11 +17,7 @@
             <div class="mb">
                 <label>Choose a role for the users to be imported: </label>
                 <br />
-                @Html.DropDownList("userRole",
-                        new List<SelectListItem> {new SelectListItem() { Text = "Admin", Value = "Admin" },
-                                                new SelectListItem() { Text = "Prof", Value = "Prof" },
-                                                new SelectListItem() { Text="Student", Value="Student"}},
-                        "Choose a role...", new { @class = "btn btn-theme03"})
+                @Html.DropDownList("userRole", _options, new { @class = "btn btn-theme03"})
             </div>
             <div class="mb">
                 <label>Choose a file: </label>

@@ -18,21 +18,21 @@
                 <div class="display-label">
                     @Html.DisplayNameFor(model => model.ModuleName)
                 </div>
-                <div class="display-field">
+                <div class="display-field mb">
                     @Html.DisplayFor(model => model.ModuleName)
                 </div>
 
                 <div class="display-label">
                     @Html.DisplayNameFor(model => model.Moduledatetime)
                 </div>
-                <div class="display-field">
+                <div class="display-field mb">
                     @Html.DisplayFor(model => model.Moduledatetime)
                 </div>
 
                 <div class="display-label">
                     @Html.DisplayNameFor(model => model.PreviousModuleId)
                 </div>
-                <div class="display-field">
+                <div class="display-field mb">
                     @Html.DisplayFor(model => model.PreviousModuleId)
                 </div>
             </div>
@@ -45,7 +45,7 @@
             </div>
 
             <div class="row mb">
-                @using (Html.BeginForm("DeleteModule", "Prof", new { id = Model.ModuleId }, FormMethod.Post)) {
+                @using (Html.BeginForm("DeleteModule", "Prof", new { id = Model.ModuleId, courseId = Model.CourseId }, FormMethod.Post)) {
                     @Html.AntiForgeryToken()
                     <button type="submit" class="btn btn-danger btn-xs" title="Delete module">
                         <i class="fa fa-trash-o"></i> Delete
@@ -98,7 +98,7 @@
         <button type="button" class="btn btn-link mt">
             <h4>
                 <i class="fa fa-arrow-left"></i>
-                @Html.ActionLink("Back to Courses List", "DisplayCourses")
+                @Html.ActionLink("Back to Modules List", "DisplayModules", new { id = Model.CourseId })
             </h4>
         </button>
     </div>

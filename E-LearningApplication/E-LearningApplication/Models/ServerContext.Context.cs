@@ -35,8 +35,6 @@ namespace E_LearningApplication.Models
         public DbSet<Grades> Grades { get; set; }
         public DbSet<GroupMembers> GroupMembers { get; set; }
         public DbSet<Groups> Groups { get; set; }
-        public DbSet<HomeworkAssignements> HomeworkAssignements { get; set; }
-        public DbSet<Homeworks> Homeworks { get; set; }
         public DbSet<Logs> Logs { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<ModuleUser> ModuleUser { get; set; }
@@ -50,5 +48,7 @@ namespace E_LearningApplication.Models
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
         public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<Homeworks> Homeworks { get; set; }
+        public DbSet<HomeworkAssignements> HomeworkAssignements { get; set; }
     }
 }

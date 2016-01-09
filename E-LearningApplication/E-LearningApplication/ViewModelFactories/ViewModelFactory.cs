@@ -417,8 +417,7 @@ namespace E_LearningApplication.ViewModelFactories {
                 hvm.HomeworkId = homework.HomeworkId;
                 hvm.HomeworkName = homework.HomeworkName;
                 hvm.HomeworkPoints = homework.HomeworkPoints;
-                hvm.HomeworkSubmissionType = homework.HomeworkSubmissionType;
-                hvm.HomeworkType = homework.HomeworkType;
+                hvm.HomeworkCode = homework.HomeworkCode;
                 hvm.CourseId = homework.CourseId;
                 hvm.CourseModuleId = homework.CourseModuleId;
                 hvm.OwnerId = homework.OwnerId;

@@ -1,12 +1,10 @@
 @model IEnumerable<E_LearningApplication.Models.ViewModels.ResourceViewModel>
+
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Display Module Resources</h2>
     <div class="panel panel-body panel-default">
         <table class="table table-striped table-hover">
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.ResourceType)
-                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FileName)
                 </th>
@@ -15,13 +13,10 @@
             @foreach (var item in Model) {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ResourceType)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.FileName)
                     </td>
                     <td>
-                        @using (Html.BeginForm("DeleteModuleResource", "Prof", new { id = item.ResourceId }, FormMethod.Post)) {
+                        @using (Html.BeginForm("DeleteModuleResource", "Prof", new { id = item.ResourceId, moduleId = item.ModuleID }, FormMethod.Post, new { style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-xs" title="Delete module resources">
                                 <i class="fa fa-trash-o"></i> Delete

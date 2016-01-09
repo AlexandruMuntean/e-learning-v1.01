@@ -30,7 +30,42 @@ namespace E_LearningApplication.Controllers {
         // GET: /Student/
 
         public ActionResult Index() {
-            return View();
+            this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            try {
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
+
+                List<Courses> courses = new List<Courses>();
+                using (var client = new HttpClient()) {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/course/GetMyCourses/?id=" + _sessionUser).Result;
+                    if (response.IsSuccessStatusCode) {
+                        IEnumerable<Courses> list = response.Content.ReadAsAsync<IEnumerable<Courses>>().Result;
+                        if (list != null) {
+                            courses = list.ToList();
+                        }
+                    }
+                    else {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                List<CoursesViewModel> cvm = this.viewModelFactory.GetViewModel(courses);
+                return PartialView("_Index", cvm);
+            }
+            catch (CustomException ce) {
+                this.logger.Trace(ce, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed! Try again.";
+                return View("Error");
+            }
+            catch (Exception ex) {
+                this.logger.Trace(ex, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed! Try again.";
+                return View("Error");
+            }
         }
 
         //

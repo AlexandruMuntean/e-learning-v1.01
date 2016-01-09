@@ -1,5 +1,16 @@
 ﻿@model E_LearningApplication.Models.ViewModels.GroupsViewModel
 
+@{
+    var _groupEnum = Enum.GetValues(typeof(E_LearningApplication.Utils.GroupTypeEnum));
+    var _options = new List<SelectListItem>();
+    _options.Add(new SelectListItem() { Text = "Choose a type...", Value = "" });
+    foreach (var e in _groupEnum) {
+        _options.Add(
+            new SelectListItem() { Text = e.ToString(), Value = e.ToString() }
+            );
+    }
+}
+
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Create Group</h2>
 
@@ -29,8 +40,7 @@
                     @Html.LabelFor(model => model.GroupType)
                 </div>
                 <div class="editor-field mb">
-                    @Html.EditorFor(model => model.GroupType)
-                    @Html.ValidationMessageFor(model => model.GroupType)
+                    @Html.DropDownList("groupType", _options, new { @class = "btn btn-theme03" })
                 </div>
 
                 <p>

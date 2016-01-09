@@ -35,8 +35,6 @@ namespace E_LearningServices.Models
         public DbSet<Grades> Grades { get; set; }
         public DbSet<GroupMembers> GroupMembers { get; set; }
         public DbSet<Groups> Groups { get; set; }
-        public DbSet<HomeworkAssignements> HomeworkAssignements { get; set; }
-        public DbSet<Homeworks> Homeworks { get; set; }
         public DbSet<Logs> Logs { get; set; }
         public DbSet<Messages> Messages { get; set; }
         public DbSet<ModuleUser> ModuleUser { get; set; }
@@ -47,5 +45,7 @@ namespace E_LearningServices.Models
         public DbSet<Tests> Tests { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<UsersInCourse> UsersInCourse { get; set; }
+        public DbSet<HomeworkAssignements> HomeworkAssignements { get; set; }
+        public DbSet<Homeworks> Homeworks { get; set; }
     }
 }

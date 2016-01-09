@@ -16,15 +16,15 @@ namespace E_LearningServices.Models
     {
         public Answers()
         {
-            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
             this.Questions = new HashSet<Questions>();
+            this.HomeworkAssignements = new HashSet<HomeworkAssignements>();
         }
     
         public int AnswerId { get; set; }
         public string AnswerType { get; set; }
         public string AnswerValue { get; set; }
     
-        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
+        public virtual ICollection<HomeworkAssignements> HomeworkAssignements { get; set; }
     }
 }

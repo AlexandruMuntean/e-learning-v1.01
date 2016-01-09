@@ -5,25 +5,22 @@
 
     <div class="panel panel-body panel-default">
         <p>
-            @Html.ActionLink("Show all my groups", "DisplayAssociatedGroups", "Groups")
+            @Html.ActionLink("Show all my groups", "DisplayAssociatedGroups", "Groups", new { @class = "btn btn-info btn-sm" })
         </p>
 
         <div class="mt">
-            @using (Html.BeginForm("SearchAssociatedGroups", "Groups", FormMethod.Get)) {
+            @using (Html.BeginForm("SearchAssociatedGroups", "Groups", FormMethod.Get, new { @class = "form-group" })) {
 
                 <h5><i class="fa fa-search"></i> Search by</h5>
-                <input type="text" name="searchString">
-                <input type="submit" value="Search" class="btn btn-theme03 btn-xs" />
+                <input type="text" name="searchString" class="form-control" style="width: 200px; display: inline-block;">
+                <input type="submit" value="Search" class="btn btn-primary" />
             }
 
         </div>
     </div>
 
     <div class="panel panel-body panel-default">
-        <button type="button" class="btn btn-default">
-            <span class="fa fa-plus-circle"></span>
-            @Html.ActionLink("Create New Group", "CreateGroup")
-        </button>
+        @Html.ActionLink("Create New Group", "CreateGroup", new { }, new { @class = "btn btn-primary" })
 
         <table class="table table-striped table-hover mt">
             <tr>
@@ -51,8 +48,8 @@
                         @Html.DisplayFor(modelItem => item.GroupType)
                     </td>
                     <td>
-                        @Html.ActionLink("More...", "GroupDetails", new { id = item.GroupId }) |
-                        @using (Html.BeginForm("UnsubscribeFromGroup", "Groups", new { groupId = item.GroupId }, FormMethod.Post, new { title = "Unsubscribe from the group" })) {
+                        @Html.ActionLink("More...", "GroupDetails", new { id = item.GroupId }, new { @class = "btn btn-xs btn-theme04"})
+                        @using (Html.BeginForm("UnsubscribeFromGroup", "Groups", new { groupId = item.GroupId }, FormMethod.Post, new { title = "Unsubscribe from the group" , style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(modelItem => item.GroupId)
                             <button type="submit" class="btn btn-warning btn-xs">
