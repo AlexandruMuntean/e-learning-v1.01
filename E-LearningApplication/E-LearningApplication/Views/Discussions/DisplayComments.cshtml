@@ -19,16 +19,10 @@
 
             @Html.HiddenFor(model => Model.forum.ForumId)
 
-            <table class="table table-hover table-striped">
-                <tr>
+            <table class="table forum table-striped">
+                <tr class="head">
                     <th>
-                        User
-                    </th>
-                    <th>
-                        The message
-                    </th>
-                    <th>
-                        Date
+                        Comments
                     </th>
                     <th></th>
                 </tr>
@@ -36,15 +30,13 @@
                 @foreach (var item in Model.mvm) {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.user.UserName):
-                        </td>
-                        <td>
+                            <b>@Html.DisplayFor(modelItem => item.user.UserName)</b>
+                            <i>(@Html.DisplayFor(modelItem => item.MesageData))</i>:
+                            <br />
+                            <i class="fa fa-comments-o"></i>
                             @Html.DisplayFor(modelItem => item.MessageContent)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MesageData)
-                        </td>
-                        <td>
+                        <td align="right">
                             @if (item.user.UserName.Equals(User.Identity.Name)) {
                                 <button class="btn btn-info btn-xs">
                                     <i class="fa fa-pencil"></i>

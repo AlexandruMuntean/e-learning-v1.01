@@ -5,8 +5,7 @@ using System.Linq;
 using System.Text;
 
 namespace E_LearningServices.Services.Interfaces {
-    public interface ICourseManagement
-    {
+    public interface ICourseManagement {
         #region Courses - CRUD
 
         /// <summary>
@@ -46,6 +45,17 @@ namespace E_LearningServices.Services.Interfaces {
         /// <returns></returns>
         /// <exception cref="CustomException"></exception>
         Courses GetCourseById(int id);
+
+        /// <summary>
+        /// Gets the course by module identifier.
+        /// </summary>
+        /// <param name="moduleId">The module identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException">
+        /// Resource not found!
+        /// or
+        /// </exception>
+        Courses GetCourseByModuleId(int moduleId);
 
         /// <summary>
         /// Gets the course identifier by code.

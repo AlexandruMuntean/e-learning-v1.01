@@ -17,6 +17,14 @@ namespace E_LearningServices.Services.Interfaces {
         List<Users> GetAllUsers();
 
         /// <summary>
+        /// Gets all subscribed users to a course.
+        /// </summary>
+        /// <param name="courseId">The course identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        List<Users> GetAllSubscribedUsers(int courseId);
+
+        /// <summary>
         /// Gets the user by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>

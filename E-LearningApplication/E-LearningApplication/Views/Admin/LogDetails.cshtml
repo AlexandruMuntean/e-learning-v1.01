@@ -1,39 +1,43 @@
 ﻿@model E_LearningApplication.Models.ViewModels.LogsViewModel
 
-<div class="form-panel">
-    <h2><i class="fa fa-angle-right"></i> Log Details</h2>
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Log Details</h2>
 
-    <div class="panel panel-body panel-default">
+        <div class="panel panel-body panel-default">
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.EventDateTime)
-        </div>
-        <div class="display-field mb">
-            @Html.DisplayFor(model => model.EventDateTime)
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.EventDateTime)
+            </div>
+            <div class="display-field mb">
+                @Html.DisplayFor(model => model.EventDateTime)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.EventLevel)
+            </div>
+            <div class="display-field mb">
+                @Html.DisplayFor(model => model.EventLevel)
+            </div>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.EventInfo)
+            </div>
+            <div class="display-field mb">
+                @Html.DisplayFor(model => model.EventInfo)
+            </div>
+
         </div>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.EventLevel)
+        <div>
+            <button type="button" class="btn btn-link mt">
+                <h4>
+                    <i class="fa fa-arrow-left"></i>
+                    @Html.ActionLink("Back to Logs List", "DisplayLogs")
+                </h4>
+            </button>
         </div>
-        <div class="display-field mb">
-            @Html.DisplayFor(model => model.EventLevel)
-        </div>
-
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.EventInfo)
-        </div>
-        <div class="display-field mb">
-            @Html.DisplayFor(model => model.EventInfo)
-        </div>
-        
     </div>
-
-    <div>
-        <button type="button" class="btn btn-link mt">
-            <h4>
-                <i class="fa fa-arrow-left"></i>
-                @Html.ActionLink("Back to Logs List", "DisplayLogs")
-            </h4>
-        </button>
-    </div>
+    <div class="col-lg-3"></div>
 </div>

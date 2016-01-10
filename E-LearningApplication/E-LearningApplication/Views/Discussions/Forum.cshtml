@@ -8,10 +8,13 @@
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Forum</h2>
     <div class="panel panel-body panel-default">
-        @Html.ActionLink("Create New Forum", "CreateForum", new { }, new { @class = "btn btn-primary", @style = "margin-bottom: 15px;" })
+        <button type="button" class="btn btn-default mb">
+            <span class="fa fa-plus-circle"></span>
+            @Html.ActionLink("Create New Forum", "CreateForum")
+        </button>
 
-        <table class="table table-hover table-striped">
-            <tr>
+        <table class="table table-striped forum">
+            <tr class="head">
                 <th>
                     @Html.DisplayNameFor(model => model.Category)
                 </th>
@@ -19,17 +22,21 @@
             </tr>
 
             @foreach (var item in Model) {
-                <tr>
+                <tr class="table-background">
                     <td>
+                        <i class="fa fa-comments-o"></i>
                         @Html.ActionLink(item.Category, "DisplayComments", new { id = item.ForumId })
                     </td>
-                    <td>
-                        @if (_sessionUser == item.OwnerId)
-                        {
-                            <div class="btn-group">
-                                @Html.ActionLink("Edit", "EditForum", new { id = item.ForumId }, new { @class = "btn btn-default btn-sm" })
-                                @Html.ActionLink("Delete", "DeleteForum", new { id = item.ForumId }, new { @class = "btn btn-danger btn-sm" })
-                            </div>
+                    <td align="right">
+                        @if (_sessionUser == item.OwnerId) {
+                            <button class="btn btn-info btn-xs" title="Edit forum details">
+                                <i class="fa fa-pencil"></i>
+                                @Html.ActionLink("Edit", "EditForum", new { id = item.ForumId })
+                            </button>
+                            <button class="btn btn-theme03 btn-xs" title="Delete selected forum">
+                                <i class="fa fa-trash-o"></i>
+                                @Html.ActionLink("Delete", "DeleteForum", new { id = item.ForumId })
+                            </button>
                         }
                     </td>
                 </tr>

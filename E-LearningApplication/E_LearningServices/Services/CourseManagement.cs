@@ -10,7 +10,7 @@ namespace E_LearningServices.Services {
     /// <summary>
     /// Class for implementing CRUD operations for courses and course modules
     /// </summary>
-    public class CourseManagement: ICourseManagement {
+    public class CourseManagement : ICourseManagement {
         #region Courses - CRUD
 
         /// <summary>
@@ -140,6 +140,34 @@ namespace E_LearningServices.Services {
                 }
 
                 return toBeReturned;
+            }
+            catch (ArgumentNullException ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the course by module identifier.
+        /// </summary>
+        /// <param name="moduleId">The module identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException">
+        /// Resource not found!
+        /// or
+        /// </exception>
+        public Courses GetCourseByModuleId(int moduleId) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    var course = db.CourseModule
+                                        .FirstOrDefault(x => x.ModuleId == moduleId);
+                    if (course != null) {
+                        return db.Courses
+                                    .First(c => c.CourseId == course.CourseId);
+                    }
+                    else {
+                        throw new CustomException("Resource not found!");
+                    }
+                }
             }
             catch (ArgumentNullException ex) {
                 throw new CustomException(ex.Message);
@@ -300,24 +328,21 @@ namespace E_LearningServices.Services {
         }
 
         #endregion
+
         #region Enrollment Course
         /// <summary>
         /// Enrol a student to a course
         /// </summary>
         /// <param name= "usersInCourses">The module.</param>
         /// <exception cref="CustomException"></exception>
-        public void EnrollStudentInCourse(UsersInCourse usersInCourses)
-        {
-            try
-            {
-                using (var db = new ELearningDatabaseEntities())
-                {
+        public void EnrollStudentInCourse(UsersInCourse usersInCourses) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
                     db.UsersInCourse.Add(usersInCourses);
                     db.SaveChanges();
                 }
             }
-            catch (InvalidOperationException ex)
-            {
+            catch (InvalidOperationException ex) {
                 throw new CustomException(ex.Message);
             }
         }
@@ -328,12 +353,9 @@ namespace E_LearningServices.Services {
         /// <param name="id">The identifier.</param>
         /// <exception cref="CustomException">
         /// </exception>
-        public void UnenrollCourse(int id)
-        {
-            try
-            {
-                using (var db = new ELearningDatabaseEntities())
-                {
+        public void UnenrollCourse(int id) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
                     UsersInCourse c = db.UsersInCourse
                                         .Where(x => x.CourseId == id)
                                         .First();
@@ -341,12 +363,10 @@ namespace E_LearningServices.Services {
                     db.SaveChanges();
                 }
             }
-            catch (ArgumentNullException ane)
-            {
+            catch (ArgumentNullException ane) {
                 throw new CustomException(ane.Message);
             }
-            catch (InvalidOperationException ex)
-            {
+            catch (InvalidOperationException ex) {
                 throw new CustomException(ex.Message);
             }
         }
