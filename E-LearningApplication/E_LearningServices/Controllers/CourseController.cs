@@ -168,6 +168,111 @@ namespace E_LearningServices.Controllers {
             }
         }
 
+        [HttpPost]
+        public HttpResponseMessage AddCourseSylabus(FileDTO dtoSylabus)
+        {
+            try
+            {
+                Syllabus sbSyllabus = new Syllabus();
+                sbSyllabus.FileLink = dtoSylabus.fileName;
+
+                this._courseManagement.AddSylabus(sbSyllabus);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetSylabusIdByName(string id)
+        {
+            try
+            {
+                Syllabus syllabus = this._courseManagement.GetSylabusByName(id);
+
+                if (syllabus != null)
+                {
+                    SylabusDTO dto = new SylabusDTO
+                    {
+                        SyllabusId = syllabus.SyllabusId,
+                        FileLink = syllabus.FileLink
+                    };
+
+                    return Request.CreateResponse<SylabusDTO>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
+                }
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetSylabusIdById(int? id)
+        {
+            try
+            {
+                Syllabus syllabus = this._courseManagement.GetSylabusById(id);
+
+                if (syllabus != null)
+                {
+                    SylabusDTO dto = new SylabusDTO
+                    {
+                        SyllabusId = syllabus.SyllabusId,
+                        FileLink = syllabus.FileLink
+                    };
+
+                    return Request.CreateResponse<SylabusDTO>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
+                }
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetCourseIdByName(string id)
+        {
+            try
+            {
+                Courses course = this._courseManagement.GetCourseByName(id);
+
+                if (course != null)
+                {
+                    CoursesDTO dto = new CoursesDTO
+                    {
+                        CourseId = course.CourseId,
+                        CourseName = course.CourseName
+                    };
+                    return Request.CreateResponse<CoursesDTO>(HttpStatusCode.OK, dto);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
+                }
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
         [HttpGet]
         public HttpResponseMessage GetCourseById(int id) {
             try {

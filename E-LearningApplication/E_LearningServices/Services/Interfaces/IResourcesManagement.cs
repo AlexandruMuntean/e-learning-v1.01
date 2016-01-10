@@ -91,7 +91,7 @@ namespace E_LearningServices.Services.Interfaces {
         string GetFileIdForADirectory(int? courseId);
 
         void DeleteHomeworkResource(string FileName);
-
+        Resources GetResourceByNameAndCourseId(string FileName);
         string GetFileIdForAModule(int moduleId);
 
         /// <summary>

@@ -251,6 +251,7 @@
     <Compile Include="Models\DTOs\MessageDTO.cs" />
     <Compile Include="Models\DTOs\ReceivedGradeDTO.cs" />
     <Compile Include="Models\DTOs\ResourcesDTO.cs" />
+    <Compile Include="Models\DTOs\SylabusDTO.cs" />
     <Compile Include="Models\DTOs\UsersInCourseDTO.cs" />
     <Compile Include="Models\ELearningServicesModel.Context.cs">
       <AutoGen>True</AutoGen>

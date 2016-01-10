@@ -228,6 +228,7 @@
     <NavigationProperty Name="UsersInCourse" Relationship="ELearningDatabaseModel.FK__UsersInCo__Cours__73852659" FromRole="Courses" ToRole="UsersInCourse" />
     <NavigationProperty Name="Homeworks" Relationship="ELearningDatabaseModel.FK__Homeworks__Cours__7D0E9093" FromRole="Courses" ToRole="Homeworks" />
     <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Cours__05A3D694" FromRole="Courses" ToRole="HomeworkAssignements" />
+    <Property Name="enrollementKey" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Discussions">
     <Key>
@@ -252,7 +253,7 @@
       <PropertyRef Name="GradeId" />
     </Key>
     <Property Name="GradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="GradeValue" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="GradeValue" Type="Decimal" Precision="18" Scale="9" />
     <Property Name="Gradedatetime" Type="DateTime" Precision="3" />
     <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__CourseMod__Grade__300424B4" FromRole="Grades" ToRole="CourseModule" />
     <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Grade__09746778" FromRole="Grades" ToRole="HomeworkAssignements" />
@@ -348,7 +349,7 @@
     </Key>
     <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ResourceType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="FileLocation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="FileLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PageId" Type="Int32" />
     <Property Name="FileId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />

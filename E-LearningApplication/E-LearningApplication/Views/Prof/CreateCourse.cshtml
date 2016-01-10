@@ -5,7 +5,8 @@
 
     <div class="panel panel-body">
         <div class="panel-default">
-            @using (Html.BeginForm()) {
+            @using (Html.BeginForm("CreateCourse", "Prof", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
 
@@ -32,6 +33,13 @@
                     @Html.EditorFor(model => model.CourdeCode)
                     @Html.ValidationMessageFor(model => model.CourdeCode)
                 </div>
+
+                <div class="editor-field mb">
+                    <br />
+                    <label>Upload the SyllabusId: </label>
+                    <input type="file" name="file" class="btn btn-info" />
+                </div>
+
                 <div class="editor-label">
                     @Html.LabelFor(model => model.EnrollementKey)
                 </div>

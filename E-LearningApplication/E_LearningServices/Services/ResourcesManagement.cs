@@ -392,6 +392,27 @@ namespace E_LearningServices.Services {
             }
         }
 
+        public Resources GetResourceByNameAndCourseId(string FileName)
+        {
+            try
+            {
+                using (var db = new ELearningDatabaseEntities())
+                {
+                    return db.Resources
+                        .Where(r => r.FileName == FileName)
+                        .FirstOrDefault();
+                }
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw new CustomException(ane.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
+
         public string GetFileIdForDirectory(int courseId)
         {
             try

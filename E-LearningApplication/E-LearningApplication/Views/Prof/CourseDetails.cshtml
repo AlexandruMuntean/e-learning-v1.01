@@ -1,4 +1,4 @@
-﻿@model E_LearningApplication.Models.ViewModels.CoursesViewModel
+﻿@model Tuple<string,E_LearningApplication.Models.ViewModels.CoursesViewModel>
 
 @{
     var _userId = Session["UserId"];
@@ -9,56 +9,64 @@
     <h2><i class="fa fa-angle-right"></i> Course Details</h2>
 
     <div class="panel panel-body panel-default">
-        @Html.HiddenFor(model => model.CourseId)
-        @Html.HiddenFor(model => model.OwnerId)
+        @Html.HiddenFor(model => model.Item2.CourseId)
+        @Html.HiddenFor(model => model.Item2.OwnerId)
 
         <div class="col-lg-6">
             <div class="row mb">
                 <div class="display-label">
-                    @Html.DisplayNameFor(model => model.CourseName)
+                    @Html.DisplayNameFor(model => model.Item2.CourseName)
                 </div>
                 <div class="display-field mb">
-                    @Html.DisplayFor(model => model.CourseName)
+                    @Html.DisplayFor(model => model.Item2.CourseName)
                 </div>
 
                 <div class="display-label">
-                    @Html.DisplayNameFor(model => model.CourdeCode)
+                    @Html.DisplayNameFor(model => model.Item2.CourdeCode)
                 </div>
                 <div class="display-field mb">
-                    @Html.DisplayFor(model => model.CourdeCode)
+                    @Html.DisplayFor(model => model.Item2.CourdeCode)
                 </div>
 
                 <div class="display-label">
-                    @Html.DisplayNameFor(model => model.NumberOfCredits)
+                    @Html.DisplayNameFor(model => model.Item2.NumberOfCredits)
                 </div>
                 <div class="display-field mb">
-                    @Html.DisplayFor(model => model.NumberOfCredits)
+                    @Html.DisplayFor(model => model.Item2.NumberOfCredits)
                 </div>
 
                 <div class="display-label">
-                    @Html.DisplayNameFor(model => model.SyllabusId)
+                    @Html.DisplayNameFor(model => model.Item2.SyllabusId)
                 </div>
                 <div class="display-field mb">
-                    @Html.DisplayFor(model => model.SyllabusId)
+                    @Html.DisplayFor(model => model.Item2.SyllabusId)
                 </div>
+
+                <a href="@Model.Item1">
+                    <button type="button" class="btn btn-facebook btn-sm" title="Download syllabus">
+                        <i class="fa fa-arrow-down"></i>
+                        Download syllabus
+                    </button>
+                </a>
+                <br/>
                 <div class="display-label">
-                    @Html.DisplayNameFor(model => model.EnrollementKey)
+                    @Html.DisplayNameFor(model => model.Item2.EnrollementKey)
                 </div>
                 <div class="display-field">
-                    @Html.DisplayFor(model => model.EnrollementKey)
+                    @Html.DisplayFor(model => model.Item2.EnrollementKey)
                 </div>
             </div>
 
-            @if (_sessionUser == Model.OwnerId) {
+            @if (_sessionUser == Model.Item2.OwnerId) {
                 <div class="row mb">
                     <button class="btn btn-theme03 btn-xs" title="Edit course module">
                         <i class="fa fa-pencil"></i>
-                        @Html.ActionLink("Edit", "EditCourse", new { id = Model.CourseId })
+                        @Html.ActionLink("Edit", "EditCourse", new { id = Model.Item2.CourseId })
                     </button>
                 </div>
 
                 <div class="row mb">
-                    @using (Html.BeginForm("DeleteCourse", "Prof", new { id = Model.CourseId }, FormMethod.Post)) {
+                    @using (Html.BeginForm("DeleteCourse", "Prof", new { id = Model.Item2.CourseId }, FormMethod.Post)) {
                         @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-danger btn-xs" title="Delete course module">
                             <i class="fa fa-trash-o"></i> Delete
@@ -71,50 +79,50 @@
             <div class="row mb">
                 <button class="btn btn-warning btn-xs" title="Display course module">
                     <i class="fa fa-cogs"></i>
-                    @Html.ActionLink("Display Course Modules", "DisplayModules", new { id = Model.CourseId })
+                    @Html.ActionLink("Display Course Modules", "DisplayModules", new { id = Model.Item2.CourseId })
                 </button>
             </div>
 
-            @if (_sessionUser == Model.OwnerId) {
+            @if (_sessionUser == Model.Item2.OwnerId) {
                 <div class="row mb">
                     <button class="btn btn-warning btn-xs" title="Add course module">
                         <i class="fa fa-plus-circle"></i>
-                        @Html.ActionLink("Add Course Module", "CreateModule", new { id = Model.CourseId })
+                        @Html.ActionLink("Add Course Module", "CreateModule", new { id = Model.Item2.CourseId })
                     </button>
                 </div>
                 
                 <div class="row mb">
                     <button class="btn btn-info btn-xs" title="Display course resources">
                         <span class="fa fa-cogs"></span>
-                        @Html.ActionLink("Manage Course Resources", "DisplayCourseResources", new { id = Model.CourseId })
+                        @Html.ActionLink("Manage Course Resources", "DisplayCourseResources", new { id = Model.Item2.CourseId })
                     </button>
                 </div>
 
                 <div class="row mb">
                     <button class="btn btn-info btn-xs" title="Add course resources">
                         <span class="fa fa-plus-circle"></span>
-                        @Html.ActionLink("Add Course Resource", "AddCourseResource", new { id = Model.CourseId })
+                        @Html.ActionLink("Add Course Resource", "AddCourseResource", new { id = Model.Item2.CourseId })
                     </button>
                 </div>
                 
                 <div class="row mb">
                     <button class="btn btn-theme btn-xs" title="Manage course homework">
                         <span class="fa fa-cogs"></span>
-                        @Html.ActionLink("Manage Homeworks", "DisplayAllCourseHomework", "Homework", new { id = Model.CourseId }, new { title = "Manage course homework" })
+                        @Html.ActionLink("Manage Homeworks", "DisplayAllCourseHomework", "Homework", new { id = Model.Item2.CourseId }, new { title = "Manage course homework" })
                     </button>
                 </div>
                 
                 <div class="row mb">
                     <button class="btn btn-theme btn-xs" title="Add course homework">
                         <span class="fa fa-plus-circle"></span>
-                        @Html.ActionLink("Add Homework", "CreateCourseHomework", "Homework", new { id = Model.CourseId }, new { title = "Add course homework" })
+                        @Html.ActionLink("Add Homework", "CreateCourseHomework", "Homework", new { id = Model.Item2.CourseId }, new { title = "Add course homework" })
                     </button>
                 </div>
 
                 <div class="row mb">
                     <button class="btn btn-theme btn-xs" title="View given grades">
                         <span class="fa fa-folder-open"></span>
-                        @Html.ActionLink("Display Grades", "DisplayCourseGivenGrades", "Grades", new { courseId = Model.CourseId }, new { title = "View given grades" })
+                        @Html.ActionLink("Display Grades", "DisplayCourseGivenGrades", "Grades", new { courseId = Model.Item2.CourseId }, new { title = "View given grades" })
                     </button>
                 </div>
             }
