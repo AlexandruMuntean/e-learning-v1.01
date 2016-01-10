@@ -1,0 +1,61 @@
+﻿@model E_LearningApplication.Models.ViewModels.CourseModuleViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Edit Course Module</h2>
+
+    <div class="panel panel-body">
+        <div class="panel-default">
+            @using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                @Html.HiddenFor(model => model.ModuleId)
+                @Html.HiddenFor(model => model.CourseId)
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ModuleName)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.ModuleName)
+                    @Html.ValidationMessageFor(model => model.ModuleName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Moduledatetime)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.Moduledatetime)
+                    @Html.ValidationMessageFor(model => model.Moduledatetime)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.GradeId)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.GradeId)
+                    @Html.ValidationMessageFor(model => model.GradeId)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.PreviousModuleId)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.PreviousModuleId)
+                    @Html.ValidationMessageFor(model => model.PreviousModuleId)
+                </div>
+
+                <p>
+                    <input type="submit" class="btn btn-succes btn-sm" value="Save Changes" />
+                </p>
+            }
+        </div>
+        <div>
+            <button type="button" class="btn btn-link mt">
+                <h4>
+                    <i class="fa fa-arrow-left"></i>
+                    @Html.ActionLink("Back to Courses List", "DisplayCourses")
+                </h4>
+            </button>
+        </div>
+    </div>
+</div>

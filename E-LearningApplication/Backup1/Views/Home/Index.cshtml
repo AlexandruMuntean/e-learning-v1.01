@@ -1,0 +1,22 @@
+﻿@{
+    string[] _rolesArray;
+    var _userRoles = Session["UserRoles"];
+    if (_userRoles != null) {
+        _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
+                                                                  .Select(x => x.ToString())
+                                                                  .ToArray();
+    }
+    else {
+        _rolesArray = new string[1] { "Student" };
+    }
+}
+
+@if (_rolesArray.Contains("Admin") == true) {
+    Html.RenderAction("Index", "Admin");
+}
+else if (_rolesArray.Contains("Prof") == true) {
+    Html.RenderAction("Index", "Prof");
+}
+else if (_rolesArray.Contains("Student") == true) {
+    Html.RenderAction("Index", "Student");
+}
