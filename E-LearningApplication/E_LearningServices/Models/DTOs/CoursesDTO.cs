@@ -11,5 +11,6 @@ namespace E_LearningServices.Models.DTOs {
         public Nullable<int> OwnerId { get; set; }
         public Nullable<int> SyllabusId { get; set; }
         public string CourseName { get; set; }
+        public string EnrollementKey { get; set; }
     }
 }

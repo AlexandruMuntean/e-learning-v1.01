@@ -1,5 +1,6 @@
 ﻿using E_LearningApplication.CustomExceptions;
 using E_LearningApplication.Models;
+using E_LearningApplication.Models.DTOs;
 using E_LearningApplication.Models.ViewModels;
 using E_LearningApplication.Utils.LoggingUtils;
 using E_LearningApplication.Utils.MailUtil;
@@ -92,7 +93,40 @@ namespace E_LearningApplication.Controllers {
                     }
                 }
 
+                var _userId = Session["UserId"];
+                var _sessionUser = Convert.ToInt32(_userId);
+                List<Courses> myCourses = new List<Courses>();
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/course/GetMyCourses/?id=" + _sessionUser).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        IEnumerable<Courses> list = response.Content.ReadAsAsync<IEnumerable<Courses>>().Result;
+                        if (list != null)
+                        {
+                            myCourses = list.ToList();
+                        }
+                    }
+                    else
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
                 List<CoursesViewModel> cvm = this.viewModelFactory.GetViewModel(courses);
+                foreach (var course in cvm)
+                    foreach (var mycourse in myCourses)
+                        if (course.CourseId.Equals(mycourse.CourseId))
+                        {
+                            course.userInCourse = new UsersInCourse();
+                            course.userInCourse.CourseId = course.CourseId;
+                            course.userInCourse.UserId = _sessionUser;
+
+                        }
+
                 return View(cvm);
             }
             catch (CustomException ce) {
@@ -171,6 +205,7 @@ namespace E_LearningApplication.Controllers {
                             course.NumberOfCredits = c.NumberOfCredits;
                             course.OwnerId = c.OwnerId;
                             course.SyllabusId = c.SyllabusId;
+                            course.enrollementKey = c.enrollementKey;
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
@@ -363,6 +398,122 @@ namespace E_LearningApplication.Controllers {
                 return View("Error");
             }
         }
+
+        #region enroll and unenroll
+        //
+        // GET: /Student/EnrollToCourse
+
+        public ActionResult EnrollToCourse(int id = 0)
+        {
+            this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            var _userId = Session["UserId"];
+            var _sessionUser = Convert.ToInt32(_userId);
+            UsersInCourseView userInCourseView = new UsersInCourseView();
+            userInCourseView.CourseId = id;
+            userInCourseView.UserId = (int)_userId;
+            return View(userInCourseView);
+        }
+
+        //
+        // POST: /Student/EnrollInACourse(userInCourse)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EnrollToCourse(UsersInCourseView userInCourseView)
+        {
+            this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.GetAsync("api/course/GetCourseById/?id=" + userInCourseView.CourseId).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Courses course = response.Content.ReadAsAsync<Courses>().Result;
+                        //verify if enrollement key is correct
+                        if (course.enrollementKey != null && !course.enrollementKey.Equals(userInCourseView.EnrollementKey))
+                            throw new CustomException("Enrollment key is incorrect");
+                    }
+                    else
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+                UsersInCourseDTO dto = new UsersInCourseDTO();
+                dto.CourseId = userInCourseView.CourseId;
+                dto.UserId = userInCourseView.UserId;
+                dto.EnrollementKey = userInCourseView.EnrollementKey;
+                dto.CourseUserstatus = userInCourseView.EnrollementKey;
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+
+                    HttpResponseMessage response = client.PostAsJsonAsync("api/course/EnrollStudentInCourse/?usersInCourse=", dto).Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+                return RedirectToAction("DisplayAllAvailableCourses");
+            }
+            catch (CustomException ce)
+            {
+                this.logger.Trace(ce, "Username: " + User.Identity.Name);
+                ViewBag.Error = ce.Message;
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                this.logger.Trace(ex, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed! Try again.";
+                return View("Error");
+            }
+        }
+
+        //
+        // GET: /Student/UnenrolCourse(id = 0)
+
+        public ActionResult UnenrollFromCourse(int id = 0)
+        {
+            this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.BaseAddress = new Uri(this.apiMethodsUrl);
+                    client.DefaultRequestHeaders.Accept.Add(
+                        new MediaTypeWithQualityHeaderValue("application/json")
+                        );
+                    HttpResponseMessage response = client.DeleteAsync("api/course/UnenrollCourse/?id=" + id).Result;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new CustomException("Could not complete the operation!");
+                    }
+                }
+
+                return RedirectToAction("DisplayMyCourses");
+            }
+            catch (CustomException ce)
+            {
+                this.logger.Trace(ce, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed! Try again.";
+                return View("Error");
+            }
+            catch (Exception ex)
+            {
+                this.logger.Trace(ex, "Username: " + User.Identity.Name);
+                ViewBag.Error = "Operation could not be completed!";
+                return View("Error");
+            }
+        }
+
+        #endregion
 
     }
 }

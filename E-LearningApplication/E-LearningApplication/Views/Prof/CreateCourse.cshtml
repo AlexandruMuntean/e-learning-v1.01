@@ -32,6 +32,13 @@
                     @Html.EditorFor(model => model.CourdeCode)
                     @Html.ValidationMessageFor(model => model.CourdeCode)
                 </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EnrollementKey)
+                </div>
+                <div class="editor-field mb">
+                    @Html.EditorFor(model => model.EnrollementKey)
+                    @Html.ValidationMessageFor(model => model.EnrollementKey)
+                </div>
 
                 <p>
                     <input type="submit" class="btn btn-primary btn-sm" value="Create" />

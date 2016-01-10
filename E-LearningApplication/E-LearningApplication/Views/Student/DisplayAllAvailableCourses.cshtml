@@ -35,10 +35,13 @@
                         @Html.DisplayFor(modelItem => item.SyllabusId)
                     </td>
                     <td>
-                        <button class="btn btn-theme03 btn-xs" title="Grade the homework">
-                            <i class="fa fa-sign-in"></i>
-                            @Html.ActionLink("Enroll", "EnrollToCourse", new { id = item.CourseId })
-                        </button>
+                        @if (item.userInCourse == null)
+                        {
+                            <button class="btn btn-theme03 btn-xs" title="Grade the homework">
+                                <i class="fa fa-sign-in"></i>
+                                @Html.ActionLink("Enroll", "EnrollToCourse", new { id = item.CourseId })
+                            </button>
+                        }
                     </td>
                 </tr>
             }

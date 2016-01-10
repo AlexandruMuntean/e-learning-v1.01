@@ -21,6 +21,13 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <NuGetPackageImportStamp>ef6e27a6</NuGetPackageImportStamp>
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -288,6 +295,7 @@
     <Compile Include="Models\DTOs\HomeworkGradeDTO.cs" />
     <Compile Include="Models\DTOs\MessageDTO.cs" />
     <Compile Include="Models\DTOs\UsersDTO.cs" />
+    <Compile Include="Models\DTOs\UsersInCourseDTO.cs" />
     <Compile Include="Models\Forums.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
@@ -341,6 +349,7 @@
     <Compile Include="Models\ViewModels\HomeworkAssignementViewModel.cs" />
     <Compile Include="Models\ViewModels\MailViewModel.cs" />
     <Compile Include="Models\ViewModels\ReceivedGradeViewModel.cs" />
+    <Compile Include="Models\ViewModels\UsersInCourseView.cs" />
     <Compile Include="Models\webpages_Membership.cs">
       <DependentUpon>ServerContext.tt</DependentUpon>
     </Compile>
@@ -711,6 +720,7 @@
     <Content Include="Views\Student\DisplayMyModuleResources.cshtml" />
     <Content Include="Views\Prof\DowloadCourseResource.cshtml" />
     <Content Include="Views\Homework\DowloadCourseResource.cshtml" />
+    <Content Include="Views\Student\EnrollToCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

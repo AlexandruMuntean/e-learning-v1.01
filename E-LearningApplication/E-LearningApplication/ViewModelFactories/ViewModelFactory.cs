@@ -122,7 +122,7 @@ namespace E_LearningApplication.ViewModelFactories {
                 cvm.NumberOfCredits = course.NumberOfCredits;
                 cvm.SyllabusId = course.SyllabusId;
                 cvm.OwnerId = course.OwnerId;
-
+                cvm.EnrollementKey = course.enrollementKey;
                 return cvm;
             }
             catch (Exception ex) {

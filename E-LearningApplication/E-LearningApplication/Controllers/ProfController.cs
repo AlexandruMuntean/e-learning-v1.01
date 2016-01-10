@@ -184,6 +184,7 @@ namespace E_LearningApplication.Controllers {
                             course.NumberOfCredits = c.NumberOfCredits;
                             course.OwnerId = c.OwnerId;
                             course.SyllabusId = c.SyllabusId;
+                            course.enrollementKey = c.enrollementKey;
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
@@ -238,6 +239,7 @@ namespace E_LearningApplication.Controllers {
                 dto.NumberOfCredits = courseViewModel.NumberOfCredits;
                 dto.SyllabusId = courseViewModel.SyllabusId;
                 dto.OwnerId = _sessionUser;
+                dto.Enrollementkey = courseViewModel.EnrollementKey;
 
                 //add new course
                 using (var client = new HttpClient()) {
@@ -296,6 +298,7 @@ namespace E_LearningApplication.Controllers {
                             course.NumberOfCredits = c.NumberOfCredits;
                             course.OwnerId = c.OwnerId;
                             course.SyllabusId = c.SyllabusId;
+                            course.enrollementKey = c.enrollementKey;
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
@@ -337,6 +340,7 @@ namespace E_LearningApplication.Controllers {
                 dto.NumberOfCredits = courseViewModel.NumberOfCredits;
                 dto.SyllabusId = courseViewModel.SyllabusId;
                 dto.OwnerId = courseViewModel.OwnerId;
+                dto.Enrollementkey = courseViewModel.EnrollementKey;
 
                 //edit the course
                 using (var client = new HttpClient()) {

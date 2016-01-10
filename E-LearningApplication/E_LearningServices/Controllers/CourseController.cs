@@ -34,7 +34,8 @@ namespace E_LearningServices.Controllers {
                             CourseName = course.CourseName,
                             NumberOfCredits = course.NumberOfCredits,
                             OwnerId = course.OwnerId,
-                            SyllabusId = course.SyllabusId
+                            SyllabusId = course.SyllabusId,
+                            EnrollementKey = course.enrollementKey
                         });
                     }
 
@@ -64,7 +65,8 @@ namespace E_LearningServices.Controllers {
                             CourseName = course.CourseName,
                             NumberOfCredits = course.NumberOfCredits,
                             OwnerId = course.OwnerId,
-                            SyllabusId = course.SyllabusId
+                            SyllabusId = course.SyllabusId,
+                            EnrollementKey = course.enrollementKey
                         });
                     }
 
@@ -94,7 +96,8 @@ namespace E_LearningServices.Controllers {
                             CourseName = course.CourseName,
                             NumberOfCredits = course.NumberOfCredits,
                             OwnerId = course.OwnerId,
-                            SyllabusId = course.SyllabusId
+                            SyllabusId = course.SyllabusId,
+                            EnrollementKey = course.enrollementKey
                         });
                     }
 
@@ -109,7 +112,42 @@ namespace E_LearningServices.Controllers {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
             }
         }
-        
+        [HttpPost]
+        public HttpResponseMessage EnrollStudentInCourse(UsersInCourseDTO dto)
+        {
+            try
+            {
+                UsersInCourse userInCourse = new UsersInCourse();
+                userInCourse.UserId = dto.UserId;
+                userInCourse.CourseId = dto.CourseId;
+                userInCourse.CourseUserstatus = dto.CourseUserstatus;
+                this._courseManagement.EnrollStudentInCourse(userInCourse);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage UnenrollCourse(int id)
+        {
+            try
+            {
+
+                this._courseManagement.UnenrollCourse(id);
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception)
+            {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
         [HttpPost]
         public HttpResponseMessage AddCourse(CoursesDTO dto) {
             try {
@@ -119,7 +157,7 @@ namespace E_LearningServices.Controllers {
                 course.NumberOfCredits = dto.NumberOfCredits;
                 course.OwnerId = dto.OwnerId;
                 course.SyllabusId = dto.SyllabusId;
-
+                course.enrollementKey = dto.EnrollementKey;
                 this._courseManagement.AddCourse(course);
 
                 return Request.CreateResponse(HttpStatusCode.OK);
@@ -142,7 +180,8 @@ namespace E_LearningServices.Controllers {
                         CourseName = course.CourseName,
                         NumberOfCredits = course.NumberOfCredits,
                         OwnerId = course.OwnerId,
-                        SyllabusId = course.SyllabusId
+                        SyllabusId = course.SyllabusId,
+                        EnrollementKey = course.enrollementKey
                     };
 
                     return Request.CreateResponse<CoursesDTO>(HttpStatusCode.OK, dto);
@@ -167,7 +206,7 @@ namespace E_LearningServices.Controllers {
                 course.NumberOfCredits = dto.NumberOfCredits;
                 course.SyllabusId = dto.SyllabusId;
                 course.OwnerId = dto.OwnerId;
-
+                course.enrollementKey = dto.EnrollementKey;
                 this._courseManagement.EditCourse(course);
 
                 return Request.CreateResponse(HttpStatusCode.OK);

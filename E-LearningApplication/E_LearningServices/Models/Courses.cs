@@ -31,6 +31,7 @@ namespace E_LearningServices.Models
         public Nullable<int> OwnerId { get; set; }
         public Nullable<int> SyllabusId { get; set; }
         public string CourseName { get; set; }
+        public string enrollementKey { get; set; }
     
         public virtual ICollection<CalendarEvents> CalendarEvents { get; set; }
         public virtual ICollection<CourseModule> CourseModule { get; set; }

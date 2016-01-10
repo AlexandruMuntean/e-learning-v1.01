@@ -41,6 +41,12 @@
                 <div class="display-field mb">
                     @Html.DisplayFor(model => model.SyllabusId)
                 </div>
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.EnrollementKey)
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.EnrollementKey)
+                </div>
             </div>
 
             @if (_sessionUser == Model.OwnerId) {

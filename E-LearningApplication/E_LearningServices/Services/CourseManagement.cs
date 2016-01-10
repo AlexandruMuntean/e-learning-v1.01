@@ -300,6 +300,56 @@ namespace E_LearningServices.Services {
         }
 
         #endregion
+        #region Enrollment Course
+        /// <summary>
+        /// Enrol a student to a course
+        /// </summary>
+        /// <param name= "usersInCourses">The module.</param>
+        /// <exception cref="CustomException"></exception>
+        public void EnrollStudentInCourse(UsersInCourse usersInCourses)
+        {
+            try
+            {
+                using (var db = new ELearningDatabaseEntities())
+                {
+                    db.UsersInCourse.Add(usersInCourses);
+                    db.SaveChanges();
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
 
+        /// <summary>
+        /// Unenroll a student from a course with specified id
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <exception cref="CustomException">
+        /// </exception>
+        public void UnenrollCourse(int id)
+        {
+            try
+            {
+                using (var db = new ELearningDatabaseEntities())
+                {
+                    UsersInCourse c = db.UsersInCourse
+                                        .Where(x => x.CourseId == id)
+                                        .First();
+                    db.UsersInCourse.Remove(c);
+                    db.SaveChanges();
+                }
+            }
+            catch (ArgumentNullException ane)
+            {
+                throw new CustomException(ane.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new CustomException(ex.Message);
+            }
+        }
+        #endregion
     }
 }

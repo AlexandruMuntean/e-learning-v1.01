@@ -1,0 +1,36 @@
+﻿@model E_LearningApplication.Models.ViewModels.UsersInCourseView
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Enrollement key for course</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.CourseId)
+        @Html.HiddenFor(model => model.UserId)
+        <div class="panel panel-body panel-default">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.EnrollementKey)
+            </div>
+            <div class="editor-field mb">
+                @Html.EditorFor(model => model.EnrollementKey)
+                @Html.ValidationMessageFor(model => model.EnrollementKey)
+            </div>
+
+            <input type="submit" class="btn btn-primary btn-sm" value="Enroll" />
+
+ 
+        </div>
+    }
+
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+

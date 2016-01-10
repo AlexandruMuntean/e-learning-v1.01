@@ -26,5 +26,10 @@ namespace E_LearningApplication.Models.ViewModels {
         [Display(Name="The associated owner(if any)")]
         public Nullable<int> OwnerId { get; set; }
 
+        [Display(Name = "Enrollement key")]
+        [StringLength(14)]
+        public String EnrollementKey { get; set; }
+
+        public UsersInCourse userInCourse { get; set; }
     }
 }

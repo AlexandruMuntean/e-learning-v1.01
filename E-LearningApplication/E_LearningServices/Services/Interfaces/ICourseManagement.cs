@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 
 namespace E_LearningServices.Services.Interfaces {
-    public interface ICourseManagement {
+    public interface ICourseManagement
+    {
         #region Courses - CRUD
 
         /// <summary>
@@ -114,6 +115,23 @@ namespace E_LearningServices.Services.Interfaces {
         /// </exception>
         void UpdateCourseModule(CourseModule courseModule);
 
+        #endregion
+
+        #region Enrollment Course
+        /// <summary>
+        /// Enrol a student to a course
+        /// </summary>
+        /// <param name= "usersInCourses">The module.</param>
+        /// <exception cref="CustomException"></exception>
+        void EnrollStudentInCourse(UsersInCourse usersInCourses);
+
+        /// <summary>
+        /// Unenroll a student from a course with specified id
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <exception cref="CustomException">
+        /// </exception>
+        void UnenrollCourse(int id);
         #endregion
     }
 }
