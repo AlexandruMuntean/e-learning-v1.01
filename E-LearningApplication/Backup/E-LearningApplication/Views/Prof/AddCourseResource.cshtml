@@ -1,0 +1,18 @@
+﻿@model Int32
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Add Course Resource</h2>
+
+    <div class="panel panel-body panel-default">
+        @using (Html.BeginForm("UploadResourcesforCourse", "Prof", new { id = Model }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            <div class="mb">
+                <label>Choose a course resource to load:</label>
+                <input type="file" name="file" class="btn btn-info" />
+            </div>
+            <div>
+                <input type="submit" name="submit" value="Upload" class="btn btn-facebook btn-sm" />
+            </div>
+        }
+    </div>
+
+</div>

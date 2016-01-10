@@ -1,0 +1,53 @@
+﻿@model IEnumerable<E_LearningApplication.Models.ViewModels.ForumsViewModel>
+
+@{
+    var _userId = Session["UserId"];
+    var _sessionUser = Convert.ToInt32(_userId);
+}
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Forum</h2>
+    <div class="panel panel-body panel-default">
+        <button type="button" class="btn btn-default mb">
+            <span class="fa fa-plus-circle"></span>
+            @Html.ActionLink("Create New Forum", "CreateForum")
+        </button>
+
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Category, "DisplayComments", new { id = item.ForumId })
+                    </td>
+                    <td>
+                        @if (_sessionUser == item.OwnerId) {
+                            <button class="btn btn-info btn-xs" title="Edit forum details">
+                                <i class="fa fa-pencil"></i>
+                                @Html.ActionLink("Edit", "EditForum", new { id = item.ForumId })
+                            </button>
+                            <span>|</span>
+                            <button class="btn btn-theme03 btn-xs" title="Delete selected forum">
+                                <i class="fa fa-trash-o"></i>
+                                @Html.ActionLink("Delete", "DeleteForum", new { id = item.ForumId })
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

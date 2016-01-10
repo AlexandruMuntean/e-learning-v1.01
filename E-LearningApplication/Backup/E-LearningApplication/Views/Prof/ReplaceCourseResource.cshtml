@@ -1,0 +1,22 @@
+﻿@model E_LearningApplication.Models.ViewModels.ResourceViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Replace Course Resource</h2>
+
+    <div class="panel panel-body panel-default">
+        @using (Html.BeginForm("ReplaceResourcesforCourse", "Prof", new { courseId = Model.CourseId, resourceId = Model.ResourceId }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            <div class="mb">
+                <label>Resource to be replaced:</label>
+                @Html.DisplayNameFor(model => model.FileName)
+                @Html.DisplayFor(model => model.FileName)
+            </div>
+            <div class="mb">
+                <label>Choose a course resource to replace it with:</label>
+                <input type="file" name="file" class="btn btn-info" />
+            </div>
+            <p>
+                <input type="submit" name="submit" value="Replace" class="btn btn-facebook btn-sm" />
+            </p>
+        }
+    </div>
+</div>

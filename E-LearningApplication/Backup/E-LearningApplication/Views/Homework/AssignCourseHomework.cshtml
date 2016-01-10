@@ -1,0 +1,47 @@
+﻿@model Tuple<List<E_LearningApplication.Models.UserProfile>, List<E_LearningApplication.Models.ViewModels.GroupsViewModel>, int, int>
+
+@{
+    var _homeworkId = Model.Item3;
+    var _courseId = Model.Item4;
+    
+    var _usersList = new List<SelectListItem>();
+    foreach (var item in Model.Item1) {
+        _usersList.Add(
+        new SelectListItem() {
+            Text = item.FirstName + " " + item.LastName + " - " + item.UserName,
+            Value = item.UserId.ToString()
+        });
+    };
+    _usersList.Add(new SelectListItem() { Text = "Choose a student...", Value = "-1", Selected = true });
+
+    var _groupsList = new List<SelectListItem>();
+    foreach (var item in Model.Item2) {
+        _groupsList.Add(
+        new SelectListItem() {
+            Text = item.GroupName,
+            Value = item.GroupId.ToString()
+        });
+    };
+    _groupsList.Add(new SelectListItem() { Text = "Choose a group...", Value = "-1", Selected = true });
+}
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Add Assignement</h2>
+
+    <div class="panel panel-body">
+        @using (Html.BeginForm("CourseHomeworkAssignement", "Homework", new { id = _homeworkId, courseId = _courseId }, FormMethod.Post, new { @class = "panel-default" })) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.Label("Choose a recipient to assign the homework to:", new { @class = "mb"})
+            <br />
+            @Html.DropDownList("studentId", _usersList, new { @class = "btn btn-theme03 btn-sm mb" })
+            <label class="mb">- OR -</label>
+            @Html.DropDownList("groupId", _groupsList, new { @class = "btn btn-theme03 btn-sm mb" })
+
+            <p>
+                <input type="submit" class="btn btn-primary btn-sm" value="Add Assignement" />
+            </p>
+        }
+    </div>
+</div>

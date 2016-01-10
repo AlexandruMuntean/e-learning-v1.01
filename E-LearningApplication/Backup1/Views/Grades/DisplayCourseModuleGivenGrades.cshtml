@@ -1,0 +1,54 @@
+﻿@model IEnumerable<E_LearningApplication.Models.ViewModels.ReceivedGradeViewModel>
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Display Module Grades</h2>
+
+    <div class="panel panel-body panel-default">
+        <table class="table table-striped table-hover mt">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeworkName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeworkDeadline)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HomeworkPoints)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RecipientName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GradeValue)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gradedatetime)
+                </th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeworkName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeworkDeadline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HomeworkPoints)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RecipientName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GradeValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gradedatetime)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

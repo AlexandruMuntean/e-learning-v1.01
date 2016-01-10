@@ -1,0 +1,18 @@
+﻿<div class="form-panel">
+    <h1><i class="fa fa-angle-right"></i> Home page</h1>
+
+    <div>
+        For all users:
+        <ol>
+            <li title="View all groups">@Html.ActionLink("View all groups", "DisplayAllGroups", "Groups")</li>
+            <li title="View associated groups">@Html.ActionLink("View my groups", "DisplayAssociatedGroups", "Groups")</li>
+            <li title="Create a new group">@Html.ActionLink("Create group", "CreateGroup", "Groups")</li>
+        </ol>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

@@ -1,0 +1,36 @@
+﻿@model E_LearningApplication.Models.LoginModel
+
+@{
+    Layout = "";
+    ViewBag.Title = "Log in";
+}
+
+@Styles.Render("~/Content/themes/Theme/assets/css/login.css")
+@Styles.Render("~/Content/themes/Theme/assets/font-awesome/cssApp")
+@Styles.Render("~/Content/themes/Theme/assets/font-awesome/fontsApp")
+
+<div id="loginForm" class="login">
+    <h1 class="mb"><i class="fa fa-graduation-cap"></i> E-Learning Platform</h1>
+
+    <h1>Welcome</h1>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Your username..." })
+        @Html.ValidationMessageFor(m => m.UserName, String.Empty, new { @class = "validation" })
+
+        @Html.PasswordFor(m => m.Password, new { @placeholder = "Your password..." })
+        @Html.ValidationMessageFor(m => m.Password, String.Empty, new { @class = "validation" })
+
+        @*@Html.CheckBoxFor(m => m.RememberMe)
+            @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })*@
+
+        <button>Login</button>
+    }
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
