@@ -3,21 +3,29 @@
 <h3><i class="fa fa-angle-right"></i> Display Logs</h3>
 <div class="panel panel-body panel-default">
     <div class="col-lg-12">
-        <div class="panel-body col-lg-6">
+        <div class="panel-body col-lg-6" id="logs-form">
             @using (Html.BeginForm("SearchLog", "Admin", FormMethod.Get)) {
 
                 <h5><i class="fa fa-search"></i> Search by</h5>
 
-                <label>Search logs by event level</label>
-                <input type="text" name="searchEventLevel">
-                <br />
-                <label>Search logs by event datetime</label>
-                <input type="text" name="searchEventDatetime">
-                <br />
-                <label>Search logs by event information</label>
-                <input type="text" name="searchEventInfo" />
-                <br />
-                <input type="submit" value="Search" class="btn btn-theme02 btn-xs" />
+                <label class="col-lg-6">Search logs by event level</label>
+                <div class="col-lg-6">
+                    <input type="text" name="searchEventLevel">
+                </div>
+
+                <label class="col-lg-6">Search logs by event datetime</label>
+                <div class="col-lg-6">
+                    <input type="text" name="searchEventDatetime">
+                </div>
+
+                <label class="col-lg-6">Search logs by event information</label>
+                <div class="col-lg-6">
+                    <input type="text" name="searchEventInfo" />
+                </div>
+
+                <div class="col-lg-12">
+                    <input type="submit" value="Search" class="btn btn-theme02 btn-xs" />
+                </div>
             }
         </div>
         <div class="panel-body col-lg-6">
