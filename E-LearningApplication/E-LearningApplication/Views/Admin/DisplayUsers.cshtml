@@ -58,7 +58,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.StudentIdentificationNumber)
                     </td>
-                    <td>
+                    <td align="right">
                         <button class="btn-xs btn-warning">
                             <i class="fa fa-file"></i>
                             @Html.ActionLink("Details", "UserDetails", new { id = item.UserId }, new { title = "Show user details" })

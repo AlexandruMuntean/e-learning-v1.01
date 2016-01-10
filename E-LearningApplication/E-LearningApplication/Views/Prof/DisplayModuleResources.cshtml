@@ -15,7 +15,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.FileName)
                     </td>
-                    <td>
+                    <td align="right">
                         @using (Html.BeginForm("DeleteModuleResource", "Prof", new { id = item.ResourceId, moduleId = item.ModuleID }, FormMethod.Post, new { style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger btn-xs" title="Delete module resources">

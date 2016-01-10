@@ -39,7 +39,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.SyllabusId)
                     </td>
-                    <td>
+                    <td align="right">
                         @if (item.OwnerId == _sessionUser) {
                             @Html.ActionLink("More...", "CourseDetails", new { id = item.CourseId })
                         }

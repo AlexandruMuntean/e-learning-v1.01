@@ -15,7 +15,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.FileName)
                     </td>
-                    <td>
+                    <td align="right">
                         <button class="btn btn-info btn-xs" title="Download course resources">
                             <i class="fa fa-arrow-down"></i>
                             @Html.ActionLink("Download", "DowloadCourseResource", "Prof", new { id = item.ResourceId }, new { title = "Download resource" })

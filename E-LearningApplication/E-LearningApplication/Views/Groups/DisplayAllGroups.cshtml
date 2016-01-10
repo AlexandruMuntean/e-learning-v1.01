@@ -47,7 +47,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.GroupType)
                     </td>
-                    <td>
+                    <td align="right">
                         @using (Html.BeginForm("SubscribeToGroup", "Groups", new { groupId = item.GroupId }, FormMethod.Post, new { title = "Subscribe to this group" })) {
                             @Html.AntiForgeryToken()
 

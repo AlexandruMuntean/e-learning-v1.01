@@ -34,7 +34,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.SyllabusId)
                     </td>
-                    <td>
+                    <td align="right">
                         @Html.ActionLink("View My Homework", "DisplayStudentAssignedHomework", "Homework")
                         @using (Html.BeginForm("UnenrollFromCourse", "Student", new { id = item.CourseId }, FormMethod.Post, new { title = "Unenroll from the course", style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()

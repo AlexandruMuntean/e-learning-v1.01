@@ -52,7 +52,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
-                    <td>
+                    <td align="right">
                         @using (Html.BeginForm("RemoveMemberFromGroup", "Groups", new { groupId = _groupId, userId = item.UserId }, FormMethod.Post, new { title = "Remove member from the group" })) {
                             @Html.AntiForgeryToken()
                             
