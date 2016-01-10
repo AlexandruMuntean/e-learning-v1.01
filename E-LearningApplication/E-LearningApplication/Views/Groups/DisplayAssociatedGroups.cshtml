@@ -47,7 +47,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.GroupType)
                     </td>
-                    <td>
+                    <td align="right">
                         @Html.ActionLink("More...", "GroupDetails", new { id = item.GroupId }, new { @class = "btn btn-xs btn-theme04"})
                         @using (Html.BeginForm("UnsubscribeFromGroup", "Groups", new { groupId = item.GroupId }, FormMethod.Post, new { title = "Unsubscribe from the group" , style = "display: inline-block" })) {
                             @Html.AntiForgeryToken()
