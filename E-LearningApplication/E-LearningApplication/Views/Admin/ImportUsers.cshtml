@@ -1,0 +1,34 @@
+﻿@{
+    var _rolesEnum = Enum.GetValues(typeof(E_LearningApplication.Utils.RolesEnum));
+    var _options = new List<SelectListItem>();
+    _options.Add(new SelectListItem() { Text = "Choose a role...", Value = "" });
+    foreach (var e in _rolesEnum) {
+        _options.Add(
+            new SelectListItem() { Text = e.ToString(), Value = e.ToString() }
+            );
+    }
+}
+<div>
+    <div class="col-lg-3"></div>
+
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Import Users</h2>
+        <div class="mt">
+            @using (Html.BeginForm("ImportUsers", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+                <div class="mb">
+                    <label>Choose a file: </label>
+                    <input type="file" name="file" class="btn btn-info" />
+                </div>
+                <div class="mb">
+                    <label>Choose a role for the users to be imported: </label>
+                    <br />
+                    @Html.DropDownList("userRole", _options, new { @class = "btn btn-theme03" })
+                </div>
+                <p>
+                    <input type="submit" name="Submit" id="Submit" value="Upload" class="btn btn-facebook" />
+                </p>
+            }
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

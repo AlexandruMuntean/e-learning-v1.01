@@ -1,0 +1,22 @@
+﻿@model Tuple<Int32, Int32>
+
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Add Module Resource</h2>
+
+        <div class="panel panel-body panel-default">
+            @using (Html.BeginForm("UploadResourcesforModule", "Prof", new { moduleId = Model.Item1, courseId = Model.Item2 }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+                <div class="mb">
+                    <label>Choose a module resource to load:</label>
+                    <input type="file" name="file" class="btn btn-info" />
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="Upload" class="btn btn-facebook btn-sm" />
+                </div>
+            }
+        </div>
+
+    </div>
+    <div class="col-lg-3"></div>
+</div>

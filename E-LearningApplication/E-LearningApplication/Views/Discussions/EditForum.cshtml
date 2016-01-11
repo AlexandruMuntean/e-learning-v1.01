@@ -1,0 +1,43 @@
+﻿@model E_LearningApplication.Models.ViewModels.ForumsViewModel
+
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Edit Forum</h2>
+
+        <div class="panel panel-body">
+            <div class="panel-default">
+                @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    @Html.HiddenFor(model => model.ForumId)
+                    @Html.HiddenFor(model => model.OwnerId)
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Category)
+                    </div>
+                    <div class="editor-field mb">
+                        @Html.EditorFor(model => model.Category)
+                        @Html.ValidationMessageFor(model => model.Category)
+                    </div>
+
+                    <p>
+                        <input type="submit" class="btn btn-success btn-sm" value="Save Changes" />
+                    </p>
+                }
+
+            </div>
+
+            <div>
+                <button type="button" class="btn btn-link mt">
+                    <h4>
+                        <i class="fa fa-arrow-left"></i>
+                        @Html.ActionLink("Back to Forums List", "Forum")
+                    </h4>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

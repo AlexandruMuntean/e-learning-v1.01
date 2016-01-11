@@ -1,0 +1,2072 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ELearningDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="AnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnswerType" Type="nvarchar" MaxLength="20" />
+          <Property Name="AnswerValue" Type="text" />
+        </EntityType>
+        <EntityType Name="CalendarEvents">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventDescription" Type="nvarchar" MaxLength="30" />
+          <Property Name="EventStartdatetime" Type="datetime" />
+          <Property Name="EventEnddatetime" Type="datetime" />
+          <Property Name="CourseId" Type="int" />
+        </EntityType>
+        <EntityType Name="Conversations">
+          <Key>
+            <PropertyRef Name="ConversationId" />
+          </Key>
+          <Property Name="ConversationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConversationName" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="CourseModule">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Moduledatetime" Type="datetime" />
+          <Property Name="GradeId" Type="int" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="PreviousModuleId" Type="int" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="nvarchar" MaxLength="20" />
+          <Property Name="NumberOfCredits" Type="int" />
+          <Property Name="CourdeCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="OwnerId" Type="int" />
+          <Property Name="SyllabusId" Type="int" />
+          <Property Name="enrollementKey" Type="nvarchar" MaxLength="14" />
+        </EntityType>
+        <EntityType Name="Discussions">
+          <Key>
+            <PropertyRef Name="DiscusionId" />
+          </Key>
+          <Property Name="DiscusionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiscussionSubject" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Forums">
+          <Key>
+            <PropertyRef Name="ForumId" />
+          </Key>
+          <Property Name="ForumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category" Type="nvarchar" MaxLength="30" />
+          <Property Name="OwnerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Grades">
+          <Key>
+            <PropertyRef Name="GradeId" />
+          </Key>
+          <Property Name="GradeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeValue" Type="decimal" Precision="18" Scale="9" />
+          <Property Name="Gradedatetime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="GroupMembers">
+          <Key>
+            <PropertyRef Name="GroupMemberId" />
+          </Key>
+          <Property Name="GroupMemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupId" Type="int" />
+          <Property Name="MemberId" Type="int" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="30" />
+          <Property Name="GroupDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="GroupType" Type="nvarchar" MaxLength="30" />
+          <Property Name="OwnerId" Type="int" />
+        </EntityType>
+        <EntityType Name="HomeworkAssignements">
+          <Key>
+            <PropertyRef Name="AssignementId" />
+          </Key>
+          <Property Name="AssignementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentId" Type="int" />
+          <Property Name="GroupId" Type="int" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CourseModuleId" Type="int" />
+          <Property Name="HomeworkId" Type="int" />
+          <Property Name="AnswerId" Type="int" />
+          <Property Name="GradeId" Type="int" />
+        </EntityType>
+        <EntityType Name="Homeworks">
+          <Key>
+            <PropertyRef Name="HomeworkId" />
+          </Key>
+          <Property Name="HomeworkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeworkCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="HomeworkName" Type="nvarchar" MaxLength="30" />
+          <Property Name="HomeworkDescription" Type="nvarchar" MaxLength="30" />
+          <Property Name="HomeworkDeadline" Type="datetime" />
+          <Property Name="HomeworkPoints" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HomeworkAccessSpan" Type="datetime" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="CourseModuleId" Type="int" />
+          <Property Name="OwnerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EventLevel" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EventInfo" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="MessageContent" Type="text" />
+          <Property Name="MesageData" Type="datetime2" Precision="7" />
+          <Property Name="ForumId" Type="int" />
+          <Property Name="DiscusionId" Type="int" />
+          <Property Name="ConversationId" Type="int" />
+        </EntityType>
+        <EntityType Name="ModuleUser">
+          <Key>
+            <PropertyRef Name="ModuleUserId" />
+            <PropertyRef Name="CourseModuleId" />
+          </Key>
+          <Property Name="ModuleUserId" Type="int" Nullable="false" />
+          <Property Name="CourseModuleId" Type="int" Nullable="false" />
+          <Property Name="ModuleUserstatus" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="PageId" />
+          </Key>
+          <Property Name="PageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="PageLink" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionName" Type="nvarchar" MaxLength="30" />
+          <Property Name="QuestionDescription" Type="nvarchar" MaxLength="30" />
+          <Property Name="QuestionPoints" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="QuestionType" Type="nvarchar" MaxLength="30" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="AnswerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Resources">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ResourceType" Type="nvarchar" MaxLength="30" />
+          <Property Name="FileLocation" Type="nvarchar" MaxLength="50" />
+          <Property Name="FileId" Type="nvarchar" MaxLength="30" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="30" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+          <Property Name="PageId" Type="int" />
+        </EntityType>
+        <EntityType Name="Syllabus">
+          <Key>
+            <PropertyRef Name="SyllabusId" />
+          </Key>
+          <Property Name="SyllabusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileLink" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TestName" Type="nvarchar" MaxLength="30" />
+          <Property Name="TestDescription" Type="nvarchar" MaxLength="30" />
+          <Property Name="TestDeadline" Type="datetime" />
+          <Property Name="TestType" Type="nvarchar" MaxLength="30" />
+          <Property Name="NumberOfQuestions" Type="int" />
+          <Property Name="TestAvailabilitySpan" Type="datetime" />
+          <Property Name="AttendantsSection" Type="nvarchar" MaxLength="30" />
+          <Property Name="CourseId" Type="int" />
+          <Property Name="GroupId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentIdentificationNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AccessStatus" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersInCourse">
+          <Key>
+            <PropertyRef Name="CourseId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="CourseId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CourseUserstatus" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsConfirmed" Type="bit" />
+          <Property Name="LastPasswordFailureDate" Type="datetime" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordChangedDate" Type="datetime" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CalendarE__Cours__440B1D61">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="CalendarEvents" Type="Self.CalendarEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CalendarEvents">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMod__Cours__2B3F6F97">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseModule">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMod__Grade__2A4B4B5E">
+          <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
+          <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grades">
+              <PropertyRef Name="GradeId" />
+            </Principal>
+            <Dependent Role="CourseModule">
+              <PropertyRef Name="GradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Courses__OwnerId__1B0907CE">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Courses__Syllabu__1BFD2C07">
+          <End Role="Syllabus" Type="Self.Syllabus" Multiplicity="0..1" />
+          <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Syllabus">
+              <PropertyRef Name="SyllabusId" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="SyllabusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Forums__OwnerId__35BCFE0A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Forums" Type="Self.Forums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Forums">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GroupMemb__Group__49C3F6B7">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="GroupMembers">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GroupMemb__Membe__4AB81AF0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="GroupMembers">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Groups__OwnerId__46E78A0C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Answe__5BE2A6F2">
+          <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="AnswerId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Cours__59063A47">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Cours__59FA5E80">
+          <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseModule">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="CourseModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Grade__5CD6CB2B">
+          <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grades">
+              <PropertyRef Name="GradeId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="GradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Group__5812160E">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Homew__5AEE82B9">
+          <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homeworks">
+              <PropertyRef Name="HomeworkId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="HomeworkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Stude__571DF1D5">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Homeworks__Cours__52593CB8">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Homeworks">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Homeworks__Cours__534D60F1">
+          <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="0..1" />
+          <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseModule">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="Homeworks">
+              <PropertyRef Name="CourseModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Homeworks__Owner__5441852A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Homeworks">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__Conver__3B75D760">
+          <End Role="Conversations" Type="Self.Conversations" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conversations">
+              <PropertyRef Name="ConversationId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ConversationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__Discus__3A81B327">
+          <End Role="Discussions" Type="Self.Discussions" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discussions">
+              <PropertyRef Name="DiscusionId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="DiscusionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__ForumI__398D8EEE">
+          <End Role="Forums" Type="Self.Forums" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forums">
+              <PropertyRef Name="ForumId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ForumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__UserId__38996AB5">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ModuleUse__Cours__2F10007B">
+          <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="1" />
+          <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseModule">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="CourseModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ModuleUse__Modul__2E1BDC42">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="ModuleUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pages__UserId__3E52440B">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Pages" Type="Self.Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Pages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Answe__25869641">
+          <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="AnswerId" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Cours__24927208">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Resources__PageI__412EB0B6">
+          <End Role="Pages" Type="Self.Pages" Multiplicity="0..1" />
+          <End Role="Resources" Type="Self.Resources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pages">
+              <PropertyRef Name="PageId" />
+            </Principal>
+            <Dependent Role="Resources">
+              <PropertyRef Name="PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__CourseId__4D94879B">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__GroupId__4E88ABD4">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
+          <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsersInCo__Cours__1ED998B2">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="UsersInCourse" Type="Self.UsersInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="UsersInCourse">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsersInCo__UserI__1FCDBCEB">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersInCourse" Type="Self.UsersInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersInCourse">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ELearningDatabaseModelStoreContainer">
+          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Conversations" EntityType="Self.Conversations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseModule" EntityType="Self.CourseModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discussions" EntityType="Self.Discussions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forums" EntityType="Self.Forums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grades" EntityType="Self.Grades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GroupMembers" EntityType="Self.GroupMembers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeworkAssignements" EntityType="Self.HomeworkAssignements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Homeworks" EntityType="Self.Homeworks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleUser" EntityType="Self.ModuleUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pages" EntityType="Self.Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resources" EntityType="Self.Resources" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Syllabus" EntityType="Self.Syllabus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInCourse" EntityType="Self.UsersInCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__CalendarE__Cours__440B1D61" Association="Self.FK__CalendarE__Cours__440B1D61">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMod__Cours__2B3F6F97" Association="Self.FK__CourseMod__Cours__2B3F6F97">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseModule" EntitySet="CourseModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMod__Grade__2A4B4B5E" Association="Self.FK__CourseMod__Grade__2A4B4B5E">
+            <End Role="Grades" EntitySet="Grades" />
+            <End Role="CourseModule" EntitySet="CourseModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Courses__OwnerId__1B0907CE" Association="Self.FK__Courses__OwnerId__1B0907CE">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Courses__Syllabu__1BFD2C07" Association="Self.FK__Courses__Syllabu__1BFD2C07">
+            <End Role="Syllabus" EntitySet="Syllabus" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Forums__OwnerId__35BCFE0A" Association="Self.FK__Forums__OwnerId__35BCFE0A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Forums" EntitySet="Forums" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GroupMemb__Group__49C3F6B7" Association="Self.FK__GroupMemb__Group__49C3F6B7">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupMembers" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GroupMemb__Membe__4AB81AF0" Association="Self.FK__GroupMemb__Membe__4AB81AF0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GroupMembers" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Groups__OwnerId__46E78A0C" Association="Self.FK__Groups__OwnerId__46E78A0C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Answe__5BE2A6F2" Association="Self.FK__HomeworkA__Answe__5BE2A6F2">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Cours__59063A47" Association="Self.FK__HomeworkA__Cours__59063A47">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Cours__59FA5E80" Association="Self.FK__HomeworkA__Cours__59FA5E80">
+            <End Role="CourseModule" EntitySet="CourseModule" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Grade__5CD6CB2B" Association="Self.FK__HomeworkA__Grade__5CD6CB2B">
+            <End Role="Grades" EntitySet="Grades" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Group__5812160E" Association="Self.FK__HomeworkA__Group__5812160E">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Homew__5AEE82B9" Association="Self.FK__HomeworkA__Homew__5AEE82B9">
+            <End Role="Homeworks" EntitySet="Homeworks" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Stude__571DF1D5" Association="Self.FK__HomeworkA__Stude__571DF1D5">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Homeworks__Cours__52593CB8" Association="Self.FK__Homeworks__Cours__52593CB8">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Homeworks" EntitySet="Homeworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Homeworks__Cours__534D60F1" Association="Self.FK__Homeworks__Cours__534D60F1">
+            <End Role="CourseModule" EntitySet="CourseModule" />
+            <End Role="Homeworks" EntitySet="Homeworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Homeworks__Owner__5441852A" Association="Self.FK__Homeworks__Owner__5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Homeworks" EntitySet="Homeworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__Conver__3B75D760" Association="Self.FK__Messages__Conver__3B75D760">
+            <End Role="Conversations" EntitySet="Conversations" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__Discus__3A81B327" Association="Self.FK__Messages__Discus__3A81B327">
+            <End Role="Discussions" EntitySet="Discussions" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__ForumI__398D8EEE" Association="Self.FK__Messages__ForumI__398D8EEE">
+            <End Role="Forums" EntitySet="Forums" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__UserId__38996AB5" Association="Self.FK__Messages__UserId__38996AB5">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ModuleUse__Cours__2F10007B" Association="Self.FK__ModuleUse__Cours__2F10007B">
+            <End Role="CourseModule" EntitySet="CourseModule" />
+            <End Role="ModuleUser" EntitySet="ModuleUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ModuleUse__Modul__2E1BDC42" Association="Self.FK__ModuleUse__Modul__2E1BDC42">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ModuleUser" EntitySet="ModuleUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pages__UserId__3E52440B" Association="Self.FK__Pages__UserId__3E52440B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pages" EntitySet="Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Answe__25869641" Association="Self.FK__Questions__Answe__25869641">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Cours__24927208" Association="Self.FK__Questions__Cours__24927208">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Resources__PageI__412EB0B6" Association="Self.FK__Resources__PageI__412EB0B6">
+            <End Role="Pages" EntitySet="Pages" />
+            <End Role="Resources" EntitySet="Resources" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__CourseId__4D94879B" Association="Self.FK__Tests__CourseId__4D94879B">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__GroupId__4E88ABD4" Association="Self.FK__Tests__GroupId__4E88ABD4">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsersInCo__Cours__1ED998B2" Association="Self.FK__UsersInCo__Cours__1ED998B2">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="UsersInCourse" EntitySet="UsersInCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsersInCo__UserI__1FCDBCEB" Association="Self.FK__UsersInCo__UserI__1FCDBCEB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersInCourse" EntitySet="UsersInCourse" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="Self.fk_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ELearningDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ELearningDatabaseEntitiesServer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answers" EntityType="ELearningDatabaseModel.Answers" />
+          <EntitySet Name="CalendarEvents" EntityType="ELearningDatabaseModel.CalendarEvents" />
+          <EntitySet Name="Conversations" EntityType="ELearningDatabaseModel.Conversations" />
+          <EntitySet Name="CourseModule" EntityType="ELearningDatabaseModel.CourseModule" />
+          <EntitySet Name="Courses" EntityType="ELearningDatabaseModel.Courses" />
+          <EntitySet Name="Discussions" EntityType="ELearningDatabaseModel.Discussions" />
+          <EntitySet Name="Forums" EntityType="ELearningDatabaseModel.Forums" />
+          <EntitySet Name="Grades" EntityType="ELearningDatabaseModel.Grades" />
+          <EntitySet Name="GroupMembers" EntityType="ELearningDatabaseModel.GroupMembers" />
+          <EntitySet Name="Groups" EntityType="ELearningDatabaseModel.Groups" />
+          <EntitySet Name="Logs" EntityType="ELearningDatabaseModel.Logs" />
+          <EntitySet Name="Messages" EntityType="ELearningDatabaseModel.Messages" />
+          <EntitySet Name="ModuleUser" EntityType="ELearningDatabaseModel.ModuleUser" />
+          <EntitySet Name="Pages" EntityType="ELearningDatabaseModel.Pages" />
+          <EntitySet Name="Questions" EntityType="ELearningDatabaseModel.Questions" />
+          <EntitySet Name="Resources" EntityType="ELearningDatabaseModel.Resources" />
+          <EntitySet Name="Syllabus" EntityType="ELearningDatabaseModel.Syllabus" />
+          <EntitySet Name="Tests" EntityType="ELearningDatabaseModel.Tests" />
+          <EntitySet Name="Users" EntityType="ELearningDatabaseModel.Users" />
+          <EntitySet Name="UsersInCourse" EntityType="ELearningDatabaseModel.UsersInCourse" />
+          <EntitySet Name="webpages_Membership" EntityType="ELearningDatabaseModel.webpages_Membership" />
+          <EntitySet Name="webpages_OAuthMembership" EntityType="ELearningDatabaseModel.webpages_OAuthMembership" />
+          <EntitySet Name="webpages_Roles" EntityType="ELearningDatabaseModel.webpages_Roles" />
+          <AssociationSet Name="FK__Questions__Answe__25869641" Association="ELearningDatabaseModel.FK__Questions__Answe__25869641">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CalendarE__Cours__59063A47" Association="ELearningDatabaseModel.FK__CalendarE__Cours__59063A47">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CalendarEvents" EntitySet="CalendarEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__Conver__17F790F9" Association="ELearningDatabaseModel.FK__Messages__Conver__17F790F9">
+            <End Role="Conversations" EntitySet="Conversations" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMod__Cours__30F848ED" Association="ELearningDatabaseModel.FK__CourseMod__Cours__30F848ED">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="CourseModule" EntitySet="CourseModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CourseMod__Grade__300424B4" Association="ELearningDatabaseModel.FK__CourseMod__Grade__300424B4">
+            <End Role="Grades" EntitySet="Grades" />
+            <End Role="CourseModule" EntitySet="CourseModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ModuleUse__Cours__36B12243" Association="ELearningDatabaseModel.FK__ModuleUse__Cours__36B12243">
+            <End Role="CourseModule" EntitySet="CourseModule" />
+            <End Role="ModuleUser" EntitySet="ModuleUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Courses__OwnerId__15502E78" Association="ELearningDatabaseModel.FK__Courses__OwnerId__15502E78">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Courses__Syllabu__164452B1" Association="ELearningDatabaseModel.FK__Courses__Syllabu__164452B1">
+            <End Role="Syllabus" EntitySet="Syllabus" />
+            <End Role="Courses" EntitySet="Courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Questions__Cours__24927208" Association="ELearningDatabaseModel.FK__Questions__Cours__24927208">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__CourseId__6754599E" Association="ELearningDatabaseModel.FK__Tests__CourseId__6754599E">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsersInCo__Cours__73852659" Association="ELearningDatabaseModel.FK__UsersInCo__Cours__73852659">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="UsersInCourse" EntitySet="UsersInCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__Discus__17036CC0" Association="ELearningDatabaseModel.FK__Messages__Discus__17036CC0">
+            <End Role="Discussions" EntitySet="Discussions" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__ForumI__160F4887" Association="ELearningDatabaseModel.FK__Messages__ForumI__160F4887">
+            <End Role="Forums" EntitySet="Forums" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GroupMemb__Group__1CBC4616" Association="ELearningDatabaseModel.FK__GroupMemb__Group__1CBC4616">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="GroupMembers" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GroupMemb__Membe__1DB06A4F" Association="ELearningDatabaseModel.FK__GroupMemb__Membe__1DB06A4F">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GroupMembers" EntitySet="GroupMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Groups__OwnerId__681373AD" Association="ELearningDatabaseModel.FK__Groups__OwnerId__681373AD">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Groups" EntitySet="Groups" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tests__GroupId__68487DD7" Association="ELearningDatabaseModel.FK__Tests__GroupId__68487DD7">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Tests" EntitySet="Tests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Messages__UserId__151B244E" Association="ELearningDatabaseModel.FK__Messages__UserId__151B244E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Messages" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ModuleUse__Modul__35BCFE0A" Association="ELearningDatabaseModel.FK__ModuleUse__Modul__35BCFE0A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ModuleUser" EntitySet="ModuleUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pages__UserId__4E88ABD4" Association="ELearningDatabaseModel.FK__Pages__UserId__4E88ABD4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Pages" EntitySet="Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Resources__PageI__534D60F1" Association="ELearningDatabaseModel.FK__Resources__PageI__534D60F1">
+            <End Role="Pages" EntitySet="Pages" />
+            <End Role="Resources" EntitySet="Resources" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UsersInCo__UserI__74794A92" Association="ELearningDatabaseModel.FK__UsersInCo__UserI__74794A92">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersInCourse" EntitySet="UsersInCourse" />
+          </AssociationSet>
+          <AssociationSet Name="webpages_UsersInRoles" Association="ELearningDatabaseModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Forums__OwnerId__756D6ECB" Association="ELearningDatabaseModel.FK__Forums__OwnerId__756D6ECB">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Forums" EntitySet="Forums" />
+          </AssociationSet>
+          <EntitySet Name="Homeworks" EntityType="ELearningDatabaseModel.Homeworks" />
+          <AssociationSet Name="FK__Homeworks__Cours__7E02B4CC" Association="ELearningDatabaseModel.FK__Homeworks__Cours__7E02B4CC">
+            <End Role="CourseModule" EntitySet="CourseModule" />
+            <End Role="Homeworks" EntitySet="Homeworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Homeworks__Cours__7D0E9093" Association="ELearningDatabaseModel.FK__Homeworks__Cours__7D0E9093">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Homeworks" EntitySet="Homeworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Homeworks__Owner__7EF6D905" Association="ELearningDatabaseModel.FK__Homeworks__Owner__7EF6D905">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Homeworks" EntitySet="Homeworks" />
+          </AssociationSet>
+          <EntitySet Name="HomeworkAssignements" EntityType="ELearningDatabaseModel.HomeworkAssignements" />
+          <AssociationSet Name="FK__HomeworkA__Answe__0880433F" Association="ELearningDatabaseModel.FK__HomeworkA__Answe__0880433F">
+            <End Role="Answers" EntitySet="Answers" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Cours__0697FACD" Association="ELearningDatabaseModel.FK__HomeworkA__Cours__0697FACD">
+            <End Role="CourseModule" EntitySet="CourseModule" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Cours__05A3D694" Association="ELearningDatabaseModel.FK__HomeworkA__Cours__05A3D694">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Grade__09746778" Association="ELearningDatabaseModel.FK__HomeworkA__Grade__09746778">
+            <End Role="Grades" EntitySet="Grades" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Group__04AFB25B" Association="ELearningDatabaseModel.FK__HomeworkA__Group__04AFB25B">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Homew__078C1F06" Association="ELearningDatabaseModel.FK__HomeworkA__Homew__078C1F06">
+            <End Role="Homeworks" EntitySet="Homeworks" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HomeworkA__Stude__03BB8E22" Association="ELearningDatabaseModel.FK__HomeworkA__Stude__03BB8E22">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="AnswerId" />
+          </Key>
+          <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnswerType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Questions" Relationship="ELearningDatabaseModel.FK__Questions__Answe__25869641" FromRole="Answers" ToRole="Questions" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Answe__0880433F" FromRole="Answers" ToRole="HomeworkAssignements" />
+        </EntityType>
+        <EntityType Name="CalendarEvents">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="EventStartdatetime" Type="DateTime" Precision="3" />
+          <Property Name="EventEnddatetime" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__CalendarE__Cours__59063A47" FromRole="CalendarEvents" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="Conversations">
+          <Key>
+            <PropertyRef Name="ConversationId" />
+          </Key>
+          <Property Name="ConversationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConversationName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__Conver__17F790F9" FromRole="Conversations" ToRole="Messages" />
+        </EntityType>
+        <EntityType Name="CourseModule">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Moduledatetime" Type="DateTime" Precision="3" />
+          <Property Name="GradeId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="PreviousModuleId" Type="Int32" />
+          <Property Name="ModuleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__CourseMod__Cours__30F848ED" FromRole="CourseModule" ToRole="Courses" />
+          <NavigationProperty Name="Grades" Relationship="ELearningDatabaseModel.FK__CourseMod__Grade__300424B4" FromRole="CourseModule" ToRole="Grades" />
+          <NavigationProperty Name="ModuleUser" Relationship="ELearningDatabaseModel.FK__ModuleUse__Cours__36B12243" FromRole="CourseModule" ToRole="ModuleUser" />
+          <NavigationProperty Name="Homeworks" Relationship="ELearningDatabaseModel.FK__Homeworks__Cours__7E02B4CC" FromRole="CourseModule" ToRole="Homeworks" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Cours__0697FACD" FromRole="CourseModule" ToRole="HomeworkAssignements" />
+        </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumberOfCredits" Type="Int32" />
+          <Property Name="CourdeCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="SyllabusId" Type="Int32" />
+          <Property Name="CourseName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CalendarEvents" Relationship="ELearningDatabaseModel.FK__CalendarE__Cours__59063A47" FromRole="Courses" ToRole="CalendarEvents" />
+          <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__CourseMod__Cours__30F848ED" FromRole="Courses" ToRole="CourseModule" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Courses__OwnerId__15502E78" FromRole="Courses" ToRole="Users" />
+          <NavigationProperty Name="Syllabus" Relationship="ELearningDatabaseModel.FK__Courses__Syllabu__164452B1" FromRole="Courses" ToRole="Syllabus" />
+          <NavigationProperty Name="Questions" Relationship="ELearningDatabaseModel.FK__Questions__Cours__24927208" FromRole="Courses" ToRole="Questions" />
+          <NavigationProperty Name="Tests" Relationship="ELearningDatabaseModel.FK__Tests__CourseId__6754599E" FromRole="Courses" ToRole="Tests" />
+          <NavigationProperty Name="UsersInCourse" Relationship="ELearningDatabaseModel.FK__UsersInCo__Cours__73852659" FromRole="Courses" ToRole="UsersInCourse" />
+          <NavigationProperty Name="Homeworks" Relationship="ELearningDatabaseModel.FK__Homeworks__Cours__7D0E9093" FromRole="Courses" ToRole="Homeworks" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Cours__05A3D694" FromRole="Courses" ToRole="HomeworkAssignements" />
+          <Property Name="enrollementKey" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Discussions">
+          <Key>
+            <PropertyRef Name="DiscusionId" />
+          </Key>
+          <Property Name="DiscusionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiscussionSubject" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__Discus__17036CC0" FromRole="Discussions" ToRole="Messages" />
+        </EntityType>
+        <EntityType Name="Forums">
+          <Key>
+            <PropertyRef Name="ForumId" />
+          </Key>
+          <Property Name="ForumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__ForumI__160F4887" FromRole="Forums" ToRole="Messages" />
+          <Property Name="OwnerId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Forums__OwnerId__756D6ECB" FromRole="Forums" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Grades">
+          <Key>
+            <PropertyRef Name="GradeId" />
+          </Key>
+          <Property Name="GradeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeValue" Type="Decimal" Precision="18" Scale="9" />
+          <Property Name="Gradedatetime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__CourseMod__Grade__300424B4" FromRole="Grades" ToRole="CourseModule" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Grade__09746778" FromRole="Grades" ToRole="HomeworkAssignements" />
+        </EntityType>
+        <EntityType Name="GroupMembers">
+          <Key>
+            <PropertyRef Name="GroupMemberId" />
+          </Key>
+          <Property Name="GroupMemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="MemberId" Type="Int32" />
+          <NavigationProperty Name="Groups" Relationship="ELearningDatabaseModel.FK__GroupMemb__Group__1CBC4616" FromRole="GroupMembers" ToRole="Groups" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__GroupMemb__Membe__1DB06A4F" FromRole="GroupMembers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="GroupDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GroupType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerId" Type="Int32" />
+          <NavigationProperty Name="GroupMembers" Relationship="ELearningDatabaseModel.FK__GroupMemb__Group__1CBC4616" FromRole="Groups" ToRole="GroupMembers" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Groups__OwnerId__681373AD" FromRole="Groups" ToRole="Users" />
+          <NavigationProperty Name="Tests" Relationship="ELearningDatabaseModel.FK__Tests__GroupId__68487DD7" FromRole="Groups" ToRole="Tests" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Group__04AFB25B" FromRole="Groups" ToRole="HomeworkAssignements" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventLevel" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EventInfo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Messages">
+          <Key>
+            <PropertyRef Name="MessageId" />
+          </Key>
+          <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="MessageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MesageData" Type="DateTime" Precision="7" />
+          <Property Name="ForumId" Type="Int32" />
+          <Property Name="DiscusionId" Type="Int32" />
+          <Property Name="ConversationId" Type="Int32" />
+          <NavigationProperty Name="Conversations" Relationship="ELearningDatabaseModel.FK__Messages__Conver__17F790F9" FromRole="Messages" ToRole="Conversations" />
+          <NavigationProperty Name="Discussions" Relationship="ELearningDatabaseModel.FK__Messages__Discus__17036CC0" FromRole="Messages" ToRole="Discussions" />
+          <NavigationProperty Name="Forums" Relationship="ELearningDatabaseModel.FK__Messages__ForumI__160F4887" FromRole="Messages" ToRole="Forums" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Messages__UserId__151B244E" FromRole="Messages" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ModuleUser">
+          <Key>
+            <PropertyRef Name="ModuleUserId" />
+            <PropertyRef Name="CourseModuleId" />
+          </Key>
+          <Property Name="ModuleUserId" Type="Int32" Nullable="false" />
+          <Property Name="CourseModuleId" Type="Int32" Nullable="false" />
+          <Property Name="ModuleUserstatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__ModuleUse__Cours__36B12243" FromRole="ModuleUser" ToRole="CourseModule" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__ModuleUse__Modul__35BCFE0A" FromRole="ModuleUser" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="PageId" />
+          </Key>
+          <Property Name="PageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PageLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Pages__UserId__4E88ABD4" FromRole="Pages" ToRole="Users" />
+          <NavigationProperty Name="Resources" Relationship="ELearningDatabaseModel.FK__Resources__PageI__534D60F1" FromRole="Pages" ToRole="Resources" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionPoints" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="QuestionType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="AnswerId" Type="Int32" />
+          <NavigationProperty Name="Answers" Relationship="ELearningDatabaseModel.FK__Questions__Answe__25869641" FromRole="Questions" ToRole="Answers" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__Questions__Cours__24927208" FromRole="Questions" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="Resources">
+          <Key>
+            <PropertyRef Name="ResourceId" />
+          </Key>
+          <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ResourceType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FileLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PageId" Type="Int32" />
+          <Property Name="FileId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pages" Relationship="ELearningDatabaseModel.FK__Resources__PageI__534D60F1" FromRole="Resources" ToRole="Pages" />
+        </EntityType>
+        <EntityType Name="Syllabus">
+          <Key>
+            <PropertyRef Name="SyllabusId" />
+          </Key>
+          <Property Name="SyllabusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__Courses__Syllabu__164452B1" FromRole="Syllabus" ToRole="Courses" />
+        </EntityType>
+        <EntityType Name="Tests">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TestDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TestDeadline" Type="DateTime" Precision="3" />
+          <Property Name="TestType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfQuestions" Type="Int32" />
+          <Property Name="TestAvailabilitySpan" Type="DateTime" Precision="3" />
+          <Property Name="AttendantsSection" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__Tests__CourseId__6754599E" FromRole="Tests" ToRole="Courses" />
+          <NavigationProperty Name="Groups" Relationship="ELearningDatabaseModel.FK__Tests__GroupId__68487DD7" FromRole="Tests" ToRole="Groups" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentIdentificationNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AccessStatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__Courses__OwnerId__15502E78" FromRole="Users" ToRole="Courses" />
+          <NavigationProperty Name="GroupMembers" Relationship="ELearningDatabaseModel.FK__GroupMemb__Membe__1DB06A4F" FromRole="Users" ToRole="GroupMembers" />
+          <NavigationProperty Name="Groups" Relationship="ELearningDatabaseModel.FK__Groups__OwnerId__681373AD" FromRole="Users" ToRole="Groups" />
+          <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__UserId__151B244E" FromRole="Users" ToRole="Messages" />
+          <NavigationProperty Name="ModuleUser" Relationship="ELearningDatabaseModel.FK__ModuleUse__Modul__35BCFE0A" FromRole="Users" ToRole="ModuleUser" />
+          <NavigationProperty Name="Pages" Relationship="ELearningDatabaseModel.FK__Pages__UserId__4E88ABD4" FromRole="Users" ToRole="Pages" />
+          <NavigationProperty Name="UsersInCourse" Relationship="ELearningDatabaseModel.FK__UsersInCo__UserI__74794A92" FromRole="Users" ToRole="UsersInCourse" />
+          <NavigationProperty Name="webpages_Roles" Relationship="ELearningDatabaseModel.webpages_UsersInRoles" FromRole="Users" ToRole="webpages_Roles" />
+          <NavigationProperty Name="Forums" Relationship="ELearningDatabaseModel.FK__Forums__OwnerId__756D6ECB" FromRole="Users" ToRole="Forums" />
+          <NavigationProperty Name="Homeworks" Relationship="ELearningDatabaseModel.FK__Homeworks__Owner__7EF6D905" FromRole="Users" ToRole="Homeworks" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Stude__03BB8E22" FromRole="Users" ToRole="HomeworkAssignements" />
+        </EntityType>
+        <EntityType Name="UsersInCourse">
+          <Key>
+            <PropertyRef Name="CourseId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CourseUserstatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__UsersInCo__Cours__73852659" FromRole="UsersInCourse" ToRole="Courses" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__UsersInCo__UserI__74794A92" FromRole="UsersInCourse" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="webpages_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="webpages_OAuthMembership">
+          <Key>
+            <PropertyRef Name="Provider" />
+            <PropertyRef Name="ProviderUserId" />
+          </Key>
+          <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__Questions__Answe__25869641">
+          <End Type="ELearningDatabaseModel.Answers" Role="Answers" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Questions" Role="Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="AnswerId" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CalendarE__Cours__59063A47">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.CalendarEvents" Role="CalendarEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CalendarEvents">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__Conver__17F790F9">
+          <End Type="ELearningDatabaseModel.Conversations" Role="Conversations" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Conversations">
+              <PropertyRef Name="ConversationId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ConversationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMod__Cours__30F848ED">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.CourseModule" Role="CourseModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="CourseModule">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CourseMod__Grade__300424B4">
+          <End Type="ELearningDatabaseModel.Grades" Role="Grades" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.CourseModule" Role="CourseModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grades">
+              <PropertyRef Name="GradeId" />
+            </Principal>
+            <Dependent Role="CourseModule">
+              <PropertyRef Name="GradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ModuleUse__Cours__36B12243">
+          <End Type="ELearningDatabaseModel.CourseModule" Role="CourseModule" Multiplicity="1" />
+          <End Type="ELearningDatabaseModel.ModuleUser" Role="ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseModule">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="CourseModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Courses__OwnerId__15502E78">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Courses__Syllabu__164452B1">
+          <End Type="ELearningDatabaseModel.Syllabus" Role="Syllabus" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Syllabus">
+              <PropertyRef Name="SyllabusId" />
+            </Principal>
+            <Dependent Role="Courses">
+              <PropertyRef Name="SyllabusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Questions__Cours__24927208">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Questions" Role="Questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Questions">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__CourseId__6754599E">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Tests" Role="Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsersInCo__Cours__73852659">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="1" />
+          <End Type="ELearningDatabaseModel.UsersInCourse" Role="UsersInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="UsersInCourse">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__Discus__17036CC0">
+          <End Type="ELearningDatabaseModel.Discussions" Role="Discussions" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discussions">
+              <PropertyRef Name="DiscusionId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="DiscusionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__ForumI__160F4887">
+          <End Type="ELearningDatabaseModel.Forums" Role="Forums" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forums">
+              <PropertyRef Name="ForumId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="ForumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GroupMemb__Group__1CBC4616">
+          <End Type="ELearningDatabaseModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.GroupMembers" Role="GroupMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="GroupMembers">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GroupMemb__Membe__1DB06A4F">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.GroupMembers" Role="GroupMembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="GroupMembers">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Groups__OwnerId__681373AD">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Groups" Role="Groups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Groups">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tests__GroupId__68487DD7">
+          <End Type="ELearningDatabaseModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Tests" Role="Tests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="Tests">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Messages__UserId__151B244E">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Messages" Role="Messages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Messages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ModuleUse__Modul__35BCFE0A">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ELearningDatabaseModel.ModuleUser" Role="ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="ModuleUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pages__UserId__4E88ABD4">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Pages" Role="Pages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Pages">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Resources__PageI__534D60F1">
+          <End Type="ELearningDatabaseModel.Pages" Role="Pages" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Resources" Role="Resources" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pages">
+              <PropertyRef Name="PageId" />
+            </Principal>
+            <Dependent Role="Resources">
+              <PropertyRef Name="PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UsersInCo__UserI__74794A92">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ELearningDatabaseModel.UsersInCourse" Role="UsersInCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersInCourse">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="ELearningDatabaseModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Forums__OwnerId__756D6ECB">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Forums" Role="Forums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Forums">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Homeworks">
+          <Key>
+            <PropertyRef Name="HomeworkId" />
+          </Key>
+          <Property Name="HomeworkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeworkCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HomeworkName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="HomeworkDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="HomeworkDeadline" Type="DateTime" Precision="3" />
+          <Property Name="HomeworkPoints" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HomeworkAccessSpan" Type="DateTime" Precision="3" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseModuleId" Type="Int32" />
+          <Property Name="OwnerId" Type="Int32" />
+          <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__Homeworks__Cours__7E02B4CC" FromRole="Homeworks" ToRole="CourseModule" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__Homeworks__Cours__7D0E9093" FromRole="Homeworks" ToRole="Courses" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Homeworks__Owner__7EF6D905" FromRole="Homeworks" ToRole="Users" />
+          <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Homew__078C1F06" FromRole="Homeworks" ToRole="HomeworkAssignements" />
+        </EntityType>
+        <Association Name="FK__Homeworks__Cours__7E02B4CC">
+          <End Type="ELearningDatabaseModel.CourseModule" Role="CourseModule" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Homeworks" Role="Homeworks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseModule">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="Homeworks">
+              <PropertyRef Name="CourseModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Homeworks__Cours__7D0E9093">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Homeworks" Role="Homeworks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="Homeworks">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Homeworks__Owner__7EF6D905">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.Homeworks" Role="Homeworks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Homeworks">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="HomeworkAssignements">
+          <Key>
+            <PropertyRef Name="AssignementId" />
+          </Key>
+          <Property Name="AssignementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="GroupId" Type="Int32" />
+          <Property Name="CourseId" Type="Int32" />
+          <Property Name="CourseModuleId" Type="Int32" />
+          <Property Name="HomeworkId" Type="Int32" />
+          <Property Name="AnswerId" Type="Int32" />
+          <Property Name="GradeId" Type="Int32" />
+          <NavigationProperty Name="Answers" Relationship="ELearningDatabaseModel.FK__HomeworkA__Answe__0880433F" FromRole="HomeworkAssignements" ToRole="Answers" />
+          <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__HomeworkA__Cours__0697FACD" FromRole="HomeworkAssignements" ToRole="CourseModule" />
+          <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__HomeworkA__Cours__05A3D694" FromRole="HomeworkAssignements" ToRole="Courses" />
+          <NavigationProperty Name="Grades" Relationship="ELearningDatabaseModel.FK__HomeworkA__Grade__09746778" FromRole="HomeworkAssignements" ToRole="Grades" />
+          <NavigationProperty Name="Groups" Relationship="ELearningDatabaseModel.FK__HomeworkA__Group__04AFB25B" FromRole="HomeworkAssignements" ToRole="Groups" />
+          <NavigationProperty Name="Homeworks" Relationship="ELearningDatabaseModel.FK__HomeworkA__Homew__078C1F06" FromRole="HomeworkAssignements" ToRole="Homeworks" />
+          <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__HomeworkA__Stude__03BB8E22" FromRole="HomeworkAssignements" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__HomeworkA__Answe__0880433F">
+          <End Type="ELearningDatabaseModel.Answers" Role="Answers" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Answers">
+              <PropertyRef Name="AnswerId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="AnswerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Cours__0697FACD">
+          <End Type="ELearningDatabaseModel.CourseModule" Role="CourseModule" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseModule">
+              <PropertyRef Name="ModuleId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="CourseModuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Cours__05A3D694">
+          <End Type="ELearningDatabaseModel.Courses" Role="Courses" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Grade__09746778">
+          <End Type="ELearningDatabaseModel.Grades" Role="Grades" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grades">
+              <PropertyRef Name="GradeId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="GradeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Group__04AFB25B">
+          <End Type="ELearningDatabaseModel.Groups" Role="Groups" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="GroupId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="GroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Homew__078C1F06">
+          <End Type="ELearningDatabaseModel.Homeworks" Role="Homeworks" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Homeworks">
+              <PropertyRef Name="HomeworkId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="HomeworkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HomeworkA__Stude__03BB8E22">
+          <End Type="ELearningDatabaseModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="ELearningDatabaseModel.HomeworkAssignements" Role="HomeworkAssignements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="HomeworkAssignements">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ELearningDatabaseModelStoreContainer" CdmEntityContainer="ELearningDatabaseEntitiesServer">
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Answers">
+              <MappingFragment StoreEntitySet="Answers">
+                <ScalarProperty Name="AnswerValue" ColumnName="AnswerValue" />
+                <ScalarProperty Name="AnswerType" ColumnName="AnswerType" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEvents">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.CalendarEvents">
+              <MappingFragment StoreEntitySet="CalendarEvents">
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="EventEnddatetime" ColumnName="EventEnddatetime" />
+                <ScalarProperty Name="EventStartdatetime" ColumnName="EventStartdatetime" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conversations">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Conversations">
+              <MappingFragment StoreEntitySet="Conversations">
+                <ScalarProperty Name="ConversationName" ColumnName="ConversationName" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="ConversationId" ColumnName="ConversationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseModule">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.CourseModule">
+              <MappingFragment StoreEntitySet="CourseModule">
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="PreviousModuleId" ColumnName="PreviousModuleId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+                <ScalarProperty Name="Moduledatetime" ColumnName="Moduledatetime" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Courses">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="enrollementKey" ColumnName="enrollementKey" />
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="SyllabusId" ColumnName="SyllabusId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="CourdeCode" ColumnName="CourdeCode" />
+                <ScalarProperty Name="NumberOfCredits" ColumnName="NumberOfCredits" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discussions">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Discussions">
+              <MappingFragment StoreEntitySet="Discussions">
+                <ScalarProperty Name="DiscussionSubject" ColumnName="DiscussionSubject" />
+                <ScalarProperty Name="DiscusionId" ColumnName="DiscusionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forums">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Forums">
+              <MappingFragment StoreEntitySet="Forums">
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="ForumId" ColumnName="ForumId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Grades">
+              <MappingFragment StoreEntitySet="Grades">
+                <ScalarProperty Name="Gradedatetime" ColumnName="Gradedatetime" />
+                <ScalarProperty Name="GradeValue" ColumnName="GradeValue" />
+                <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GroupMembers">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.GroupMembers">
+              <MappingFragment StoreEntitySet="GroupMembers">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupMemberId" ColumnName="GroupMemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+                <ScalarProperty Name="GroupDescription" ColumnName="GroupDescription" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Logs">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="EventInfo" ColumnName="EventInfo" />
+                <ScalarProperty Name="EventLevel" ColumnName="EventLevel" />
+                <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Messages">
+              <MappingFragment StoreEntitySet="Messages">
+                <ScalarProperty Name="ConversationId" ColumnName="ConversationId" />
+                <ScalarProperty Name="DiscusionId" ColumnName="DiscusionId" />
+                <ScalarProperty Name="ForumId" ColumnName="ForumId" />
+                <ScalarProperty Name="MesageData" ColumnName="MesageData" />
+                <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleUser">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.ModuleUser">
+              <MappingFragment StoreEntitySet="ModuleUser">
+                <ScalarProperty Name="ModuleUserstatus" ColumnName="ModuleUserstatus" />
+                <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+                <ScalarProperty Name="ModuleUserId" ColumnName="ModuleUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Pages">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PageLink" ColumnName="PageLink" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Questions">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+                <ScalarProperty Name="QuestionPoints" ColumnName="QuestionPoints" />
+                <ScalarProperty Name="QuestionDescription" ColumnName="QuestionDescription" />
+                <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Resources">
+              <MappingFragment StoreEntitySet="Resources">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+                <ScalarProperty Name="FileLocation" ColumnName="FileLocation" />
+                <ScalarProperty Name="ResourceType" ColumnName="ResourceType" />
+                <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Syllabus">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Syllabus">
+              <MappingFragment StoreEntitySet="Syllabus">
+                <ScalarProperty Name="FileLink" ColumnName="FileLink" />
+                <ScalarProperty Name="SyllabusId" ColumnName="SyllabusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tests">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Tests">
+              <MappingFragment StoreEntitySet="Tests">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="AttendantsSection" ColumnName="AttendantsSection" />
+                <ScalarProperty Name="TestAvailabilitySpan" ColumnName="TestAvailabilitySpan" />
+                <ScalarProperty Name="NumberOfQuestions" ColumnName="NumberOfQuestions" />
+                <ScalarProperty Name="TestType" ColumnName="TestType" />
+                <ScalarProperty Name="TestDeadline" ColumnName="TestDeadline" />
+                <ScalarProperty Name="TestDescription" ColumnName="TestDescription" />
+                <ScalarProperty Name="TestName" ColumnName="TestName" />
+                <ScalarProperty Name="TestId" ColumnName="TestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="AccessStatus" ColumnName="AccessStatus" />
+                <ScalarProperty Name="StudentIdentificationNumber" ColumnName="StudentIdentificationNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersInCourse">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.UsersInCourse">
+              <MappingFragment StoreEntitySet="UsersInCourse">
+                <ScalarProperty Name="CourseUserstatus" ColumnName="CourseUserstatus" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Membership">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.webpages_Membership">
+              <MappingFragment StoreEntitySet="webpages_Membership">
+                <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+                <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+                <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+                <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_OAuthMembership">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.webpages_OAuthMembership">
+              <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+                <ScalarProperty Name="Provider" ColumnName="Provider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="ELearningDatabaseModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Homeworks">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.Homeworks">
+              <MappingFragment StoreEntitySet="Homeworks">
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="HomeworkAccessSpan" ColumnName="HomeworkAccessSpan" />
+                <ScalarProperty Name="HomeworkPoints" ColumnName="HomeworkPoints" />
+                <ScalarProperty Name="HomeworkDeadline" ColumnName="HomeworkDeadline" />
+                <ScalarProperty Name="HomeworkDescription" ColumnName="HomeworkDescription" />
+                <ScalarProperty Name="HomeworkName" ColumnName="HomeworkName" />
+                <ScalarProperty Name="HomeworkCode" ColumnName="HomeworkCode" />
+                <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeworkAssignements">
+            <EntityTypeMapping TypeName="ELearningDatabaseModel.HomeworkAssignements">
+              <MappingFragment StoreEntitySet="HomeworkAssignements">
+                <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+                <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+                <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="AssignementId" ColumnName="AssignementId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

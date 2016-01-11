@@ -1,0 +1,39 @@
+﻿@model E_LearningApplication.Models.LocalPasswordModel
+
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<div>
+    <div class="col-lg-1"></div>
+    <div class="row mt col-lg-10">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <hgroup class="title">
+                    <h1 class="mb"><i class="fa fa-angle-right"></i> @ViewBag.Title.</h1>
+                </hgroup>
+
+                <p class="message-success">@ViewBag.StatusMessage</p>
+
+                <div class="panel panel-body panel-default">
+                    <div class="text-info">
+                        <h4><i class="fa fa-warning"></i> You're logged in as <strong>@User.Identity.Name</strong>.</h4>
+                        <br />
+                    </div>
+
+                    @if (ViewBag.HasLocalPassword) {
+                        @Html.Partial("_ChangePasswordPartial")
+                    }
+                    else {
+                        @Html.Partial("_SetPasswordPartial")
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1"></div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

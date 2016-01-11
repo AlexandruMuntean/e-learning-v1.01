@@ -1,0 +1,56 @@
+﻿@model IEnumerable<E_LearningApplication.Models.ViewModels.CoursesViewModel>
+
+<h2><i class="fa fa-angle-right"></i> Display My Courses</h2>
+<div class="panel panel-body panel-default">
+    <table class="table table-striped table-hover mt">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfCredits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourdeCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SyllabusId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfCredits)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourdeCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SyllabusId)
+                </td>
+                <td>
+                    @Html.ActionLink("View My Homework", "DisplayStudentAssignedHomework", "Homework")
+                    @using (Html.BeginForm("UnenrollFromCourse", "Student", new { id = item.CourseId }, FormMethod.Post, new { title = "Unenroll from the course", style = "display: inline-block" })) {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning btn-xs" title="Unenroll from the course">
+                            <i class="fa fa-trash-o"></i> Unenroll
+                        </button>
+                    }
+                    @Html.ActionLink("More...", "MyCourseDetails", "Student", new { id = item.CourseId }, new { title = "View course details" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

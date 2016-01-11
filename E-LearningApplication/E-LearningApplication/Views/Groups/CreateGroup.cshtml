@@ -1,0 +1,56 @@
+﻿@model E_LearningApplication.Models.ViewModels.GroupsViewModel
+
+@{
+    var _groupEnum = Enum.GetValues(typeof(E_LearningApplication.Utils.GroupTypeEnum));
+    var _options = new List<SelectListItem>();
+    _options.Add(new SelectListItem() { Text = "Choose a type...", Value = "" });
+    foreach (var e in _groupEnum) {
+        _options.Add(
+            new SelectListItem() { Text = e.ToString(), Value = e.ToString() }
+            );
+    }
+}
+
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Create Group</h2>
+
+        <div class="panel panel-body">
+            <div class="panel-default">
+                @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.GroupName)
+                    </div>
+                    <div class="editor-field mb">
+                        @Html.EditorFor(model => model.GroupName)
+                        @Html.ValidationMessageFor(model => model.GroupName)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.GroupDescription)
+                    </div>
+                    <div class="editor-field mb">
+                        @Html.EditorFor(model => model.GroupDescription)
+                        @Html.ValidationMessageFor(model => model.GroupDescription)
+                    </div>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.GroupType)
+                    </div>
+                    <div class="editor-field mb">
+                        @Html.DropDownList("groupType", _options, new { @class = "btn btn-theme03" })
+                    </div>
+
+                    <p>
+                        <input type="submit" class="btn btn-primary btn-sm" value="Create" />
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model E_LearningApplication.Models.ViewModels.AssignementViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Submit Homework</h2>
+
+    <div class="panel panel-default panel-body">
+        <div class="mb col-lg-6">
+            @Html.HiddenFor(item => Model.HomeworkId)
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkName)
+            </div>
+            <div class="editor-field mb">
+                @Html.DisplayFor(item => Model.HomeworkName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkDescription)
+            </div>
+            <div class="editor-field mb">
+                @Html.DisplayFor(item => Model.HomeworkDescription)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkDeadline)
+            </div>
+            <div class="editor-field mb">
+                @Html.DisplayFor(item => Model.HomeworkDeadline)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(item => Model.HomeworkPoints)
+            </div>
+            <div class="editor-field mb">
+                @Html.DisplayFor(item => Model.HomeworkPoints)
+            </div>
+
+            <div class="mb">
+                <button class="btn btn-info btn-xs" title="Download homework description">
+                    <i class="fa fa-arrow-down"></i>
+                    @Html.ActionLink("Download", "DowloadCourseResource", "Homework", new { id = Model.HomeworkId }, new { title = "Download homework"})
+                </button>
+            </div>
+        </div>
+
+        <div class="mb col-lg-6">
+            @using (Html.BeginForm("SubmitStudentHomework", "Homework", new { assignementId = Model.AssignementId }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+                @Html.AntiForgeryToken()
+                <div class="mb">
+                    <label>Choose a file: </label>
+                    <input type="file" name="file" class="btn btn-info" />
+                </div>
+
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-facebook btn-sm" />
+                </p>
+            }
+        </div>
+    </div>
+</div>

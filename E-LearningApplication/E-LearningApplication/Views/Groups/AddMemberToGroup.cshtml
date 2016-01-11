@@ -1,0 +1,36 @@
+﻿@model Tuple<List<E_LearningApplication.Models.UserProfile>, int>
+
+@{
+    var selectList = new List<SelectListItem>();
+    foreach (var item in Model.Item1) {
+        selectList.Add(
+        new SelectListItem() {
+            Text = item.FirstName + " " + item.LastName + " - " + item.UserName,
+            Value = item.UserId.ToString()
+        });
+    };
+    selectList.Add(new SelectListItem() { Text = "Choose a new member...", Value = "-1", Selected = true });
+}
+
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Add Group Member</h2>
+
+        <div class="panel panel-body">
+            @using (Html.BeginForm("AddMember", "Groups", new { groupId = Model.Item2 }, FormMethod.Post, new { @class = "panel-default" })) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                @Html.Label("Choose a member to add from the following list:", new { @class = "mb" })
+                <br />
+                @Html.DropDownList("newMember", selectList, new { @class = "btn btn-theme03 btn-sm mb" })
+
+                <p>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Add Member" />
+                </p>
+            }
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

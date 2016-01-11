@@ -1,0 +1,43 @@
+﻿@model Tuple<E_LearningApplication.Models.ViewModels.AnswersViewModel, int, int, int>
+
+@{
+    var viewModel = Model.Item1;
+    var _assignementId = Model.Item2;
+    var _homeworkId = Model.Item3;
+    var _courseId = Model.Item4;
+}
+
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+
+        <div class="panel panel-body">
+            @using (Html.BeginForm("CourseHomeworkGrading", "Grades", new { assignementId = _assignementId, answerId = viewModel.AnswerId, homeworkId = _homeworkId, courseId = _courseId }, FormMethod.Post, new { @class = "panel-default" })) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <h2><i class="fa fa-angle-right"></i> Submited Answer</h2>
+
+                @Html.HiddenFor(model => viewModel.AnswerId)
+                @Html.HiddenFor(model => viewModel.AnswerType)
+
+                <div class="mb">
+                    <button class="btn btn-info btn-xs" title="Download course resources">
+                        <i class="fa fa-arrow-down"></i>
+                        @Html.ActionLink("Download", "DownloadCourseResource", "Homework", new { id = viewModel.AnswerId }, new { title = "Download submitted answer" })
+                    </button>
+                </div>
+
+                <h2><i class="fa fa-angle-right"></i> Give A Grade</h2>
+                <div class="display-field mb mt">
+                    <input type="text" name="gradeValue" />
+                </div>
+
+                <p>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Add Grade" />
+                </p>
+            }
+
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>

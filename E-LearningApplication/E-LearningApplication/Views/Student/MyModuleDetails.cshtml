@@ -1,0 +1,60 @@
+﻿@model E_LearningApplication.Models.ViewModels.CourseModuleViewModel
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Module Details</h2>
+
+    <div class="panel panel-body panel-default">
+        @Html.HiddenFor(model => model.ModuleId)
+        @Html.HiddenFor(model => model.CourseId)
+        @Html.HiddenFor(model => model.GradeId)
+
+        <div class="col-lg-6">
+            <div class="row mb">
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.ModuleName)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => model.ModuleName)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.Moduledatetime)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => model.Moduledatetime)
+                </div>
+
+                <div class="display-label">
+                    @Html.DisplayNameFor(model => model.PreviousModuleId)
+                </div>
+                <div class="display-field mb">
+                    @Html.DisplayFor(model => model.PreviousModuleId)
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+            <div class="row mb">
+                <button class="btn btn-theme03 btn-xs" title="Display module resources">
+                    <i class="fa fa-folder-open"></i>
+                    @Html.ActionLink("Display Module Resources", "DisplayMyModuleResources", "Student", new { id = Model.ModuleId }, new { title = "View the module resources"})
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button type="button" class="btn btn-link mt">
+            <h4>
+                <i class="fa fa-arrow-left"></i>
+                @Html.ActionLink("Back to Courses List", "DisplayMyCourses")
+            </h4>
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

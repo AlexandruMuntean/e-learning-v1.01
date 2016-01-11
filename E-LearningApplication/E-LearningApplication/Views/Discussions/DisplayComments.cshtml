@@ -1,0 +1,74 @@
+﻿@model E_LearningApplication.Models.ViewModels.AllMessagesViewModel
+
+@{
+    var mesaje = Model.mvm.ToList();
+}
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Comments</h2>
+
+    <div class="mb mt ml">
+        @Html.ActionLink("Leave a Comment", "AddComment", new { id = Model.forum.ForumId }, new { @class = "btn btn-xs btn-info" })
+    </div>
+
+    <div class="panel panel-body panel-default">
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            @Html.HiddenFor(model => Model.forum.ForumId)
+
+            <table class="table forum table-striped">
+                <tr class="head">
+                    <th>
+                        Comments
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.mvm) {
+                    <tr>
+                        <td>
+                            <b>@Html.DisplayFor(modelItem => item.user.UserName)</b>
+                            <i>(@Html.DisplayFor(modelItem => item.MesageData))</i>:
+                            <br />
+                            <i class="fa fa-comments-o"></i>
+                            @Html.DisplayFor(modelItem => item.MessageContent)
+                        </td>
+                        <td align="right">
+                            @if (item.user.UserName.Equals(User.Identity.Name)) {
+                                <button class="btn btn-info btn-xs">
+                                    <i class="fa fa-pencil"></i>
+                                    @Html.ActionLink("Edit", "EditComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
+                                </button>
+                                <button class="btn btn-theme03 btn-xs">
+                                    <i class="fa fa-trash-o"></i>
+                                    @Html.ActionLink("Delete", "DeleteComment", new { id = item.MessageId, idForum = Model.forum.ForumId })
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        }
+    </div>
+
+    <div class="mt">
+        <button type="button" class="btn btn-link mt">
+            <h4>
+                <i class="fa fa-arrow-left"></i>
+                @Html.ActionLink("Back to Forums List", "Forum")
+            </h4>
+        </button>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

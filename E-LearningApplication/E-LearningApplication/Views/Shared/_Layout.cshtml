@@ -1,0 +1,115 @@
+﻿@{
+    string[] _rolesArray;
+    var _userRoles = Session["UserRoles"];
+    if (_userRoles != null) {
+        _rolesArray = ((System.Collections.IEnumerable)_userRoles).Cast<object>()
+                                                                  .Select(x => x.ToString())
+                                                                  .ToArray();
+    }
+    else {
+        _rolesArray = new string[1] { E_LearningApplication.Utils.RolesEnum.Student.ToString() };
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>E-Learning Platform</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/themes/Theme/assets/cssApp")
+    @Styles.Render("~/Content/themes/Theme/assets/font-awesome/cssApp")
+    @Styles.Render("~/Content/themes/Theme/assets/font-awesome/fontsApp")
+    @Scripts.Render("~/Content/themes/Theme/assets/js/jquery-1.8.3.min.js")
+    @Scripts.Render("~/Content/themes/Theme/assets/js/bootstrap.min.js")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <section id="container">
+        @*menu*@
+        <div class="navbar navbar-default container" style="margin-top: 20px;">
+            <div class="container-fluid">
+                <div class="navbar-header pull-left">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <i class="fa fa-university"></i> E-Learning
+                    </a>
+                </div>
+
+                <ul class="nav navbar-nav">
+                    @if (_rolesArray.Contains("Admin") == true) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Admin <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li title="Contains search, block/unblock functionalities">@Html.ActionLink("Display all users", "DisplayUsers", "Admin")</li>
+                                <li title="Contains search, delete functionalities">@Html.ActionLink("Display all logs", "DisplayLogs", "Admin")</li>
+                                <li title="Imports users from a chosen file and assigns roles">@Html.ActionLink("Import users from csv file", "ImportUsers", "Admin")</li>
+                            </ul>
+                        </li>
+                }
+                    @if (_rolesArray.Contains("Prof") == true) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Prof <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li title="Displays all owned courses">@Html.ActionLink("Display my courses", "DisplayCourses", "Prof")</li>
+                                <li title="Displays all courses">@Html.ActionLink("Display all courses", "DisplayAllCourses", "Prof")</li>
+                            </ul>
+                        </li>
+                }
+                    @if (_rolesArray.Contains("Student") == true) {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Student <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li title="View all the courses available for enrollment">@Html.ActionLink("View all available courses", "DisplayAllAvailableCourses", "Student")</li>
+                                <li title="View all the courses I'm enrolled to">@Html.ActionLink("View my courses", "DisplayMyCourses", "Student")</li>
+                                <li title="View all the homework assigned to me">@Html.ActionLink("View my homework", "DisplayStudentAssignedHomework", "Homework")</li>
+                                <li title="View all the grades I received">@Html.ActionLink("View my grades", "DisplayStudentReceivedGrades", "Grades")</li>
+                            </ul>
+                        </li>
+                }
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Groups <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li title="View all the groups available for subscription">@Html.ActionLink("View available groups", "DisplayAllGroups", "Groups")</li>
+                            <li title="View all the groups I'm subscribed to">@Html.ActionLink("View my groups", "DisplayAssociatedGroups", "Groups")</li>
+                        </ul>
+                    </li>
+                    <li title="Creates a new forum topic">@Html.ActionLink("Go to forum", "Forum", "Discussions")</li>
+                    <li title="Compose and send a new mail">@Html.ActionLink("Send mail", "ComposeMail", "Discussions")</li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @Html.Partial("_LoginPartial")
+                </ul>
+            </div>
+        </div>
+
+        @*main content*@
+        <div id="body" class="container">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+
+        @*footer*@
+        <footer class="site-footer">
+            <div class="text-center">
+                @*<img src="~/Content/themes/Theme/assets/img/brand.png" title="made by SpaceMonkeys" alt="lost" />*@
+                <span>Made with &lt;3 by <b>Space Monkeys</b> &copy; @DateTime.Now.Year</span>
+                <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+            </div>
+        </footer>
+    </section>
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

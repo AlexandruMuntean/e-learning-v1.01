@@ -1,0 +1,57 @@
+﻿@model IEnumerable<E_LearningApplication.Models.ViewModels.CoursesViewModel>
+
+<div class="form-panel">
+    <h2><i class="fa fa-angle-right"></i> Display All Courses</h2>
+    <div class="panel panel-body panel-default">
+        <table class="table table-striped table-hover mt">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfCredits)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CourdeCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SyllabusId)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumberOfCredits)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CourdeCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SyllabusId)
+                    </td>
+                    <td align="right">
+                        @if (item.userInCourse == null)
+                        {
+                            <button class="btn btn-theme03 btn-xs" title="Grade the homework">
+                                <i class="fa fa-sign-in"></i>
+                                @Html.ActionLink("Enroll", "EnrollToCourse", new { id = item.CourseId })
+                            </button>
+                        }
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
