@@ -22,7 +22,7 @@ namespace E_LearningApplication.Controllers {
         #region Private fields
 
         private ILoggingUtil logger = new NLogLogger();
-        private readonly string apiMethodsUrl = "http://elearningservices.azurewebsites.net/";
+        private readonly string apiMethodsUrl = "https://elearningservices.azurewebsites.net/";
         //private readonly string apiMethodsUrl = "http://localhost:42175/";
         
         #endregion
@@ -58,7 +58,7 @@ namespace E_LearningApplication.Controllers {
                         HttpResponseMessage response = client.GetAsync("api/user/GetUserByUserName/?username=" + model.UserName).Result;
                         if (response.IsSuccessStatusCode) {
                             user = response.Content.ReadAsAsync<Users>().Result;
-                            if (user == null) {
+                            if (user == null || user.UserName == null) {
                                 throw new CustomException("Could not complete the operation!");
                             }
                         }
