@@ -481,7 +481,7 @@ namespace E_LearningApplication.Controllers {
                     foreach (string r in receivers) {
                         this.mailUtil.SendEmail(r, model.MailSubject, model.MailBody, model.Sender);
                     }
-                    return View("Index");
+                    return View("ComposeMail");
                 }
                 else {
                     return View("ComposeMail", model);
