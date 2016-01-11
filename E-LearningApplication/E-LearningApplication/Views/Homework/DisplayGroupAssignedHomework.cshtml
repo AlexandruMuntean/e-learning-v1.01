@@ -39,7 +39,7 @@
                     <td>
                         <button class="btn btn-info btn-xs" title="Download course resources">
                             <i class="fa fa-arrow-down"></i>
-                            @Html.ActionLink("Download", "DowloadCourseResource", new { id = item.HomeworkId })
+                            @Html.ActionLink("Download", "DowloadCourseResource", "Homework", new { id = item.HomeworkId }, new { title = "Download homework" })
                         </button>
                     </td>
                     <td>

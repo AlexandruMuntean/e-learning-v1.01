@@ -3,27 +3,41 @@
 <div class="form-panel">
     <h2><i class="fa fa-angle-right"></i> Display Users</h2>
     <div class="panel panel-body panel-default">
-        <p>
-            @Html.ActionLink("Show all users", "DisplayUsers", "Admin", new { @class = "btn btn-info btn-sm" })
-        </p>
+        <div class="col-lg-12">
+            <div class="col-lg-6">
+                <div class="mt">
+                    @using (Html.BeginForm("SearchUser", "Admin", FormMethod.Get))
+                    {
 
-        <div class="mt">
-            @using (Html.BeginForm("SearchUser", "Admin", FormMethod.Get)) {
+                        <h5><i class="fa fa-search"></i> Search by</h5>
+                        <div class="col-lg-1">
+                            @Html.RadioButton("searchTerm", "UserName", true)
+                        </div>
+                        <div class="col-lg-11" style="padding: 0;">
+                            @Html.Label("Username")    
+                        </div>
 
-                <h5><i class="fa fa-search"></i> Search by</h5>
+                        <div class="col-lg-1">
+                            @Html.RadioButton("searchTerm", "LastName")
+                        </div>
+                        <div class="col-lg-11" style="padding: 0;">
+                            @Html.Label("Last name")
+                        </div>
+                       
+                        <div class="col-lg-12 mt">
+                            <input type="text" name="searchString">
+                            <input type="submit" value="Search" class="btn btn-theme03 btn-xs" />
+                        </div>
+                    }
 
-                @Html.Label("Username")
-                @Html.RadioButton("searchTerm", "UserName", true)
-
-                @Html.Label("Last name")
-                @Html.RadioButton("searchTerm", "LastName")
-
-                <br />
-                <input type="text" name="searchString">
-                <input type="submit" value="Search" class="btn btn-theme03 btn-xs" />
-            }
-
-        </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <p>
+                    @Html.ActionLink("Show all users", "DisplayUsers", "Admin", new { @class = "btn btn-info btn-sm mt" })
+                </p>
+            </div>
+        </div>    
     </div>
 
     <div class="panel panel-body panel-default">

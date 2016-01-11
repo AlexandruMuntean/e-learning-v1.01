@@ -46,6 +46,33 @@ namespace E_LearningServices.Controllers {
         }
 
         [HttpGet]
+        public HttpResponseMessage GetAllSubscribedUsers(int courseId) {
+            try {
+                List<Users> users = this._userManagement.GetAllSubscribedUsers(courseId);
+                List<UsersDTO> dtoList = new List<UsersDTO>();
+                if (users != null) {
+                    foreach (var user in users) {
+                        dtoList.Add(new UsersDTO {
+                            UserId = user.UserId,
+                            AccessStatus = user.AccessStatus,
+                            Email = user.Email,
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            MiddleName = user.MiddleName,
+                            StudentIdentificationNumber = user.StudentIdentificationNumber,
+                            UserName = user.UserName
+                        });
+                    }
+                }
+                return Request.CreateResponse<List<UsersDTO>>(HttpStatusCode.OK, dtoList);
+            }
+            catch (Exception) {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpGet]
         public HttpResponseMessage GetUserById(int id) {
             try {
                 Users user = this._userManagement.GetUserById(id);

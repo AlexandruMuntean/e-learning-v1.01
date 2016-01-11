@@ -32,6 +32,35 @@ namespace E_LearningServices.Services {
         }
 
         /// <summary>
+        /// Gets all subscribed users to a course.
+        /// </summary>
+        /// <param name="courseId">The course identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="CustomException"></exception>
+        public List<Users> GetAllSubscribedUsers(int courseId) {
+            try {
+                using (var db = new ELearningDatabaseEntities()) {
+                    var usersInCourse = db.UsersInCourse
+                                            .Where(uc => uc.CourseId == courseId)
+                                            .ToList();
+                    List<Users> users = new List<Users>();
+                    if (usersInCourse != null) {
+                        foreach (var user in usersInCourse) {
+                            users.Add(db.Users
+                                            .Where(u => u.UserId == user.UserId)
+                                            .First()
+                                );
+                        }
+                    }
+                    return users;
+                }
+            }
+            catch (ArgumentNullException ex) {
+                throw new CustomException(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Gets the user by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>

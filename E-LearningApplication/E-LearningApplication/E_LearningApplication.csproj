@@ -481,6 +481,7 @@
     <Content Include="Content\themes\Theme\assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\themes\Theme\assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\themes\Theme\assets\img\blog-bg.jpg" />
+    <Content Include="Content\themes\Theme\assets\img\brand.png" />
     <Content Include="Content\themes\Theme\assets\img\checkbox-gray.png" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-01.jpg" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-02.jpg" />
@@ -493,6 +494,7 @@
     <Content Include="Content\themes\Theme\assets\img\friends\fr-09.jpg" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-10.jpg" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-11.jpg" />
+    <Content Include="Content\themes\Theme\assets\img\grey-up.png" />
     <Content Include="Content\themes\Theme\assets\img\instagram.jpg" />
     <Content Include="Content\themes\Theme\assets\img\login-bg.jpg" />
     <Content Include="Content\themes\Theme\assets\img\lorde.jpg" />
@@ -699,7 +701,6 @@
     <Content Include="Views\Homework\CreateCourseModuleHomework.cshtml" />
     <Content Include="Views\Homework\EditCourseModuleHomework.cshtml" />
     <Content Include="Views\Homework\AssignCourseModuleHomework.cshtml" />
-    <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Homework\DisplayGroupAssignedHomework.cshtml" />
     <Content Include="Views\Homework\SubmitGroupHomework.cshtml" />
     <Content Include="Views\Grades\DisplayGroupReceivedGrades.cshtml" />

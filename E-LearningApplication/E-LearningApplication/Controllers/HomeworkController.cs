@@ -784,8 +784,7 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    //to do: switch from getAllUsers to getUsersInCourse after enrollment is implemented
-                    HttpResponseMessage response1 = client.GetAsync("api/user/GetAllUsers").Result;
+                    HttpResponseMessage response1 = client.GetAsync("api/user/GetAllSubscribedUsers/?courseId=" + courseId).Result;
                     HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
                     if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode) {
                         var list1 = response1.Content.ReadAsAsync<IEnumerable<Users>>().Result;
@@ -907,17 +906,27 @@ namespace E_LearningApplication.Controllers {
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-                    //to do: switch from getAllUsers to getUsersInCourse after enrollment is implemented
-                    HttpResponseMessage response1 = client.GetAsync("api/user/GetAllUsers").Result;
-                    HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
-                    if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode) {
-                        var list1 = response1.Content.ReadAsAsync<IEnumerable<Users>>().Result;
-                        if (list1 != null) {
-                            users = list1.ToList();
-                        }
-                        var list2 = response2.Content.ReadAsAsync<IEnumerable<Groups>>().Result;
-                        if (list2 != null) {
-                            groups = list2.ToList();
+                    //get the courseId from the module
+                    HttpResponseMessage response0 = client.GetAsync("api/course/GetCourseByModuleId/?moduleId=" + courseModuleId).Result;
+                    if (response0.IsSuccessStatusCode) {
+                        var courseFound = response0.Content.ReadAsAsync<Courses>().Result;
+                        if (courseFound != null) {
+                            //get only the subscribed users to assign homework to
+                            HttpResponseMessage response1 = client.GetAsync("api/user/GetAllSubscribedUsers/?courseId=" + courseFound.CourseId).Result;
+                            HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
+                            if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode) {
+                                var list1 = response1.Content.ReadAsAsync<IEnumerable<Users>>().Result;
+                                if (list1 != null) {
+                                    users = list1.ToList();
+                                }
+                                var list2 = response2.Content.ReadAsAsync<IEnumerable<Groups>>().Result;
+                                if (list2 != null) {
+                                    groups = list2.ToList();
+                                }
+                            }
+                            else {
+                                throw new CustomException("Could not complete the operation!");
+                            }
                         }
                     }
                     else {

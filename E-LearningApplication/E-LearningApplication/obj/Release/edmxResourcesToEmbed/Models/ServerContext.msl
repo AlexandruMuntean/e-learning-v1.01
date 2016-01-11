@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ELearningDatabaseModelStoreContainer" CdmEntityContainer="ELearningDatabaseEntitiesServer">
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Answers">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="AnswerValue" ColumnName="AnswerValue" />
+          <ScalarProperty Name="AnswerType" ColumnName="AnswerType" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CalendarEvents">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.CalendarEvents">
+        <MappingFragment StoreEntitySet="CalendarEvents">
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="EventEnddatetime" ColumnName="EventEnddatetime" />
+          <ScalarProperty Name="EventStartdatetime" ColumnName="EventStartdatetime" />
+          <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Conversations">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Conversations">
+        <MappingFragment StoreEntitySet="Conversations">
+          <ScalarProperty Name="ConversationName" ColumnName="ConversationName" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="ConversationId" ColumnName="ConversationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseModule">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.CourseModule">
+        <MappingFragment StoreEntitySet="CourseModule">
+          <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+          <ScalarProperty Name="PreviousModuleId" ColumnName="PreviousModuleId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+          <ScalarProperty Name="Moduledatetime" ColumnName="Moduledatetime" />
+          <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Courses">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+          <ScalarProperty Name="SyllabusId" ColumnName="SyllabusId" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="CourdeCode" ColumnName="CourdeCode" />
+          <ScalarProperty Name="NumberOfCredits" ColumnName="NumberOfCredits" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Discussions">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Discussions">
+        <MappingFragment StoreEntitySet="Discussions">
+          <ScalarProperty Name="DiscussionSubject" ColumnName="DiscussionSubject" />
+          <ScalarProperty Name="DiscusionId" ColumnName="DiscusionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Forums">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Forums">
+        <MappingFragment StoreEntitySet="Forums">
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ForumId" ColumnName="ForumId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grades">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Grades">
+        <MappingFragment StoreEntitySet="Grades">
+          <ScalarProperty Name="Gradedatetime" ColumnName="Gradedatetime" />
+          <ScalarProperty Name="GradeValue" ColumnName="GradeValue" />
+          <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupMembers">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.GroupMembers">
+        <MappingFragment StoreEntitySet="GroupMembers">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="GroupMemberId" ColumnName="GroupMemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Groups">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="GroupType" ColumnName="GroupType" />
+          <ScalarProperty Name="GroupDescription" ColumnName="GroupDescription" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Logs">
+        <MappingFragment StoreEntitySet="Logs">
+          <ScalarProperty Name="EventInfo" ColumnName="EventInfo" />
+          <ScalarProperty Name="EventLevel" ColumnName="EventLevel" />
+          <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Messages">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="ConversationId" ColumnName="ConversationId" />
+          <ScalarProperty Name="DiscusionId" ColumnName="DiscusionId" />
+          <ScalarProperty Name="ForumId" ColumnName="ForumId" />
+          <ScalarProperty Name="MesageData" ColumnName="MesageData" />
+          <ScalarProperty Name="MessageContent" ColumnName="MessageContent" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleUser">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.ModuleUser">
+        <MappingFragment StoreEntitySet="ModuleUser">
+          <ScalarProperty Name="ModuleUserstatus" ColumnName="ModuleUserstatus" />
+          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+          <ScalarProperty Name="ModuleUserId" ColumnName="ModuleUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pages">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Pages">
+        <MappingFragment StoreEntitySet="Pages">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PageLink" ColumnName="PageLink" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="PageId" ColumnName="PageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Questions">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="QuestionPoints" ColumnName="QuestionPoints" />
+          <ScalarProperty Name="QuestionDescription" ColumnName="QuestionDescription" />
+          <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resources">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Resources">
+        <MappingFragment StoreEntitySet="Resources">
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="PageId" ColumnName="PageId" />
+          <ScalarProperty Name="FileLocation" ColumnName="FileLocation" />
+          <ScalarProperty Name="ResourceType" ColumnName="ResourceType" />
+          <ScalarProperty Name="ResourceId" ColumnName="ResourceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Syllabus">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Syllabus">
+        <MappingFragment StoreEntitySet="Syllabus">
+          <ScalarProperty Name="FileLink" ColumnName="FileLink" />
+          <ScalarProperty Name="SyllabusId" ColumnName="SyllabusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Tests">
+        <MappingFragment StoreEntitySet="Tests">
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="AttendantsSection" ColumnName="AttendantsSection" />
+          <ScalarProperty Name="TestAvailabilitySpan" ColumnName="TestAvailabilitySpan" />
+          <ScalarProperty Name="NumberOfQuestions" ColumnName="NumberOfQuestions" />
+          <ScalarProperty Name="TestType" ColumnName="TestType" />
+          <ScalarProperty Name="TestDeadline" ColumnName="TestDeadline" />
+          <ScalarProperty Name="TestDescription" ColumnName="TestDescription" />
+          <ScalarProperty Name="TestName" ColumnName="TestName" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="AccessStatus" ColumnName="AccessStatus" />
+          <ScalarProperty Name="StudentIdentificationNumber" ColumnName="StudentIdentificationNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersInCourse">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.UsersInCourse">
+        <MappingFragment StoreEntitySet="UsersInCourse">
+          <ScalarProperty Name="CourseUserstatus" ColumnName="CourseUserstatus" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Membership">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.webpages_Membership">
+        <MappingFragment StoreEntitySet="webpages_Membership">
+          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_OAuthMembership">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.webpages_OAuthMembership">
+        <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Roles">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.webpages_Roles">
+        <MappingFragment StoreEntitySet="webpages_Roles">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="ELearningDatabaseModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+      <EndProperty Name="Users">
+        <ScalarProperty Name="UserId" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="webpages_Roles">
+        <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="Homeworks">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.Homeworks">
+        <MappingFragment StoreEntitySet="Homeworks">
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="HomeworkAccessSpan" ColumnName="HomeworkAccessSpan" />
+          <ScalarProperty Name="HomeworkPoints" ColumnName="HomeworkPoints" />
+          <ScalarProperty Name="HomeworkDeadline" ColumnName="HomeworkDeadline" />
+          <ScalarProperty Name="HomeworkDescription" ColumnName="HomeworkDescription" />
+          <ScalarProperty Name="HomeworkName" ColumnName="HomeworkName" />
+          <ScalarProperty Name="HomeworkCode" ColumnName="HomeworkCode" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HomeworkAssignements">
+      <EntityTypeMapping TypeName="ELearningDatabaseModel.HomeworkAssignements">
+        <MappingFragment StoreEntitySet="HomeworkAssignements">
+          <ScalarProperty Name="GradeId" ColumnName="GradeId" />
+          <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
+          <ScalarProperty Name="HomeworkId" ColumnName="HomeworkId" />
+          <ScalarProperty Name="CourseModuleId" ColumnName="CourseModuleId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="AssignementId" ColumnName="AssignementId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -26,13 +26,6 @@ namespace E_LearningApplication.Controllers {
 
         #endregion
 
-        //
-        // GET: /Groups/
-
-        public ActionResult Index() {
-            return View();
-        }
-
         #region Groups
 
         //

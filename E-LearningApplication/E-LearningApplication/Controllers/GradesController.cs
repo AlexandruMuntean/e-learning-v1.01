@@ -25,13 +25,6 @@ namespace E_LearningApplication.Controllers {
 
         #endregion
 
-        //
-        // GET: /Grades/
-
-        public ActionResult Index() {
-            return View();
-        }
-
         #region Prof functionalities
 
         //
@@ -184,7 +177,7 @@ namespace E_LearningApplication.Controllers {
         public ActionResult CourseModuleHomeworkGrading(int assignementId = 0, int answerId = 0, int homeworkId = 0, int courseModuleId = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                int grade = Int32.Parse(Request["gradeValue"]);
+                decimal grade = Decimal.Parse(Request["gradeValue"]);
                 if (grade > 0) {
                     //create the grade dto to be passed to the api services
                     HomeworkGradeDTO dto = new HomeworkGradeDTO();
@@ -200,7 +193,7 @@ namespace E_LearningApplication.Controllers {
                         client.DefaultRequestHeaders.Accept.Add(
                             new MediaTypeWithQualityHeaderValue("application/json")
                             );
-                        HttpResponseMessage response = client.PutAsJsonAsync("api/grades/GradeHomework/?answerId=" + answerId, dto).Result;
+                        HttpResponseMessage response = client.PutAsJsonAsync("api/grades/GradeHomework/?assignementId=" + answerId, dto).Result;
                         if (!response.IsSuccessStatusCode) {
                             throw new CustomException("Could not complete the operation!");
                         }

@@ -81,7 +81,7 @@ namespace E_LearningServices.Controllers {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
             }
         }
-        
+
         [HttpGet]
         public HttpResponseMessage GetMyCourses(int id) {
             try {
@@ -113,10 +113,8 @@ namespace E_LearningServices.Controllers {
             }
         }
         [HttpPost]
-        public HttpResponseMessage EnrollStudentInCourse(UsersInCourseDTO dto)
-        {
-            try
-            {
+        public HttpResponseMessage EnrollStudentInCourse(UsersInCourseDTO dto) {
+            try {
                 UsersInCourse userInCourse = new UsersInCourse();
                 userInCourse.UserId = dto.UserId;
                 userInCourse.CourseId = dto.CourseId;
@@ -124,25 +122,21 @@ namespace E_LearningServices.Controllers {
                 this._courseManagement.EnrollStudentInCourse(userInCourse);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 // Log exception code goes here  
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
             }
         }
 
         [HttpDelete]
-        public HttpResponseMessage UnenrollCourse(int id)
-        {
-            try
-            {
+        public HttpResponseMessage UnenrollCourse(int id) {
+            try {
 
                 this._courseManagement.UnenrollCourse(id);
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 // Log exception code goes here  
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
             }
@@ -289,6 +283,33 @@ namespace E_LearningServices.Controllers {
                         EnrollementKey = course.enrollementKey
                     };
 
+                    return Request.CreateResponse<CoursesDTO>(HttpStatusCode.OK, dto);
+                }
+                else {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
+                }
+            }
+            catch (Exception) {
+                // Log exception code goes here  
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetCourseByModuleId(int moduleId) {
+            try {
+                Courses course = this._courseManagement.GetCourseByModuleId(moduleId);
+
+                if (course != null) {
+                    CoursesDTO dto = new CoursesDTO {
+                        CourdeCode = course.CourdeCode,
+                        CourseId = course.CourseId,
+                        CourseName = course.CourseName,
+                        NumberOfCredits = course.NumberOfCredits,
+                        OwnerId = course.OwnerId,
+                        SyllabusId = course.SyllabusId,
+                        EnrollementKey = course.enrollementKey
+                    };
                     return Request.CreateResponse<CoursesDTO>(HttpStatusCode.OK, dto);
                 }
                 else {

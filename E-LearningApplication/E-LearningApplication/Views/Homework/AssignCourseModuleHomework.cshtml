@@ -25,22 +25,27 @@
     _groupsList.Add(new SelectListItem() { Text = "Choose a group...", Value = "-1", Selected = true });
 }
 
-<div class="form-panel">
-    <h2><i class="fa fa-angle-right"></i> Add Assignement</h2>
+<div>
+    <div class="col-lg-3"></div>
+    <div class="form-panel col-lg-6">
+        <h2><i class="fa fa-angle-right"></i> Add Assignement</h2>
 
-    <div class="panel panel-body">
-        @using (Html.BeginForm("CourseModuleHomeworkAssignement", "Homework", new { id = _homeworkId, courseModuleId = _courseModuleId }, FormMethod.Post, new { @class = "panel-default" })) {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
+        <div class="panel panel-body">
+            @using (Html.BeginForm("CourseModuleHomeworkAssignement", "Homework", new { id = _homeworkId, courseModuleId = _courseModuleId }, FormMethod.Post, new { @class = "panel-default" })) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
 
-            @Html.Label("Choose a recipient to assign the homework to:")
-            @Html.DropDownList("studentId", _usersList, new { @class = "btn btn-theme03" })
-            @Html.Display("- OR -")
-            @Html.DropDownList("groupId", _groupsList, new { @class = "btn btn-theme03" })
+                @Html.Label("Choose a recipient to assign the homework to:")
+                <br />
+                @Html.DropDownList("studentId", _usersList, new { @class = "btn btn-theme03" })
+                <label class="mb">- OR -</label>
+                @Html.DropDownList("groupId", _groupsList, new { @class = "btn btn-theme03" })
 
-            <p>
-                <input type="submit" class="btn btn-primary btn-sm" value="Add Assignement" />
-            </p>
-        }
+                <p>
+                    <input type="submit" class="btn btn-primary btn-sm" value="Add Assignement" />
+                </p>
+            }
+        </div>
     </div>
+    <div class="col-lg-3"></div>
 </div>
