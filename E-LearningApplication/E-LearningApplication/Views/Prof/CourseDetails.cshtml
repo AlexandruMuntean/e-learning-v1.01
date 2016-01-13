@@ -88,8 +88,9 @@
                     <button class="btn btn-warning btn-xs" title="Add course module">
                         <i class="fa fa-plus-circle"></i>
                         @Html.ActionLink("Add Course Module", "CreateModule", new { id = Model.Item2.CourseId })
-                    </button>
+                    </button
                 </div>
+                <hr />
                 
                 <div class="row mb">
                     <button class="btn btn-info btn-xs" title="Display course resources">
@@ -104,6 +105,7 @@
                         @Html.ActionLink("Add Course Resource", "AddCourseResource", new { id = Model.Item2.CourseId })
                     </button>
                 </div>
+                <hr />
                 
                 <div class="row mb">
                     <button class="btn btn-theme btn-xs" title="Manage course homework">
@@ -118,6 +120,7 @@
                         @Html.ActionLink("Add Homework", "CreateCourseHomework", "Homework", new { id = Model.Item2.CourseId }, new { title = "Add course homework" })
                     </button>
                 </div>
+                <hr />
 
                 <div class="row mb">
                     <button class="btn btn-theme btn-xs" title="View given grades">
