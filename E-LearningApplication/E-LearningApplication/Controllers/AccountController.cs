@@ -72,6 +72,7 @@ namespace E_LearningApplication.Controllers {
                             Session["UserId"] = user.UserId;
                             Session["UserName"] = user.UserName;
                             Session["UserRoles"] = Roles.GetRolesForUser(user.UserName);
+                            Session.Timeout = 10000;
 
                             return RedirectToLocal(returnUrl);
                         }

@@ -9,7 +9,6 @@
             @using (Html.BeginForm("DownloadResourcesforCourse", "Prof", new { courseId = Model.CourseId, resourceId = Model.ResourceId }, FormMethod.Post, new { enctype = "multipart/form-data" })) {
                 <div class="mb">
                     <label>Resource to be download:</label>
-                    @Html.DisplayNameFor(model => model.FileName)
                     @Html.DisplayFor(model => model.FileName)
                 </div>
                 <div class="mb">

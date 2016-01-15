@@ -292,7 +292,6 @@
     <Compile Include="Models\DTOs\MessageDTO.cs" />
     <Compile Include="Models\DTOs\ReceivedGradeDTO.cs" />
     <Compile Include="Models\DTOs\ResourcesDTO.cs" />
-    <Compile Include="Models\DTOs\SylabusDTO.cs" />
     <Compile Include="Models\DTOs\UsersInCourseDTO.cs" />
     <Compile Include="Models\ELearningServicesModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -417,6 +416,10 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\elearningservices - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\elearningservices - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

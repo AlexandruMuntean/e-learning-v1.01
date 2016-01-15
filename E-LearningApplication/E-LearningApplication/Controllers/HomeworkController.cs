@@ -783,7 +783,7 @@ namespace E_LearningApplication.Controllers {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
-                        );
+                        );  
                     HttpResponseMessage response1 = client.GetAsync("api/user/GetAllSubscribedUsers/?courseId=" + courseId).Result;
                     HttpResponseMessage response2 = client.GetAsync("api/groups/GetAssociatedGroups/?userId=" + _sessionUser).Result;
                     if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode) {

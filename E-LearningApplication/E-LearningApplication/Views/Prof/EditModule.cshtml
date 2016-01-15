@@ -29,15 +29,7 @@
                         @Html.EditorFor(model => model.Moduledatetime)
                         @Html.ValidationMessageFor(model => model.Moduledatetime)
                     </div>
-
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.GradeId)
-                    </div>
-                    <div class="editor-field mb">
-                        @Html.EditorFor(model => model.GradeId)
-                        @Html.ValidationMessageFor(model => model.GradeId)
-                    </div>
-
+                    
                     <div class="editor-label">
                         @Html.LabelFor(model => model.PreviousModuleId)
                     </div>
@@ -47,7 +39,7 @@
                     </div>
 
                     <p>
-                        <input type="submit" class="btn btn-succes btn-sm" value="Save Changes" />
+                        <input type="submit" class="btn btn-success btn-sm" value="Save Changes" />
                     </p>
                 }
             </div>

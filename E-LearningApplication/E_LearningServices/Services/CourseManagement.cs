@@ -125,22 +125,6 @@ namespace E_LearningServices.Services {
             }
         }
 
-        public void AddSylabus(Syllabus syllabus)
-        {
-            try
-            {
-                using (var db = new ELearningDatabaseEntities())
-                {
-                    db.Syllabus.Add(syllabus);
-                    db.SaveChanges();
-                }
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new CustomException(ex.Message);
-            }
-        }
-
         /// <summary>
         /// Gets the course by identifier.
         /// </summary>
@@ -158,58 +142,6 @@ namespace E_LearningServices.Services {
                 return toBeReturned;
             }
             catch (ArgumentNullException ex) {
-                throw new CustomException(ex.Message);
-            }
-        }
-
-        public Syllabus GetSylabusByName(string Name)
-        {
-            try
-            {
-                Syllabus result = null;
-                using (var db = new ELearningDatabaseEntities())
-                {
-                    result = db.Syllabus.FirstOrDefault(x => x.FileLink == Name);
-                }
-                return result;
-            }
-            catch (ArgumentNullException ex)
-            {
-                throw new CustomException(ex.Message);
-            }
-        }
-
-        public Syllabus GetSylabusById(int? id)
-        {
-            try
-            {
-                Syllabus result = null;
-                int ID = id.GetValueOrDefault();
-                using (var db = new ELearningDatabaseEntities())
-                {
-                    result = db.Syllabus.FirstOrDefault(x => x.SyllabusId == ID);
-                }
-                return result;
-            }
-            catch (ArgumentNullException ex)
-            {
-                throw new CustomException(ex.Message);
-            }
-        }
-
-        public Courses GetCourseByName(string Name)
-        {
-            try
-            {
-                Courses result = null;
-                using (var db = new ELearningDatabaseEntities())
-                {
-                    result = db.Courses.FirstOrDefault(x => x.CourseName == Name);
-                }
-                return result;
-            }
-            catch (ArgumentNullException ex)
-            {
                 throw new CustomException(ex.Message);
             }
         }

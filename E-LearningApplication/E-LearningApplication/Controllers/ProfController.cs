@@ -168,8 +168,6 @@ namespace E_LearningApplication.Controllers {
         public ActionResult CourseDetails(int id = 0) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
-                int? sylabusId = null;
-                string FileId = string.Empty;
                 Courses course = new Courses();
                 using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
@@ -187,7 +185,6 @@ namespace E_LearningApplication.Controllers {
                             course.OwnerId = c.OwnerId;
                             course.SyllabusId = c.SyllabusId;
                             course.enrollementKey = c.enrollementKey;
-                            sylabusId = c.SyllabusId;
                         }
                         else {
                             throw new CustomException("Could not complete the operation!");
@@ -196,44 +193,10 @@ namespace E_LearningApplication.Controllers {
                     else {
                         throw new CustomException("Could not complete the operation!");
                     }
-
-                    //take the SyllabusFileID
-                    string SyllabusName = string.Empty;
-                    HttpResponseMessage responseSylabus = client.GetAsync("api/course/GetSylabusIdById/?id=" + sylabusId).Result;
-                    if (responseSylabus.IsSuccessStatusCode)
-                    {
-                        Syllabus syllabus = responseSylabus.Content.ReadAsAsync<Syllabus>().Result;
-                        if (syllabus != null)
-                        {
-                            //getThteSylabusName
-                            SyllabusName = syllabus.FileLink;
-                        }
-                    }
-                    else
-                    {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-
-                    HttpResponseMessage responseFromResources =
-                        client.GetAsync("api/resources/GetResourcesName/?id=" + SyllabusName).Result;
-                    if (responseFromResources.IsSuccessStatusCode)
-                    {
-                        Resources resources = responseFromResources.Content.ReadAsAsync<Resources>().Result;
-                        if (resources != null)
-                        {
-                            FileId = resources.FileId;
-                        }
-                    }
-                    else
-                    {
-                        throw new CustomException("Could not complete the operation!");
-                    }
                 }
 
-                string DownloadUrl = GetUrlDownload(FileId);
                 CoursesViewModel cvm = this.viewModelFactory.GetViewModel(course);
-                Tuple<string, CoursesViewModel> viewModel = new Tuple<string, CoursesViewModel>(DownloadUrl, cvm);
-                return View(viewModel);
+                return View(cvm);
             }
             catch (CustomException ce) {
                 this.logger.Trace(ce, "Username: " + User.Identity.Name);
@@ -260,8 +223,7 @@ namespace E_LearningApplication.Controllers {
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCourse(CoursesViewModel courseViewModel, HttpPostedFileBase file)
-        {
+        public ActionResult CreateCourse(CoursesViewModel courseViewModel) {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             try {
 
@@ -279,43 +241,12 @@ namespace E_LearningApplication.Controllers {
                 dto.OwnerId = _sessionUser;
                 dto.Enrollementkey = courseViewModel.EnrollementKey;
 
-                FileDTO dtoSylabus = new FileDTO
-                {
-                    fileName = file.FileName
-                };
-
                 //add new course
-                using (var client = new HttpClient())
-                {
+                using (var client = new HttpClient()) {
                     client.BaseAddress = new Uri(this.apiMethodsUrl);
                     client.DefaultRequestHeaders.Accept.Add(
                         new MediaTypeWithQualityHeaderValue("application/json")
                         );
-
-                    //add sylabbus to db
-                    HttpResponseMessage responseFromSylabusDb =
-                        client.PostAsJsonAsync("api/course/AddCourseSylabus/?sylabus=", dtoSylabus).Result;
-                    if (!responseFromSylabusDb.IsSuccessStatusCode)
-                    {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                    //get the new syllabus added in db
-                    HttpResponseMessage responseSylabus =
-                        client.GetAsync("api/course/GetSylabusIdByName/?id=" + dtoSylabus.fileName).Result;
-                    if (responseSylabus.IsSuccessStatusCode)
-                    {
-                        Syllabus syllabus = responseSylabus.Content.ReadAsAsync<Syllabus>().Result;
-                        if (syllabus != null)
-                        {
-                            //update the course
-                            dto.SyllabusId = syllabus.SyllabusId;
-                        }
-                    }
-                    else
-                    {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-
                     //add course to db
                     HttpResponseMessage responseFromDb = client.PostAsJsonAsync("api/course/AddCourse/?course=", dto).Result;
                     if (!responseFromDb.IsSuccessStatusCode) {
@@ -324,37 +255,6 @@ namespace E_LearningApplication.Controllers {
                     //add course to drive
                     HttpResponseMessage responseFromResources = client.PostAsJsonAsync("api/resources/AddCourseToResources/?course=", dto).Result;
                     if (!responseFromResources.IsSuccessStatusCode) {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-                    //get the new course added in db.
-                    int rootId = -1;
-                    HttpResponseMessage responseNewCourse =
-                        client.GetAsync("api/course/GetCourseIdByName/?id=" + dto.CourseName).Result;
-                    if (responseNewCourse.IsSuccessStatusCode)
-                    {
-                        Courses course = responseNewCourse.Content.ReadAsAsync<Courses>().Result;
-                        if (course != null)
-                        {
-                            //update the course
-                            rootId = course.CourseId;
-                        }
-                    }
-                    else
-                    {
-                        throw new CustomException("Could not complete the operation!");
-                    }
-
-                    //adaugam sylabus-ul ca si resursa
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/UploadedFiles"), fileName);
-                    file.SaveAs(path);
-
-                    FileDTO fileDto = new FileDTO { parentId = rootId, fileName = file.FileName, filePath = path };
-                    HttpResponseMessage response =
-                        client.PostAsJsonAsync("api/resources/UploadResourcesForCourses/?id=" + rootId, fileDto)
-                            .Result;
-                    if (!response.IsSuccessStatusCode)
-                    {
                         throw new CustomException("Could not complete the operation!");
                     }
                 }

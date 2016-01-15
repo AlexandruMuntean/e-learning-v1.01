@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using E_LearningServices.CustomExceptions;
 
 namespace E_LearningServices.Services.Interfaces {
     public interface ICourseManagement {
@@ -32,8 +31,6 @@ namespace E_LearningServices.Services.Interfaces {
         /// <exception cref="CustomException"></exception>
         List<Courses> GetMyCourses(int id);
 
-        Syllabus GetSylabusById(int? id);
-
         /// <summary>
         /// Adds the specified course.
         /// </summary>
@@ -41,9 +38,6 @@ namespace E_LearningServices.Services.Interfaces {
         /// <exception cref="CustomException"></exception>
         void AddCourse(Courses course);
 
-        void AddSylabus(Syllabus syllabus);
-        Courses GetCourseByName(string Name);
-        Syllabus GetSylabusByName(string Name);
         /// <summary>
         /// Gets the course by identifier.
         /// </summary>

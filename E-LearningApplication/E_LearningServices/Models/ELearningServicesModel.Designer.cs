@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\proiectColectiv\e-learning-v1.012\E-LearningApplication\E_LearningServices\Models\ELearningServicesModel.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\repo\e-learning-v1.01\E-LearningApplication\E_LearningServices\Models\ELearningServicesModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

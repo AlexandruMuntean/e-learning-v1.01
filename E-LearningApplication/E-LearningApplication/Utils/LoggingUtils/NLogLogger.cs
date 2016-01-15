@@ -21,7 +21,7 @@ namespace E_LearningApplication.Utils.LoggingUtils {
         }
 
         public void Trace(string message) {
-            _logger.Trace(message);
+            //_logger.Trace(message);
         }
 
         public void Trace(Exception ex, string message, object[] args = null) {

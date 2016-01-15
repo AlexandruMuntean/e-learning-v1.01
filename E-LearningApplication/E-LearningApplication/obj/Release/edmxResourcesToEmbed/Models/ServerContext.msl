@@ -45,6 +45,7 @@
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="ELearningDatabaseModel.Courses">
         <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="enrollementKey" ColumnName="enrollementKey" />
           <ScalarProperty Name="CourseName" ColumnName="CourseName" />
           <ScalarProperty Name="SyllabusId" ColumnName="SyllabusId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />

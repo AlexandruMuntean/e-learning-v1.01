@@ -190,37 +190,6 @@ namespace E_LearningServices.Controllers {
             }
         }
 
-        [HttpGet]
-        public HttpResponseMessage GetResourcesName(string id)
-        {
-            try
-            {
-                Resources resources = this._resourcesManagement.GetResourceByNameAndCourseId(id);
-
-                if (resources != null)
-                {
-                    ResourcesDTO dto = new ResourcesDTO
-                    {
-                        ResourceId = resources.ResourceId,
-                        FileId = resources.FileId,
-                        FileName = resources.FileName
-                    };
-
-                    return Request.CreateResponse<ResourcesDTO>(HttpStatusCode.OK, dto);
-                }
-                else
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Resource Not Found");
-                }
-            }
-            catch (Exception)
-            {
-                // Log exception code goes here  
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error occured while executing method.");
-            }
-        }
-
-
         #endregion
 
         #region ModuleResources - CRUD

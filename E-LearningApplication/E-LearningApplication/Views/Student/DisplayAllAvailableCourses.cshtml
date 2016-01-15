@@ -14,9 +14,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CourdeCode)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SyllabusId)
-                </th>
                 <th></th>
             </tr>
 
@@ -31,12 +28,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CourdeCode)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SyllabusId)
-                    </td>
                     <td align="right">
-                        @if (item.userInCourse == null)
-                        {
+                        @if (item.userInCourse == null) {
                             <button class="btn btn-theme03 btn-xs" title="Grade the homework">
                                 <i class="fa fa-sign-in"></i>
                                 @Html.ActionLink("Enroll", "EnrollToCourse", new { id = item.CourseId })
