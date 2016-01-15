@@ -11,14 +11,14 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Sender)
                     <br/>
-                    @Html.TextBoxFor(model => model.Sender, new { @class= "form-control"})
+                    @Html.TextBoxFor(model => model.Sender, new { @class= "form-control" })
                     @Html.ValidationMessageFor(model => model.Sender)
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Receivers)
                     <br />
-                    @Html.TextBoxFor(model => model.Receivers, new { @class = "form-control", title="Enter the recipient. If more than one recipient, please separate them by a semicolon!" })
+                    @Html.TextBoxFor(model => model.Receivers, new { @class = "form-control", title = "Enter the recipient. If more than one recipient, please separate them by a semicolon!" })
                     @Html.ValidationMessageFor(model => model.Receivers)
                 </div>
 

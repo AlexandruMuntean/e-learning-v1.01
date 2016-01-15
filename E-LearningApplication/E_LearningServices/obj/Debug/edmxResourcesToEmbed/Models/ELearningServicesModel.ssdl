@@ -5,7 +5,7 @@
       <PropertyRef Name="AnswerId" />
     </Key>
     <Property Name="AnswerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="AnswerType" Type="nvarchar" MaxLength="20" />
+    <Property Name="AnswerType" Type="nvarchar" MaxLength="50" />
     <Property Name="AnswerValue" Type="text" />
   </EntityType>
   <EntityType Name="CalendarEvents">
@@ -13,7 +13,7 @@
       <PropertyRef Name="EventId" />
     </Key>
     <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="EventDescription" Type="nvarchar" MaxLength="30" />
+    <Property Name="EventDescription" Type="nvarchar" MaxLength="100" />
     <Property Name="EventStartdatetime" Type="datetime" />
     <Property Name="EventEnddatetime" Type="datetime" />
     <Property Name="CourseId" Type="int" />
@@ -23,15 +23,15 @@
       <PropertyRef Name="ConversationId" />
     </Key>
     <Property Name="ConversationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
-    <Property Name="ConversationName" Type="nvarchar" MaxLength="30" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="150" />
+    <Property Name="ConversationName" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="CourseModule">
     <Key>
       <PropertyRef Name="ModuleId" />
     </Key>
     <Property Name="ModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ModuleName" Type="nvarchar" MaxLength="20" />
+    <Property Name="ModuleName" Type="nvarchar" MaxLength="100" />
     <Property Name="Moduledatetime" Type="datetime" />
     <Property Name="GradeId" Type="int" />
     <Property Name="CourseId" Type="int" />
@@ -42,26 +42,26 @@
       <PropertyRef Name="CourseId" />
     </Key>
     <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CourseName" Type="nvarchar" MaxLength="20" />
+    <Property Name="CourseName" Type="nvarchar" MaxLength="100" />
     <Property Name="NumberOfCredits" Type="int" />
-    <Property Name="CourdeCode" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CourdeCode" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="OwnerId" Type="int" />
     <Property Name="SyllabusId" Type="int" />
-    <Property Name="enrollementKey" Type="nvarchar" MaxLength="14" />
+    <Property Name="enrollementKey" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Discussions">
     <Key>
       <PropertyRef Name="DiscusionId" />
     </Key>
     <Property Name="DiscusionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DiscussionSubject" Type="nvarchar" MaxLength="30" />
+    <Property Name="DiscussionSubject" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Forums">
     <Key>
       <PropertyRef Name="ForumId" />
     </Key>
     <Property Name="ForumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Category" Type="nvarchar" MaxLength="30" />
+    <Property Name="Category" Type="nvarchar" MaxLength="50" />
     <Property Name="OwnerId" Type="int" />
   </EntityType>
   <EntityType Name="Grades">
@@ -85,9 +85,9 @@
       <PropertyRef Name="GroupId" />
     </Key>
     <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="GroupName" Type="nvarchar" MaxLength="30" />
+    <Property Name="GroupName" Type="nvarchar" MaxLength="50" />
     <Property Name="GroupDescription" Type="nvarchar" MaxLength="100" />
-    <Property Name="GroupType" Type="nvarchar" MaxLength="30" />
+    <Property Name="GroupType" Type="nvarchar" MaxLength="50" />
     <Property Name="OwnerId" Type="int" />
   </EntityType>
   <EntityType Name="HomeworkAssignements">
@@ -108,9 +108,9 @@
       <PropertyRef Name="HomeworkId" />
     </Key>
     <Property Name="HomeworkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="HomeworkCode" Type="nvarchar" MaxLength="50" />
-    <Property Name="HomeworkName" Type="nvarchar" MaxLength="30" />
-    <Property Name="HomeworkDescription" Type="nvarchar" MaxLength="30" />
+    <Property Name="HomeworkCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="HomeworkName" Type="nvarchar" MaxLength="100" />
+    <Property Name="HomeworkDescription" Type="nvarchar" MaxLength="100" />
     <Property Name="HomeworkDeadline" Type="datetime" />
     <Property Name="HomeworkPoints" Type="decimal" Precision="18" Scale="0" />
     <Property Name="HomeworkAccessSpan" Type="datetime" />
@@ -146,15 +146,15 @@
     </Key>
     <Property Name="ModuleUserId" Type="int" Nullable="false" />
     <Property Name="CourseModuleId" Type="int" Nullable="false" />
-    <Property Name="ModuleUserstatus" Type="nvarchar" MaxLength="20" />
+    <Property Name="ModuleUserstatus" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Pages">
     <Key>
       <PropertyRef Name="PageId" />
     </Key>
     <Property Name="PageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FilePath" Type="nvarchar" MaxLength="50" />
-    <Property Name="PageLink" Type="nvarchar" MaxLength="50" />
+    <Property Name="FilePath" Type="nvarchar" MaxLength="100" />
+    <Property Name="PageLink" Type="nvarchar" MaxLength="100" />
     <Property Name="UserId" Type="int" />
   </EntityType>
   <EntityType Name="Questions">
@@ -162,10 +162,10 @@
       <PropertyRef Name="QuestionId" />
     </Key>
     <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="QuestionName" Type="nvarchar" MaxLength="30" />
-    <Property Name="QuestionDescription" Type="nvarchar" MaxLength="30" />
+    <Property Name="QuestionName" Type="nvarchar" MaxLength="100" />
+    <Property Name="QuestionDescription" Type="nvarchar" MaxLength="100" />
     <Property Name="QuestionPoints" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="QuestionType" Type="nvarchar" MaxLength="30" />
+    <Property Name="QuestionType" Type="nvarchar" MaxLength="50" />
     <Property Name="CourseId" Type="int" />
     <Property Name="AnswerId" Type="int" />
   </EntityType>
@@ -175,9 +175,9 @@
     </Key>
     <Property Name="ResourceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ResourceType" Type="nvarchar" MaxLength="30" />
-    <Property Name="FileLocation" Type="nvarchar" MaxLength="50" />
-    <Property Name="FileId" Type="nvarchar" MaxLength="30" />
-    <Property Name="FileName" Type="nvarchar" MaxLength="30" />
+    <Property Name="FileLocation" Type="nvarchar" MaxLength="150" />
+    <Property Name="FileId" Type="nvarchar" MaxLength="150" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="150" />
     <Property Name="CourseId" Type="int" Nullable="false" />
     <Property Name="ModuleID" Type="int" Nullable="false" />
     <Property Name="PageId" Type="int" />
@@ -187,15 +187,15 @@
       <PropertyRef Name="SyllabusId" />
     </Key>
     <Property Name="SyllabusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FileLink" Type="nvarchar" MaxLength="50" />
+    <Property Name="FileLink" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="Tests">
     <Key>
       <PropertyRef Name="TestId" />
     </Key>
     <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TestName" Type="nvarchar" MaxLength="30" />
-    <Property Name="TestDescription" Type="nvarchar" MaxLength="30" />
+    <Property Name="TestName" Type="nvarchar" MaxLength="100" />
+    <Property Name="TestDescription" Type="nvarchar" MaxLength="100" />
     <Property Name="TestDeadline" Type="datetime" />
     <Property Name="TestType" Type="nvarchar" MaxLength="30" />
     <Property Name="NumberOfQuestions" Type="int" />
@@ -224,9 +224,9 @@
     </Key>
     <Property Name="CourseId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="CourseUserstatus" Type="nvarchar" MaxLength="20" />
+    <Property Name="CourseUserstatus" Type="nvarchar" MaxLength="50" />
   </EntityType>
-  <Association Name="FK__CalendarE__Cours__440B1D61">
+  <Association Name="FK__CalendarE__Cours__4589517F">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="CalendarEvents" Type="Self.CalendarEvents" Multiplicity="*" />
     <ReferentialConstraint>
@@ -238,7 +238,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CourseMod__Cours__2B3F6F97">
+  <Association Name="FK__CourseMod__Cours__1D7B6025">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="*" />
     <ReferentialConstraint>
@@ -250,7 +250,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CourseMod__Grade__2A4B4B5E">
+  <Association Name="FK__CourseMod__Grade__1C873BEC">
     <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="*" />
     <ReferentialConstraint>
@@ -262,7 +262,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Courses__OwnerId__1B0907CE">
+  <Association Name="FK__Courses__OwnerId__03BB8E22">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
     <ReferentialConstraint>
@@ -274,7 +274,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Courses__Syllabu__1BFD2C07">
+  <Association Name="FK__Courses__Syllabu__04AFB25B">
     <End Role="Syllabus" Type="Self.Syllabus" Multiplicity="0..1" />
     <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
     <ReferentialConstraint>
@@ -286,7 +286,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Forums__OwnerId__35BCFE0A">
+  <Association Name="FK__Forums__OwnerId__2F9A1060">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Forums" Type="Self.Forums" Multiplicity="*" />
     <ReferentialConstraint>
@@ -298,7 +298,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__GroupMemb__Group__49C3F6B7">
+  <Association Name="FK__GroupMemb__Group__4F12BBB9">
     <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
     <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
     <ReferentialConstraint>
@@ -310,7 +310,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__GroupMemb__Membe__4AB81AF0">
+  <Association Name="FK__GroupMemb__Membe__5006DFF2">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="GroupMembers" Type="Self.GroupMembers" Multiplicity="*" />
     <ReferentialConstraint>
@@ -322,7 +322,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Groups__OwnerId__46E78A0C">
+  <Association Name="FK__Groups__OwnerId__4A4E069C">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Groups" Type="Self.Groups" Multiplicity="*" />
     <ReferentialConstraint>
@@ -334,7 +334,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Answe__5BE2A6F2">
+  <Association Name="FK__HomeworkA__Answe__68D28DBC">
     <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -346,7 +346,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Cours__59063A47">
+  <Association Name="FK__HomeworkA__Cours__65F62111">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -358,7 +358,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Cours__59FA5E80">
+  <Association Name="FK__HomeworkA__Cours__66EA454A">
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -370,7 +370,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Grade__5CD6CB2B">
+  <Association Name="FK__HomeworkA__Grade__69C6B1F5">
     <End Role="Grades" Type="Self.Grades" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -382,7 +382,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Group__5812160E">
+  <Association Name="FK__HomeworkA__Group__6501FCD8">
     <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -394,7 +394,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Homew__5AEE82B9">
+  <Association Name="FK__HomeworkA__Homew__67DE6983">
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -406,7 +406,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__HomeworkA__Stude__571DF1D5">
+  <Association Name="FK__HomeworkA__Stude__640DD89F">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="HomeworkAssignements" Type="Self.HomeworkAssignements" Multiplicity="*" />
     <ReferentialConstraint>
@@ -418,7 +418,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Homeworks__Cours__52593CB8">
+  <Association Name="FK__Homeworks__Cours__5D60DB10">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -430,7 +430,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Homeworks__Cours__534D60F1">
+  <Association Name="FK__Homeworks__Cours__5E54FF49">
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="0..1" />
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -442,7 +442,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Homeworks__Owner__5441852A">
+  <Association Name="FK__Homeworks__Owner__5F492382">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Homeworks" Type="Self.Homeworks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -454,7 +454,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Messages__Conver__3B75D760">
+  <Association Name="FK__Messages__Conver__373B3228">
     <End Role="Conversations" Type="Self.Conversations" Multiplicity="0..1" />
     <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
     <ReferentialConstraint>
@@ -466,7 +466,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Messages__Discus__3A81B327">
+  <Association Name="FK__Messages__Discus__36470DEF">
     <End Role="Discussions" Type="Self.Discussions" Multiplicity="0..1" />
     <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
     <ReferentialConstraint>
@@ -478,7 +478,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Messages__ForumI__398D8EEE">
+  <Association Name="FK__Messages__ForumI__3552E9B6">
     <End Role="Forums" Type="Self.Forums" Multiplicity="0..1" />
     <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
     <ReferentialConstraint>
@@ -490,7 +490,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Messages__UserId__38996AB5">
+  <Association Name="FK__Messages__UserId__345EC57D">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
     <ReferentialConstraint>
@@ -502,7 +502,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ModuleUse__Cours__2F10007B">
+  <Association Name="FK__ModuleUse__Cours__2334397B">
     <End Role="CourseModule" Type="Self.CourseModule" Multiplicity="1" />
     <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
     <ReferentialConstraint>
@@ -514,7 +514,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ModuleUse__Modul__2E1BDC42">
+  <Association Name="FK__ModuleUse__Modul__22401542">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
     <ReferentialConstraint>
@@ -526,7 +526,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Pages__UserId__3E52440B">
+  <Association Name="FK__Pages__UserId__3BFFE745">
     <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
     <End Role="Pages" Type="Self.Pages" Multiplicity="*" />
     <ReferentialConstraint>
@@ -538,7 +538,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Questions__Answe__25869641">
+  <Association Name="FK__Questions__Answe__13F1F5EB">
     <End Role="Answers" Type="Self.Answers" Multiplicity="0..1" />
     <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
     <ReferentialConstraint>
@@ -550,7 +550,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Questions__Cours__24927208">
+  <Association Name="FK__Questions__Cours__12FDD1B2">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
     <ReferentialConstraint>
@@ -562,7 +562,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Resources__PageI__412EB0B6">
+  <Association Name="FK__Resources__PageI__40C49C62">
     <End Role="Pages" Type="Self.Pages" Multiplicity="0..1" />
     <End Role="Resources" Type="Self.Resources" Multiplicity="*" />
     <ReferentialConstraint>
@@ -574,7 +574,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Tests__CourseId__4D94879B">
+  <Association Name="FK__Tests__CourseId__54CB950F">
     <End Role="Courses" Type="Self.Courses" Multiplicity="0..1" />
     <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
     <ReferentialConstraint>
@@ -586,7 +586,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Tests__GroupId__4E88ABD4">
+  <Association Name="FK__Tests__GroupId__55BFB948">
     <End Role="Groups" Type="Self.Groups" Multiplicity="0..1" />
     <End Role="Tests" Type="Self.Tests" Multiplicity="*" />
     <ReferentialConstraint>
@@ -598,7 +598,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__UsersInCo__Cours__1ED998B2">
+  <Association Name="FK__UsersInCo__Cours__09746778">
     <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
     <End Role="UsersInCourse" Type="Self.UsersInCourse" Multiplicity="*" />
     <ReferentialConstraint>
@@ -610,7 +610,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__UsersInCo__UserI__1FCDBCEB">
+  <Association Name="FK__UsersInCo__UserI__0A688BB1">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
     <End Role="UsersInCourse" Type="Self.UsersInCourse" Multiplicity="*" />
     <ReferentialConstraint>
@@ -645,135 +645,135 @@
     <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersInCourse" EntityType="Self.UsersInCourse" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__CalendarE__Cours__440B1D61" Association="Self.FK__CalendarE__Cours__440B1D61">
+    <AssociationSet Name="FK__CalendarE__Cours__4589517F" Association="Self.FK__CalendarE__Cours__4589517F">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="CalendarEvents" EntitySet="CalendarEvents" />
     </AssociationSet>
-    <AssociationSet Name="FK__CourseMod__Cours__2B3F6F97" Association="Self.FK__CourseMod__Cours__2B3F6F97">
+    <AssociationSet Name="FK__CourseMod__Cours__1D7B6025" Association="Self.FK__CourseMod__Cours__1D7B6025">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="CourseModule" EntitySet="CourseModule" />
     </AssociationSet>
-    <AssociationSet Name="FK__CourseMod__Grade__2A4B4B5E" Association="Self.FK__CourseMod__Grade__2A4B4B5E">
+    <AssociationSet Name="FK__CourseMod__Grade__1C873BEC" Association="Self.FK__CourseMod__Grade__1C873BEC">
       <End Role="Grades" EntitySet="Grades" />
       <End Role="CourseModule" EntitySet="CourseModule" />
     </AssociationSet>
-    <AssociationSet Name="FK__Courses__OwnerId__1B0907CE" Association="Self.FK__Courses__OwnerId__1B0907CE">
+    <AssociationSet Name="FK__Courses__OwnerId__03BB8E22" Association="Self.FK__Courses__OwnerId__03BB8E22">
       <End Role="Users" EntitySet="Users" />
       <End Role="Courses" EntitySet="Courses" />
     </AssociationSet>
-    <AssociationSet Name="FK__Courses__Syllabu__1BFD2C07" Association="Self.FK__Courses__Syllabu__1BFD2C07">
+    <AssociationSet Name="FK__Courses__Syllabu__04AFB25B" Association="Self.FK__Courses__Syllabu__04AFB25B">
       <End Role="Syllabus" EntitySet="Syllabus" />
       <End Role="Courses" EntitySet="Courses" />
     </AssociationSet>
-    <AssociationSet Name="FK__Forums__OwnerId__35BCFE0A" Association="Self.FK__Forums__OwnerId__35BCFE0A">
+    <AssociationSet Name="FK__Forums__OwnerId__2F9A1060" Association="Self.FK__Forums__OwnerId__2F9A1060">
       <End Role="Users" EntitySet="Users" />
       <End Role="Forums" EntitySet="Forums" />
     </AssociationSet>
-    <AssociationSet Name="FK__GroupMemb__Group__49C3F6B7" Association="Self.FK__GroupMemb__Group__49C3F6B7">
+    <AssociationSet Name="FK__GroupMemb__Group__4F12BBB9" Association="Self.FK__GroupMemb__Group__4F12BBB9">
       <End Role="Groups" EntitySet="Groups" />
       <End Role="GroupMembers" EntitySet="GroupMembers" />
     </AssociationSet>
-    <AssociationSet Name="FK__GroupMemb__Membe__4AB81AF0" Association="Self.FK__GroupMemb__Membe__4AB81AF0">
+    <AssociationSet Name="FK__GroupMemb__Membe__5006DFF2" Association="Self.FK__GroupMemb__Membe__5006DFF2">
       <End Role="Users" EntitySet="Users" />
       <End Role="GroupMembers" EntitySet="GroupMembers" />
     </AssociationSet>
-    <AssociationSet Name="FK__Groups__OwnerId__46E78A0C" Association="Self.FK__Groups__OwnerId__46E78A0C">
+    <AssociationSet Name="FK__Groups__OwnerId__4A4E069C" Association="Self.FK__Groups__OwnerId__4A4E069C">
       <End Role="Users" EntitySet="Users" />
       <End Role="Groups" EntitySet="Groups" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Answe__5BE2A6F2" Association="Self.FK__HomeworkA__Answe__5BE2A6F2">
+    <AssociationSet Name="FK__HomeworkA__Answe__68D28DBC" Association="Self.FK__HomeworkA__Answe__68D28DBC">
       <End Role="Answers" EntitySet="Answers" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Cours__59063A47" Association="Self.FK__HomeworkA__Cours__59063A47">
+    <AssociationSet Name="FK__HomeworkA__Cours__65F62111" Association="Self.FK__HomeworkA__Cours__65F62111">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Cours__59FA5E80" Association="Self.FK__HomeworkA__Cours__59FA5E80">
+    <AssociationSet Name="FK__HomeworkA__Cours__66EA454A" Association="Self.FK__HomeworkA__Cours__66EA454A">
       <End Role="CourseModule" EntitySet="CourseModule" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Grade__5CD6CB2B" Association="Self.FK__HomeworkA__Grade__5CD6CB2B">
+    <AssociationSet Name="FK__HomeworkA__Grade__69C6B1F5" Association="Self.FK__HomeworkA__Grade__69C6B1F5">
       <End Role="Grades" EntitySet="Grades" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Group__5812160E" Association="Self.FK__HomeworkA__Group__5812160E">
+    <AssociationSet Name="FK__HomeworkA__Group__6501FCD8" Association="Self.FK__HomeworkA__Group__6501FCD8">
       <End Role="Groups" EntitySet="Groups" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Homew__5AEE82B9" Association="Self.FK__HomeworkA__Homew__5AEE82B9">
+    <AssociationSet Name="FK__HomeworkA__Homew__67DE6983" Association="Self.FK__HomeworkA__Homew__67DE6983">
       <End Role="Homeworks" EntitySet="Homeworks" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__HomeworkA__Stude__571DF1D5" Association="Self.FK__HomeworkA__Stude__571DF1D5">
+    <AssociationSet Name="FK__HomeworkA__Stude__640DD89F" Association="Self.FK__HomeworkA__Stude__640DD89F">
       <End Role="Users" EntitySet="Users" />
       <End Role="HomeworkAssignements" EntitySet="HomeworkAssignements" />
     </AssociationSet>
-    <AssociationSet Name="FK__Homeworks__Cours__52593CB8" Association="Self.FK__Homeworks__Cours__52593CB8">
+    <AssociationSet Name="FK__Homeworks__Cours__5D60DB10" Association="Self.FK__Homeworks__Cours__5D60DB10">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Homeworks" EntitySet="Homeworks" />
     </AssociationSet>
-    <AssociationSet Name="FK__Homeworks__Cours__534D60F1" Association="Self.FK__Homeworks__Cours__534D60F1">
+    <AssociationSet Name="FK__Homeworks__Cours__5E54FF49" Association="Self.FK__Homeworks__Cours__5E54FF49">
       <End Role="CourseModule" EntitySet="CourseModule" />
       <End Role="Homeworks" EntitySet="Homeworks" />
     </AssociationSet>
-    <AssociationSet Name="FK__Homeworks__Owner__5441852A" Association="Self.FK__Homeworks__Owner__5441852A">
+    <AssociationSet Name="FK__Homeworks__Owner__5F492382" Association="Self.FK__Homeworks__Owner__5F492382">
       <End Role="Users" EntitySet="Users" />
       <End Role="Homeworks" EntitySet="Homeworks" />
     </AssociationSet>
-    <AssociationSet Name="FK__Messages__Conver__3B75D760" Association="Self.FK__Messages__Conver__3B75D760">
+    <AssociationSet Name="FK__Messages__Conver__373B3228" Association="Self.FK__Messages__Conver__373B3228">
       <End Role="Conversations" EntitySet="Conversations" />
       <End Role="Messages" EntitySet="Messages" />
     </AssociationSet>
-    <AssociationSet Name="FK__Messages__Discus__3A81B327" Association="Self.FK__Messages__Discus__3A81B327">
+    <AssociationSet Name="FK__Messages__Discus__36470DEF" Association="Self.FK__Messages__Discus__36470DEF">
       <End Role="Discussions" EntitySet="Discussions" />
       <End Role="Messages" EntitySet="Messages" />
     </AssociationSet>
-    <AssociationSet Name="FK__Messages__ForumI__398D8EEE" Association="Self.FK__Messages__ForumI__398D8EEE">
+    <AssociationSet Name="FK__Messages__ForumI__3552E9B6" Association="Self.FK__Messages__ForumI__3552E9B6">
       <End Role="Forums" EntitySet="Forums" />
       <End Role="Messages" EntitySet="Messages" />
     </AssociationSet>
-    <AssociationSet Name="FK__Messages__UserId__38996AB5" Association="Self.FK__Messages__UserId__38996AB5">
+    <AssociationSet Name="FK__Messages__UserId__345EC57D" Association="Self.FK__Messages__UserId__345EC57D">
       <End Role="Users" EntitySet="Users" />
       <End Role="Messages" EntitySet="Messages" />
     </AssociationSet>
-    <AssociationSet Name="FK__ModuleUse__Cours__2F10007B" Association="Self.FK__ModuleUse__Cours__2F10007B">
+    <AssociationSet Name="FK__ModuleUse__Cours__2334397B" Association="Self.FK__ModuleUse__Cours__2334397B">
       <End Role="CourseModule" EntitySet="CourseModule" />
       <End Role="ModuleUser" EntitySet="ModuleUser" />
     </AssociationSet>
-    <AssociationSet Name="FK__ModuleUse__Modul__2E1BDC42" Association="Self.FK__ModuleUse__Modul__2E1BDC42">
+    <AssociationSet Name="FK__ModuleUse__Modul__22401542" Association="Self.FK__ModuleUse__Modul__22401542">
       <End Role="Users" EntitySet="Users" />
       <End Role="ModuleUser" EntitySet="ModuleUser" />
     </AssociationSet>
-    <AssociationSet Name="FK__Pages__UserId__3E52440B" Association="Self.FK__Pages__UserId__3E52440B">
+    <AssociationSet Name="FK__Pages__UserId__3BFFE745" Association="Self.FK__Pages__UserId__3BFFE745">
       <End Role="Users" EntitySet="Users" />
       <End Role="Pages" EntitySet="Pages" />
     </AssociationSet>
-    <AssociationSet Name="FK__Questions__Answe__25869641" Association="Self.FK__Questions__Answe__25869641">
+    <AssociationSet Name="FK__Questions__Answe__13F1F5EB" Association="Self.FK__Questions__Answe__13F1F5EB">
       <End Role="Answers" EntitySet="Answers" />
       <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
-    <AssociationSet Name="FK__Questions__Cours__24927208" Association="Self.FK__Questions__Cours__24927208">
+    <AssociationSet Name="FK__Questions__Cours__12FDD1B2" Association="Self.FK__Questions__Cours__12FDD1B2">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
-    <AssociationSet Name="FK__Resources__PageI__412EB0B6" Association="Self.FK__Resources__PageI__412EB0B6">
+    <AssociationSet Name="FK__Resources__PageI__40C49C62" Association="Self.FK__Resources__PageI__40C49C62">
       <End Role="Pages" EntitySet="Pages" />
       <End Role="Resources" EntitySet="Resources" />
     </AssociationSet>
-    <AssociationSet Name="FK__Tests__CourseId__4D94879B" Association="Self.FK__Tests__CourseId__4D94879B">
+    <AssociationSet Name="FK__Tests__CourseId__54CB950F" Association="Self.FK__Tests__CourseId__54CB950F">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="Tests" EntitySet="Tests" />
     </AssociationSet>
-    <AssociationSet Name="FK__Tests__GroupId__4E88ABD4" Association="Self.FK__Tests__GroupId__4E88ABD4">
+    <AssociationSet Name="FK__Tests__GroupId__55BFB948" Association="Self.FK__Tests__GroupId__55BFB948">
       <End Role="Groups" EntitySet="Groups" />
       <End Role="Tests" EntitySet="Tests" />
     </AssociationSet>
-    <AssociationSet Name="FK__UsersInCo__Cours__1ED998B2" Association="Self.FK__UsersInCo__Cours__1ED998B2">
+    <AssociationSet Name="FK__UsersInCo__Cours__09746778" Association="Self.FK__UsersInCo__Cours__09746778">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="UsersInCourse" EntitySet="UsersInCourse" />
     </AssociationSet>
-    <AssociationSet Name="FK__UsersInCo__UserI__1FCDBCEB" Association="Self.FK__UsersInCo__UserI__1FCDBCEB">
+    <AssociationSet Name="FK__UsersInCo__UserI__0A688BB1" Association="Self.FK__UsersInCo__UserI__0A688BB1">
       <End Role="Users" EntitySet="Users" />
       <End Role="UsersInCourse" EntitySet="UsersInCourse" />
     </AssociationSet>

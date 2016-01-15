@@ -6,15 +6,14 @@
         <div class="col-lg-12">
             <div class="col-lg-6">
                 <div class="mt">
-                    @using (Html.BeginForm("SearchUser", "Admin", FormMethod.Get))
-                    {
+                    @using (Html.BeginForm("SearchUser", "Admin", FormMethod.Get)) {
 
                         <h5><i class="fa fa-search"></i> Search by</h5>
                         <div class="col-lg-1">
                             @Html.RadioButton("searchTerm", "UserName", true)
                         </div>
                         <div class="col-lg-11" style="padding: 0;">
-                            @Html.Label("Username")    
+                            @Html.Label("Username")
                         </div>
 
                         <div class="col-lg-1">
@@ -23,7 +22,7 @@
                         <div class="col-lg-11" style="padding: 0;">
                             @Html.Label("Last name")
                         </div>
-                       
+
                         <div class="col-lg-12 mt">
                             <input type="text" name="searchString">
                             <input type="submit" value="Search" class="btn btn-theme03 btn-xs" />
@@ -37,7 +36,7 @@
                     @Html.ActionLink("Show all users", "DisplayUsers", "Admin", new { @class = "btn btn-info btn-sm mt" })
                 </p>
             </div>
-        </div>    
+        </div>
     </div>
 
     <div class="panel panel-body panel-default">

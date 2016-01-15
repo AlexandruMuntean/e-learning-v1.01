@@ -470,6 +470,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\Theme\assets\css\bootstrap.css" />
+    <Content Include="Content\themes\Theme\assets\css\error.css" />
     <Content Include="Content\themes\Theme\assets\css\login.css" />
     <Content Include="Content\themes\Theme\assets\css\style-responsive.css" />
     <Content Include="Content\themes\Theme\assets\css\style.css" />
@@ -480,9 +481,11 @@
     <Content Include="Content\themes\Theme\assets\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\themes\Theme\assets\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\themes\Theme\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\themes\Theme\assets\img\bg.png" />
     <Content Include="Content\themes\Theme\assets\img\blog-bg.jpg" />
     <Content Include="Content\themes\Theme\assets\img\brand.png" />
     <Content Include="Content\themes\Theme\assets\img\checkbox-gray.png" />
+    <Content Include="Content\themes\Theme\assets\img\eroare.png" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-01.jpg" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-02.jpg" />
     <Content Include="Content\themes\Theme\assets\img\friends\fr-03.jpg" />
@@ -565,6 +568,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ServerContext.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\eroare.png" />
     <Content Include="Models\ServerContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ServerContext.edmx</DependentUpon>

@@ -5,6 +5,7 @@
     var _courseId = Model.Item4;
     
     var _usersList = new List<SelectListItem>();
+    _usersList.Add(new SelectListItem() { Text = "Choose a student...", Value = "-1", Selected = true });
     foreach (var item in Model.Item1) {
         _usersList.Add(
         new SelectListItem() {
@@ -12,9 +13,9 @@
             Value = item.UserId.ToString()
         });
     };
-    _usersList.Add(new SelectListItem() { Text = "Choose a student...", Value = "-1", Selected = true });
 
     var _groupsList = new List<SelectListItem>();
+    _groupsList.Add(new SelectListItem() { Text = "Choose a group...", Value = "-1", Selected = true });
     foreach (var item in Model.Item2) {
         _groupsList.Add(
         new SelectListItem() {
@@ -22,7 +23,6 @@
             Value = item.GroupId.ToString()
         });
     };
-    _groupsList.Add(new SelectListItem() { Text = "Choose a group...", Value = "-1", Selected = true });
 }
 
 <div>

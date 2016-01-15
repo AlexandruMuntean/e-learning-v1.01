@@ -19,9 +19,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CourdeCode)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.SyllabusId)
-                </th>
+                </th>*@
                 <th></th>
             </tr>
 
@@ -36,9 +36,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.CourdeCode)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.SyllabusId)
-                    </td>
+                    </td>*@
                     <td align="right">
                         @if (item.OwnerId == _sessionUser) {
                             @Html.ActionLink("More...", "CourseDetails", new { id = item.CourseId })

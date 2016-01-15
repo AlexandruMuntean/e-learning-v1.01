@@ -168,7 +168,7 @@
       <PropertyRef Name="AnswerId" />
     </Key>
     <Property Name="AnswerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="AnswerType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="AnswerType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="AnswerValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Questions" Relationship="ELearningDatabaseModel.FK__Questions__Answe__25869641" FromRole="Answers" ToRole="Questions" />
     <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Answe__0880433F" FromRole="Answers" ToRole="HomeworkAssignements" />
@@ -178,7 +178,7 @@
       <PropertyRef Name="EventId" />
     </Key>
     <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="EventDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EventDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="EventStartdatetime" Type="DateTime" Precision="3" />
     <Property Name="EventEnddatetime" Type="DateTime" Precision="3" />
     <Property Name="CourseId" Type="Int32" />
@@ -189,8 +189,8 @@
       <PropertyRef Name="ConversationId" />
     </Key>
     <Property Name="ConversationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ConversationName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FilePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ConversationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__Conver__17F790F9" FromRole="Conversations" ToRole="Messages" />
   </EntityType>
   <EntityType Name="CourseModule">
@@ -202,7 +202,7 @@
     <Property Name="GradeId" Type="Int32" />
     <Property Name="CourseId" Type="Int32" />
     <Property Name="PreviousModuleId" Type="Int32" />
-    <Property Name="ModuleName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ModuleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__CourseMod__Cours__30F848ED" FromRole="CourseModule" ToRole="Courses" />
     <NavigationProperty Name="Grades" Relationship="ELearningDatabaseModel.FK__CourseMod__Grade__300424B4" FromRole="CourseModule" ToRole="Grades" />
     <NavigationProperty Name="ModuleUser" Relationship="ELearningDatabaseModel.FK__ModuleUse__Cours__36B12243" FromRole="CourseModule" ToRole="ModuleUser" />
@@ -215,10 +215,10 @@
     </Key>
     <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NumberOfCredits" Type="Int32" />
-    <Property Name="CourdeCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CourdeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="OwnerId" Type="Int32" />
     <Property Name="SyllabusId" Type="Int32" />
-    <Property Name="CourseName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CourseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CalendarEvents" Relationship="ELearningDatabaseModel.FK__CalendarE__Cours__59063A47" FromRole="Courses" ToRole="CalendarEvents" />
     <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__CourseMod__Cours__30F848ED" FromRole="Courses" ToRole="CourseModule" />
     <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Courses__OwnerId__15502E78" FromRole="Courses" ToRole="Users" />
@@ -228,14 +228,14 @@
     <NavigationProperty Name="UsersInCourse" Relationship="ELearningDatabaseModel.FK__UsersInCo__Cours__73852659" FromRole="Courses" ToRole="UsersInCourse" />
     <NavigationProperty Name="Homeworks" Relationship="ELearningDatabaseModel.FK__Homeworks__Cours__7D0E9093" FromRole="Courses" ToRole="Homeworks" />
     <NavigationProperty Name="HomeworkAssignements" Relationship="ELearningDatabaseModel.FK__HomeworkA__Cours__05A3D694" FromRole="Courses" ToRole="HomeworkAssignements" />
-    <Property Name="enrollementKey" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+    <Property Name="enrollementKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Discussions">
     <Key>
       <PropertyRef Name="DiscusionId" />
     </Key>
     <Property Name="DiscusionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="DiscussionSubject" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="DiscussionSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__Discus__17036CC0" FromRole="Discussions" ToRole="Messages" />
   </EntityType>
   <EntityType Name="Forums">
@@ -243,7 +243,7 @@
       <PropertyRef Name="ForumId" />
     </Key>
     <Property Name="ForumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Category" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Messages" Relationship="ELearningDatabaseModel.FK__Messages__ForumI__160F4887" FromRole="Forums" ToRole="Messages" />
     <Property Name="OwnerId" Type="Int32" />
     <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Forums__OwnerId__756D6ECB" FromRole="Forums" ToRole="Users" />
@@ -273,9 +273,9 @@
       <PropertyRef Name="GroupId" />
     </Key>
     <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="GroupName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GroupDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="GroupType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="GroupType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="OwnerId" Type="Int32" />
     <NavigationProperty Name="GroupMembers" Relationship="ELearningDatabaseModel.FK__GroupMemb__Group__1CBC4616" FromRole="Groups" ToRole="GroupMembers" />
     <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Groups__OwnerId__681373AD" FromRole="Groups" ToRole="Users" />
@@ -314,7 +314,7 @@
     </Key>
     <Property Name="ModuleUserId" Type="Int32" Nullable="false" />
     <Property Name="CourseModuleId" Type="Int32" Nullable="false" />
-    <Property Name="ModuleUserstatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ModuleUserstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="CourseModule" Relationship="ELearningDatabaseModel.FK__ModuleUse__Cours__36B12243" FromRole="ModuleUser" ToRole="CourseModule" />
     <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__ModuleUse__Modul__35BCFE0A" FromRole="ModuleUser" ToRole="Users" />
   </EntityType>
@@ -323,8 +323,8 @@
       <PropertyRef Name="PageId" />
     </Key>
     <Property Name="PageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="PageLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FilePath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PageLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="Int32" />
     <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__Pages__UserId__4E88ABD4" FromRole="Pages" ToRole="Users" />
     <NavigationProperty Name="Resources" Relationship="ELearningDatabaseModel.FK__Resources__PageI__534D60F1" FromRole="Pages" ToRole="Resources" />
@@ -334,10 +334,10 @@
       <PropertyRef Name="QuestionId" />
     </Key>
     <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="QuestionName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="QuestionDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="QuestionPoints" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="QuestionType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="QuestionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CourseId" Type="Int32" />
     <Property Name="AnswerId" Type="Int32" />
     <NavigationProperty Name="Answers" Relationship="ELearningDatabaseModel.FK__Questions__Answe__25869641" FromRole="Questions" ToRole="Answers" />
@@ -349,10 +349,10 @@
     </Key>
     <Property Name="ResourceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ResourceType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="FileLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FileLocation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="PageId" Type="Int32" />
-    <Property Name="FileId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="FileId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="CourseId" Type="Int32" Nullable="false" />
     <Property Name="ModuleID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Pages" Relationship="ELearningDatabaseModel.FK__Resources__PageI__534D60F1" FromRole="Resources" ToRole="Pages" />
@@ -362,7 +362,7 @@
       <PropertyRef Name="SyllabusId" />
     </Key>
     <Property Name="SyllabusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FileLink" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FileLink" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__Courses__Syllabu__164452B1" FromRole="Syllabus" ToRole="Courses" />
   </EntityType>
   <EntityType Name="Tests">
@@ -370,8 +370,8 @@
       <PropertyRef Name="TestId" />
     </Key>
     <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TestName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="TestDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TestName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TestDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="TestDeadline" Type="DateTime" Precision="3" />
     <Property Name="TestType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="NumberOfQuestions" Type="Int32" />
@@ -413,7 +413,7 @@
     </Key>
     <Property Name="CourseId" Type="Int32" Nullable="false" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
-    <Property Name="CourseUserstatus" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CourseUserstatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Courses" Relationship="ELearningDatabaseModel.FK__UsersInCo__Cours__73852659" FromRole="UsersInCourse" ToRole="Courses" />
     <NavigationProperty Name="Users" Relationship="ELearningDatabaseModel.FK__UsersInCo__UserI__74794A92" FromRole="UsersInCourse" ToRole="Users" />
   </EntityType>
@@ -735,9 +735,9 @@
       <PropertyRef Name="HomeworkId" />
     </Key>
     <Property Name="HomeworkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="HomeworkCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="HomeworkName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="HomeworkDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HomeworkDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="HomeworkDeadline" Type="DateTime" Precision="3" />
     <Property Name="HomeworkPoints" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="HomeworkAccessSpan" Type="DateTime" Precision="3" />
