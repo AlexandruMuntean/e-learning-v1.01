@@ -258,6 +258,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DiscussionsController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\GradesController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeworkController.cs" />
@@ -726,6 +727,7 @@
     <Content Include="Views\Prof\DowloadCourseResource.cshtml" />
     <Content Include="Views\Homework\DowloadCourseResource.cshtml" />
     <Content Include="Views\Student\EnrollToCourse.cshtml" />
+    <Content Include="Views\Error\CustomErrorView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
