@@ -11,8 +11,7 @@ namespace E_LearningApplication.Utils.MailUtil {
         /// <param name="receiver">The receiver.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>
-        /// <param name="sender">The sender.</param>
         /// <exception cref="CustomException"></exception>
-        void SendEmail(string receiver, string subject, string body, string sender = "ELearningAppMailService@gmail.com");
+        void SendEmail(string receiver, string subject, string body);
     }
 }

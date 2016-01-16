@@ -20,9 +20,8 @@ namespace E_LearningApplication.Utils.MailUtil {
         /// <param name="receiver">The receiver.</param>
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>
-        /// <param name="sender">The sender.</param>
         /// <exception cref="CustomException"></exception>
-        public void SendEmail(string receiver, string subject, string body, string sender = "ELearningAppMailService@gmail.com") {
+        public void SendEmail(string receiver, string subject, string body) {
             try {
                 SmtpClient smtpClient = new SmtpClient(GmailSmtpClient);
                 smtpClient.Port = GmailPort;
@@ -31,7 +30,7 @@ namespace E_LearningApplication.Utils.MailUtil {
                 smtpClient.Timeout = 20000;
                 smtpClient.Credentials = new NetworkCredential(GmailUserAddress, GmailUserPassword);
 
-                MailMessage message = new MailMessage(sender, receiver, subject, body);
+                MailMessage message = new MailMessage(GmailUserAddress, receiver, subject, body);
                 smtpClient.Send(message);
             }
             catch (Exception ex) {

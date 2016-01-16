@@ -479,7 +479,7 @@ namespace E_LearningApplication.Controllers {
                 if (ModelState.IsValid) {
                     List<string> receivers = model.Receivers.Split(';').ToList();
                     foreach (string r in receivers) {
-                        this.mailUtil.SendEmail(r, model.MailSubject, model.MailBody, model.Sender);
+                        this.mailUtil.SendEmail(r, model.MailSubject, model.MailBody);
                     }
                     return View("ComposeMail");
                 }
