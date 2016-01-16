@@ -100,7 +100,7 @@
             @foreach (var item in viewModelList) {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.StudentId)
+                        @Html.DisplayFor(modelItem => item.RecipientName)
                     </td>
                     <td>
                         @if (item.AnswerId != null && item.AnswerId > 0) {
