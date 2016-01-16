@@ -1206,4 +1206,3 @@ E:\Repository\e-learning-v1.01\E-LearningApplication\E-LearningApplication\bin\z
 E:\Repository\e-learning-v1.01\E-LearningApplication\E-LearningApplication\obj\Debug\E_LearningApplication.csproj.App.config
 E:\Repository\e-learning-v1.01\E-LearningApplication\E-LearningApplication\obj\Debug\E_LearningApplication.dll
 E:\Repository\e-learning-v1.01\E-LearningApplication\E-LearningApplication\obj\Debug\E_LearningApplication.pdb
-E:\Repository\e-learning-v1.01\E-LearningApplication\E-LearningApplication\obj\Debug\E_LearningApplication.csprojResolveAssemblyReference.cache

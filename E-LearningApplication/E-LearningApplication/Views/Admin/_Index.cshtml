@@ -30,11 +30,11 @@
         </div>
         <div class="panel-body col-lg-6">
             <p>
-                @Html.ActionLink("Show all logs", "DisplayLogs", "Admin", new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Show all logs", "DisplayLogs", "Admin", new { @class = "btn btn-info btn-sm", style = "position: relative; top: 54px;" })
             </p>
 
             <p>
-                @using (Html.BeginForm("DeleteAllLogs", "Admin", FormMethod.Post)) {
+                @using (Html.BeginForm("DeleteAllLogs", "Admin", FormMethod.Post, new { style = "position: relative; top: 54px;" })) {
                     @Html.AntiForgeryToken()
                     <input type="submit" value="Delete All Logs" class="btn btn-theme02 btn-xs" />
                 }

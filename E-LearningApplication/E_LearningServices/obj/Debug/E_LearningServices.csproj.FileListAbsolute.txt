@@ -757,6 +757,5 @@ E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\bin\ru\S
 E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\bin\zh-Hans\System.Spatial.resources.dll
 E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\bin\zh-Hant\System.Spatial.resources.dll
 E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\obj\Debug\E_LearningServices.csproj.App.config
-E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\obj\Debug\E_LearningServices.csprojResolveAssemblyReference.cache
 E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\obj\Debug\E_LearningServices.dll
 E:\Repository\e-learning-v1.01\E-LearningApplication\E_LearningServices\obj\Debug\E_LearningServices.pdb
