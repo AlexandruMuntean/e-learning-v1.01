@@ -464,6 +464,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // GET: /Discussions/ComposeMail
+        [Authorize(Roles = "Admin")]
         public ActionResult ComposeMail() {
             this.logger.Info("Entering: " + System.Reflection.MethodBase.GetCurrentMethod().ReflectedType.FullName + ": " + System.Reflection.MethodBase.GetCurrentMethod().Name + " --> " + User.Identity.Name);
             return View();
@@ -471,6 +472,7 @@ namespace E_LearningApplication.Controllers {
 
         //
         // POST: /Discussions/SendMail(mailViewModel)
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SendMail(MailViewModel model) {
